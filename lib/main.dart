@@ -1,13 +1,14 @@
+import 'package:chatapp/core/routes/app_router.dart';
 import 'package:chatapp/core/services/cache_helper.dart';
 import 'package:chatapp/cubit/localization_cubit.dart';
 import 'package:chatapp/firebase_options.dart';
 import 'package:chatapp/generated/l10n.dart';
-import 'package:chatapp/pages/ar_en/ar_en_screen.dart';
-import 'package:chatapp/pages/auth/signup/signup_screen.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+// ignore: depend_on_referenced_packages
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
@@ -20,7 +21,9 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({
+    super.key,
+  });
 
   // This widget is the root of your application.
   @override
@@ -34,7 +37,7 @@ class MyApp extends StatelessWidget {
             minTextAdapt: true,
             splitScreenMode: true,
             builder: (_, child) {
-              return MaterialApp(
+              return MaterialApp.router(
                 debugShowCheckedModeBanner: false,
                 theme: ThemeData(
                   colorScheme: ColorScheme.fromSeed(
@@ -49,9 +52,7 @@ class MyApp extends StatelessWidget {
                 ],
                 supportedLocales: S.delegate.supportedLocales,
                 locale: BlocProvider.of<LocalizationCubit>(context).locale,
-                home: CacheHelper.sharedPreferences.get('lang') == null
-                    ? const ArEnScreen()
-                    : const SignUpScreen(),
+                routerConfig: AppRouter.router,
               );
             },
           );

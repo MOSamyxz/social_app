@@ -32,6 +32,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "createAnAccountAndStartMakingNewFriends":
             MessageLookupByLibrary.simpleMessage(
                 "أنشئ حساباً وابدأ بتكوين صداقات"),
+        "dontHaveAnAccount":
+            MessageLookupByLibrary.simpleMessage("ليس لديك حساب ؟"),
         "emailAddress":
             MessageLookupByLibrary.simpleMessage("البريد الالكتروني"),
         "emailMustNotBeEmpty": MessageLookupByLibrary.simpleMessage(

@@ -240,10 +240,10 @@ class S {
     );
   }
 
-  /// `re-Password`
+  /// `Confirm password`
   String get rePassword {
     return Intl.message(
-      're-Password',
+      'Confirm password',
       name: 'rePassword',
       desc: '',
       args: [],

@@ -18,7 +18,7 @@
     "pleaseEnterPassword": "Please enter a Password",
     "shortPassword": "Password can't be less than 6",
     "longPassword": "Password can't be more than 16",
-    "rePassword": "re-Password",
+    "rePassword": "Confirm password",
     "pleaseEnterPasswordAgain": "Please enter a Password again",
     "bySigningUpYouAgreeToOur": "By signing up you agree to our",
     "termsConditions": "Terms & Conditions",

@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
-import 'package:chatapp/pages/home/home_screen.dart';
+import 'package:chatapp/core/routes/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
+import 'package:go_router/go_router.dart';
 
 part 'sign_in_state.dart';
 
@@ -10,9 +10,7 @@ class SignInCubit extends Cubit<SignInState> {
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
   void signInValidat(BuildContext context) {
     if (formkey.currentState!.validate()) {
-      Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => const HomeScreen()),
-      );
+      GoRouter.of(context).pushReplacement(Routes.homeScreen);
     }
   }
 }

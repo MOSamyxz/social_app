@@ -1,8 +1,9 @@
+import 'package:chatapp/core/routes/routes.dart';
 import 'package:chatapp/core/widgets/custom_bautton.dart';
 import 'package:chatapp/cubit/localization_cubit.dart';
-import 'package:chatapp/pages/auth/signup/signup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class ArEnScreen extends StatelessWidget {
   const ArEnScreen({super.key});
@@ -17,19 +18,13 @@ class ArEnScreen extends StatelessWidget {
             CustomButton(
                 onPressed: () {
                   BlocProvider.of<LocalizationCubit>(context).setLangAr();
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const SignUpScreen()));
+                  GoRouter.of(context).push(Routes.signInScreen);
                 },
                 text: 'Ar'),
             CustomButton(
                 onPressed: () {
                   BlocProvider.of<LocalizationCubit>(context).setLangEn();
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const SignUpScreen()));
+                  GoRouter.of(context).push(Routes.signInScreen);
                 },
                 text: 'En'),
           ],

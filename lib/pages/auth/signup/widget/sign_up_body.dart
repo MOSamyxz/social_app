@@ -4,12 +4,12 @@ import 'package:chatapp/core/constants/size.dart';
 import 'package:chatapp/core/constants/styles.dart';
 import 'package:chatapp/core/widgets/vertical_space.dart';
 import 'package:chatapp/generated/l10n.dart';
-import 'package:chatapp/pages/auth/signin/signin_screen.dart';
 import 'package:chatapp/pages/auth/signup/widget/already_have_account.dart';
 import 'package:chatapp/pages/auth/signup/widget/sign_up_form.dart';
 import 'package:chatapp/core/widgets/terms_conditions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class SignUpBody extends StatelessWidget {
   const SignUpBody({
@@ -46,10 +46,7 @@ class SignUpBody extends StatelessWidget {
                 info: S.of(context).alreadyHaveAnAccount,
                 buttonText: S.of(context).signIn,
                 onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                        builder: (context) => const SignInScreen()),
-                  );
+                  GoRouter.of(context).pop();
                 },
               ),
               const VerticalSpace(AppSize.s20),

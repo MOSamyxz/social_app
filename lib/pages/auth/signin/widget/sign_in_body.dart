@@ -2,6 +2,7 @@ import 'package:chatapp/core/constants/colors.dart';
 import 'package:chatapp/core/constants/padding.dart';
 import 'package:chatapp/core/constants/size.dart';
 import 'package:chatapp/core/constants/styles.dart';
+import 'package:chatapp/core/routes/routes.dart';
 import 'package:chatapp/core/widgets/vertical_space.dart';
 import 'package:chatapp/generated/l10n.dart';
 import 'package:chatapp/pages/auth/signin/widget/dont_have_account.dart';
@@ -9,6 +10,7 @@ import 'package:chatapp/pages/auth/signin/widget/sign_in_form.dart';
 import 'package:chatapp/core/widgets/terms_conditions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class SignInBody extends StatelessWidget {
   const SignInBody({
@@ -44,7 +46,9 @@ class SignInBody extends StatelessWidget {
               DontHaveAnAccount(
                 info: S.of(context).dontHaveAnAccount,
                 buttonText: S.of(context).SignUp,
-                onPressed: () {},
+                onPressed: () {
+                  GoRouter.of(context).push(Routes.signUpScreen);
+                },
               ),
               const VerticalSpace(AppSize.s20),
               const TermsAndConditions(),

@@ -56,7 +56,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pleaseEnterValidUserName": MessageLookupByLibrary.simpleMessage(
             "Please enter a valid username!"),
         "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
-        "rePassword": MessageLookupByLibrary.simpleMessage("re-Password"),
+        "rePassword": MessageLookupByLibrary.simpleMessage("Confirm password"),
         "shortPassword": MessageLookupByLibrary.simpleMessage(
             "Password can\'t be less than 6"),
         "signIn": MessageLookupByLibrary.simpleMessage("Sign in"),
