@@ -1,4 +1,5 @@
 import 'package:chatapp/core/routes/routes.dart';
+import 'package:chatapp/core/services/cache_helper.dart';
 import 'package:chatapp/pages/ar_en/ar_en_screen.dart';
 import 'package:chatapp/pages/auth/signin/signin_screen.dart';
 import 'package:chatapp/pages/auth/signup/signup_screen.dart';
@@ -46,7 +47,10 @@ abstract class AppRouter {
     routes: [
       GoRoute(
         path: '/',
-        builder: (context, state) => const ArEnScreen(),
+        builder: (context, state) =>
+            CacheHelper.sharedPreferences.getString('lang') == null
+                ? const ArEnScreen()
+                : const SignInScreen(),
       ),
       GoRoute(
         path: Routes.signInScreen,

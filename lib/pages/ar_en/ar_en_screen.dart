@@ -24,7 +24,7 @@ class ArEnScreen extends StatelessWidget {
             CustomButton(
                 onPressed: () {
                   BlocProvider.of<LocalizationCubit>(context).setLangEn();
-                  GoRouter.of(context).push(Routes.signInScreen);
+                  GoRouter.of(context).pushReplacement(Routes.signInScreen);
                 },
                 text: 'En'),
           ],
