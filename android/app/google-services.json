@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "495691273173",
+    "project_id": "cahtapp-2fd19",
+    "storage_bucket": "cahtapp-2fd19.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:495691273173:android:60cf1a969456a8e5aee35c",
+        "android_client_info": {
+          "package_name": "com.moo.chatapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-ds17yR97Z-rbLQ1ZACMpETi6Brpk5mc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
