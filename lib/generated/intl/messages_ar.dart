@@ -39,8 +39,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "emailMustNotBeEmpty": MessageLookupByLibrary.simpleMessage(
             "برجاء أدخل البريد الالكتروني!"),
         "en": MessageLookupByLibrary.simpleMessage("انجليزي"),
+        "enterTheEmail": MessageLookupByLibrary.simpleMessage(
+            "أدخل بريدك الالكتروني الخاص بحسابك وسنقوم بإرسال بريد يحتوي على كود تحقق لتتمكن من إعادة تعيين كلمة مرورك."),
+        "forgetPassword":
+            MessageLookupByLibrary.simpleMessage("هل نسيت كلمة المرور؟"),
         "getStartedFree": MessageLookupByLibrary.simpleMessage("ابدأ مجاناً"),
-        "hello": MessageLookupByLibrary.simpleMessage("مرحبا!"),
+        "hello": MessageLookupByLibrary.simpleMessage("مرحبا بعودتك!"),
         "hwar": MessageLookupByLibrary.simpleMessage("حوار"),
         "longPassword": MessageLookupByLibrary.simpleMessage(
             "كلمة المرور لايمكن ان تكون اكبر من 16 رمز"),
@@ -59,6 +63,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("سياسة الخصوصية الخاصة بنا"),
         "rePassword":
             MessageLookupByLibrary.simpleMessage("أعد ادخال كلمة المرور"),
+        "resetPassword":
+            MessageLookupByLibrary.simpleMessage("إعادة تعيين كلمة المرور"),
+        "sendVerifyCode": MessageLookupByLibrary.simpleMessage("أرسل كود تحقق"),
         "shortPassword": MessageLookupByLibrary.simpleMessage(
             "كلمة المرور لايمكن ان تكون اقل من 6 رموز"),
         "signIn": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),

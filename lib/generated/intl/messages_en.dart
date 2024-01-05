@@ -38,9 +38,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "emailMustNotBeEmpty":
             MessageLookupByLibrary.simpleMessage("Please enter your email!"),
         "en": MessageLookupByLibrary.simpleMessage("EN"),
+        "enterTheEmail": MessageLookupByLibrary.simpleMessage(
+            "Enter the email associated with your account abd we\'ll send an email with verify code to reset your password."),
+        "forgetPassword":
+            MessageLookupByLibrary.simpleMessage("Forget password?"),
         "getStartedFree":
             MessageLookupByLibrary.simpleMessage("Get started free"),
-        "hello": MessageLookupByLibrary.simpleMessage("Hello!"),
+        "hello": MessageLookupByLibrary.simpleMessage("Welcome back!"),
         "hwar": MessageLookupByLibrary.simpleMessage("7war"),
         "longPassword": MessageLookupByLibrary.simpleMessage(
             "Password can\'t be more than 16"),
@@ -57,6 +61,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Please enter a valid username!"),
         "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
         "rePassword": MessageLookupByLibrary.simpleMessage("Confirm password"),
+        "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
+        "sendVerifyCode":
+            MessageLookupByLibrary.simpleMessage("Send verify code"),
         "shortPassword": MessageLookupByLibrary.simpleMessage(
             "Password can\'t be less than 6"),
         "signIn": MessageLookupByLibrary.simpleMessage("Sign in"),

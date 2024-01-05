@@ -19,8 +19,8 @@ class AppStyles {
     color: AppColors.lightBlackColor,
   );
 
-  static TextStyle font16MediumlighterBlack = TextStyle(
-    fontWeight: AppFontWeight.medium,
+  static TextStyle font16RegularlighterBlack = TextStyle(
+    fontWeight: AppFontWeight.regular,
     fontSize: 16.sp,
     color: AppColors.lighterBlackColor,
   );

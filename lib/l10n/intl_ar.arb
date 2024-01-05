@@ -2,7 +2,7 @@
     "hwar": "حوار",
     "ar": "عربي",
     "en": "انجليزي",
-    "hello": "مرحبا!",
+    "hello": "مرحبا بعودتك!",
     "signInAndmakeNewFriends": "سجل الدخول وابدأ بتكوين الصداقات",
     "alreadyHaveAnAccount": "هل لديك حساب بالفعل ؟",
     "dontHaveAnAccount": "ليس لديك حساب ؟",
@@ -15,6 +15,7 @@
     "pleaseEnterAValidEmail": "برجاء أدخل بريد صحيح!",
     "emailMustNotBeEmpty": "برجاء أدخل البريد الالكتروني!",
     "password": "كلمة المرور",
+    "forgetPassword": "هل نسيت كلمة المرور؟",
     "pleaseEnterPassword": "برجاء ادخل كلمة مرور",
     "shortPassword": "كلمة المرور لايمكن ان تكون اقل من 6 رموز",
     "longPassword": "كلمة المرور لايمكن ان تكون اكبر من 16 رمز",
@@ -25,5 +26,8 @@
     "and": "و",
     "privacyPolicy": "سياسة الخصوصية الخاصة بنا",
     "signIn": "تسجيل الدخول",
-    "SignUp": "انشاء حساب"
+    "SignUp": "انشاء حساب",
+    "resetPassword": "إعادة تعيين كلمة المرور",
+    "enterTheEmail": "أدخل بريدك الالكتروني الخاص بحسابك وسنقوم بإرسال بريد يحتوي على كود تحقق لتتمكن من إعادة تعيين كلمة مرورك.",
+    "sendVerifyCode": "أرسل كود تحقق"
 }

@@ -2,7 +2,7 @@
     "hwar": "7war",
     "ar": "AR",
     "en": "EN",
-    "hello": "Hello!",
+    "hello": "Welcome back!",
     "signInAndmakeNewFriends": "Sign in and make new friends",
     "alreadyHaveAnAccount": "Already have an account?",
     "dontHaveAnAccount": "Don't have an account?",
@@ -15,6 +15,7 @@
     "pleaseEnterAValidEmail": "Please enter a valid Email!",
     "emailMustNotBeEmpty": "Please enter your email!",
     "password": "Password",
+    "forgetPassword": "Forget password?",
     "pleaseEnterPassword": "Please enter a Password",
     "shortPassword": "Password can't be less than 6",
     "longPassword": "Password can't be more than 16",
@@ -25,5 +26,8 @@
     "and": "and",
     "privacyPolicy": "Privacy Policy",
     "signIn": "Sign in",
-    "SignUp": "Sign up"
+    "SignUp": "Sign up",
+    "resetPassword": "Reset Password",
+    "enterTheEmail": "Enter the email associated with your account abd we'll send an email with verify code to reset your password.",
+    "sendVerifyCode": "Send verify code"
 }

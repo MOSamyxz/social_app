@@ -16,31 +16,30 @@ class SignUpView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SignUpCubit(),
-      child: Scaffold(
-        backgroundColor: AppColors.darkBlueColor,
-        body: SafeArea(
-          child: CustomScrollView(
-            slivers: [
-              SliverFillRemaining(
-                hasScrollBody: false,
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    const VerticalSpace(AppSize.s20),
-                    Text(
-                      S.of(context).hwar,
-                      style: AppStyles.font24BoldWhite,
-                    ),
-                    const VerticalSpace(AppSize.s20),
-                    const SignUpBody(),
-                  ],
+        create: (context) => SignUpCubit(),
+        child: Scaffold(
+          backgroundColor: AppColors.darkBlueColor,
+          body: SafeArea(
+            child: CustomScrollView(
+              slivers: [
+                SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      const VerticalSpace(AppSize.s20),
+                      Text(
+                        S.of(context).hwar,
+                        style: AppStyles.font24BoldWhite,
+                      ),
+                      const VerticalSpace(AppSize.s20),
+                      const SignUpBody(),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 }

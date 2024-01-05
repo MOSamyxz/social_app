@@ -2,19 +2,16 @@ import 'package:chatapp/core/constants/colors.dart';
 import 'package:chatapp/core/constants/padding.dart';
 import 'package:chatapp/core/constants/size.dart';
 import 'package:chatapp/core/constants/styles.dart';
-import 'package:chatapp/core/routes/routes.dart';
 import 'package:chatapp/core/widgets/custom_text_button.dart';
 import 'package:chatapp/core/widgets/vertical_space.dart';
 import 'package:chatapp/generated/l10n.dart';
-import 'package:chatapp/pages/auth/signin/widget/dont_have_account.dart';
-import 'package:chatapp/pages/auth/signin/widget/sign_in_form.dart';
-import 'package:chatapp/core/widgets/terms_conditions.dart';
+import 'package:chatapp/pages/auth/forget_password/widget/reset_password_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
-class SignInBody extends StatelessWidget {
-  const SignInBody({
+class ResetPasswordBody extends StatelessWidget {
+  const ResetPasswordBody({
     super.key,
   });
 
@@ -33,39 +30,23 @@ class SignInBody extends StatelessWidget {
             children: [
               const VerticalSpace(AppSize.s20),
               Text(
-                S.of(context).hello,
+                S.of(context).resetPassword,
                 style: AppStyles.font24BoldBlack,
               ),
               const VerticalSpace(AppSize.s10),
               Text(
-                S.of(context).signInAndmakeNewFriends,
+                S.of(context).enterTheEmail,
                 style: AppStyles.font16RegularlighterBlack,
                 textAlign: TextAlign.center,
               ),
               const VerticalSpace(AppSize.s10),
-              const SignInForm(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  CustomTextButton(
-                    onTap: () {
-                      GoRouter.of(context).push(Routes.forgetPassword);
-                    },
-                    buttonText: S.of(context).forgetPassword,
-                  ),
-                ],
-              ),
+              const ResetPasswordForm(),
               const VerticalSpace(AppSize.s10),
-              DontHaveAnAccount(
-                info: S.of(context).dontHaveAnAccount,
-                buttonText: S.of(context).SignUp,
-                onPressed: () {
-                  GoRouter.of(context).push(Routes.signUpScreen);
-                },
-              ),
-              const VerticalSpace(AppSize.s20),
-              const TermsAndConditions(),
-              const VerticalSpace(AppSize.s20),
+              CustomTextButton(
+                  onTap: () {
+                    GoRouter.of(context).pop();
+                  },
+                  buttonText: "Go back to sign up")
             ],
           ),
         ),

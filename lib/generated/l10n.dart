@@ -80,10 +80,10 @@ class S {
     );
   }
 
-  /// `Hello!`
+  /// `Welcome back!`
   String get hello {
     return Intl.message(
-      'Hello!',
+      'Welcome back!',
       name: 'hello',
       desc: '',
       args: [],
@@ -210,6 +210,16 @@ class S {
     );
   }
 
+  /// `Forget password?`
+  String get forgetPassword {
+    return Intl.message(
+      'Forget password?',
+      name: 'forgetPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Please enter a Password`
   String get pleaseEnterPassword {
     return Intl.message(
@@ -315,6 +325,36 @@ class S {
     return Intl.message(
       'Sign up',
       name: 'SignUp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reset Password`
+  String get resetPassword {
+    return Intl.message(
+      'Reset Password',
+      name: 'resetPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter the email associated with your account abd we'll send an email with verify code to reset your password.`
+  String get enterTheEmail {
+    return Intl.message(
+      'Enter the email associated with your account abd we\'ll send an email with verify code to reset your password.',
+      name: 'enterTheEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Send verify code`
+  String get sendVerifyCode {
+    return Intl.message(
+      'Send verify code',
+      name: 'sendVerifyCode',
       desc: '',
       args: [],
     );

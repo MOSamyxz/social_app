@@ -37,7 +37,7 @@ class SignUpBody extends StatelessWidget {
               const VerticalSpace(AppSize.s10),
               Text(
                 S.of(context).createAnAccountAndStartMakingNewFriends,
-                style: AppStyles.font16MediumlighterBlack,
+                style: AppStyles.font16RegularlighterBlack,
                 textAlign: TextAlign.center,
               ),
               const VerticalSpace(AppSize.s10),
