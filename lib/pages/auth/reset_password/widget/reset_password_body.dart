@@ -5,7 +5,7 @@ import 'package:chatapp/core/constants/styles.dart';
 import 'package:chatapp/core/widgets/custom_text_button.dart';
 import 'package:chatapp/core/widgets/vertical_space.dart';
 import 'package:chatapp/generated/l10n.dart';
-import 'package:chatapp/pages/auth/forget_password/widget/reset_password_form.dart';
+import 'package:chatapp/pages/auth/reset_password/widget/reset_password_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';

@@ -1,8 +1,9 @@
 import 'package:chatapp/core/routes/routes.dart';
 import 'package:chatapp/pages/ar_en/ar_en_screen.dart';
-import 'package:chatapp/pages/auth/forget_password/reset_password_screen.dart';
+import 'package:chatapp/pages/auth/reset_password/reset_password_screen.dart';
 import 'package:chatapp/pages/auth/signin/signin_screen.dart';
 import 'package:chatapp/pages/auth/signup/signup_screen.dart';
+import 'package:chatapp/pages/auth/verification/verification_screen.dart';
 import 'package:chatapp/pages/home/home_screen.dart';
 import 'package:go_router/go_router.dart';
 
@@ -22,8 +23,12 @@ abstract class AppRouter {
         builder: (context, state) => const SignInScreen(),
       ),
       GoRoute(
-        path: Routes.forgetPassword,
+        path: Routes.forgetPasswordScreen,
         builder: (context, state) => const ResetPasswordScreen(),
+      ),
+      GoRoute(
+        path: Routes.verificationScreen,
+        builder: (context, state) => const VerificationScreen(),
       ),
       GoRoute(
         path: Routes.signUpScreen,

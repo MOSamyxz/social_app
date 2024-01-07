@@ -2,7 +2,7 @@ import 'package:chatapp/core/constants/size.dart';
 import 'package:chatapp/core/constants/styles.dart';
 import 'package:chatapp/core/widgets/vertical_space.dart';
 import 'package:chatapp/generated/l10n.dart';
-import 'package:chatapp/pages/auth/forget_password/widget/reset_password_body.dart';
+import 'package:chatapp/pages/auth/reset_password/widget/reset_password_body.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/constants/colors.dart';

@@ -49,7 +49,7 @@ class SignInBody extends StatelessWidget {
                 children: [
                   CustomTextButton(
                     onTap: () {
-                      GoRouter.of(context).push(Routes.forgetPassword);
+                      GoRouter.of(context).push(Routes.forgetPasswordScreen);
                     },
                     buttonText: S.of(context).forgetPassword,
                   ),
