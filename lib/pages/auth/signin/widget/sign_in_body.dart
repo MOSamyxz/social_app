@@ -6,10 +6,12 @@ import 'package:chatapp/core/routes/routes.dart';
 import 'package:chatapp/core/widgets/custom_text_button.dart';
 import 'package:chatapp/core/widgets/vertical_space.dart';
 import 'package:chatapp/generated/l10n.dart';
+import 'package:chatapp/pages/auth/signin/cubit/sign_in_cubit.dart';
 import 'package:chatapp/pages/auth/signin/widget/dont_have_account.dart';
 import 'package:chatapp/pages/auth/signin/widget/sign_in_form.dart';
 import 'package:chatapp/core/widgets/terms_conditions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
@@ -61,6 +63,7 @@ class SignInBody extends StatelessWidget {
                 buttonText: S.of(context).SignUp,
                 onPressed: () {
                   GoRouter.of(context).push(Routes.signUpScreen);
+                  BlocProvider.of<SignInCubit>(context).controlerDispose();
                 },
               ),
               const VerticalSpace(AppSize.s20),

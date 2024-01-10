@@ -1,20 +1,11 @@
-import 'dart:io';
-
 import 'package:image_picker/image_picker.dart';
 
-Future<File?> pickImage() async {
-  File? image;
-  final picker = ImagePicker();
-  final file = await picker.pickImage(
-    source: ImageSource.gallery,
-    maxHeight: 720,
-    maxWidth: 720,
-  );
-
+pickImage(ImageSource source) async {
+  final ImagePicker imagePicker = ImagePicker();
+  XFile? file = await imagePicker.pickImage(source: source);
   if (file != null) {
-    image = File(file.path);
+    return await file.readAsBytes();
   }
-  return image;
 }
 
 bool isEmail(String em) {

@@ -1,16 +1,39 @@
 import 'package:bloc/bloc.dart';
-import 'package:chatapp/core/routes/routes.dart';
+import 'package:chatapp/data/firebase/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 part 'sign_in_state.dart';
 
 class SignInCubit extends Cubit<SignInState> {
   SignInCubit() : super(SignInInitial());
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
-  void signInValidat(BuildContext context) {
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
+  bool isLoading = false;
+
+  void signIn(BuildContext context) async {
     if (formkey.currentState!.validate()) {
-      GoRouter.of(context).pushReplacement(Routes.homeScreen);
+      emit(SignInLoadingState());
+      isLoading = true;
+      try {
+        await FirebaseAuthServices().signIn(
+          email: email.text,
+          password: password.text,
+          context: context,
+        );
+        controlerDispose();
+
+        emit(SignInSuccessState());
+        isLoading = false;
+      } on Exception catch (e) {
+        emit(SignInErrorState());
+        print(e.toString());
+      }
     }
+  }
+
+  void controlerDispose() {
+    email.clear();
+    password.clear();
   }
 }

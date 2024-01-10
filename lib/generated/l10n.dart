@@ -230,6 +230,16 @@ class S {
     );
   }
 
+  /// `This field can't be empty`
+  String get genderCantBeEmpty {
+    return Intl.message(
+      'This field can\'t be empty',
+      name: 'genderCantBeEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Password can't be less than 6`
   String get shortPassword {
     return Intl.message(
@@ -250,11 +260,31 @@ class S {
     );
   }
 
-  /// `Confirm password`
-  String get rePassword {
+  /// `Gender`
+  String get gender {
     return Intl.message(
-      'Confirm password',
-      name: 'rePassword',
+      'Gender',
+      name: 'gender',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Male`
+  String get male {
+    return Intl.message(
+      'Male',
+      name: 'male',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Female`
+  String get female {
+    return Intl.message(
+      'Female',
+      name: 'female',
       desc: '',
       args: [],
     );
@@ -330,6 +360,16 @@ class S {
     );
   }
 
+  /// ` Go back to sign in`
+  String get goBackToSignIn {
+    return Intl.message(
+      ' Go back to sign in',
+      name: 'goBackToSignIn',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Reset Password`
   String get resetPassword {
     return Intl.message(
@@ -355,6 +395,76 @@ class S {
     return Intl.message(
       'Send verify code',
       name: 'sendVerifyCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The password provided is too weak`
+  String get weakPassword {
+    return Intl.message(
+      'The password provided is too weak',
+      name: 'weakPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The account already exists for that email`
+  String get emailAlreadyInUse {
+    return Intl.message(
+      'The account already exists for that email',
+      name: 'emailAlreadyInUse',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please check the verification link send to your email`
+  String get checkEmail {
+    return Intl.message(
+      'Please check the verification link send to your email',
+      name: 'checkEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please check the link send to your email`
+  String get checkEmailResetPassword {
+    return Intl.message(
+      'Please check the link send to your email',
+      name: 'checkEmailResetPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please verify your email first`
+  String get verifyEmail {
+    return Intl.message(
+      'Please verify your email first',
+      name: 'verifyEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No user found for that email`
+  String get noUserForThisEmail {
+    return Intl.message(
+      'No user found for that email',
+      name: 'noUserForThisEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wrong password provided for that user`
+  String get wrongPassword {
+    return Intl.message(
+      'Wrong password provided for that user',
+      name: 'wrongPassword',
       desc: '',
       args: [],
     );

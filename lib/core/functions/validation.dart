@@ -12,15 +12,15 @@ validInput(String val, min, max, String type, context) {
   if (type == 'password') {
     if (val.isEmpty) {
       return S.of(context).pleaseEnterPassword;
-    } else if (val.length < 6) {
+    } else if (val.length < min) {
       return S.of(context).shortPassword;
-    } else if (val.length > 16) {
+    } else if (val.length > max) {
       return S.of(context).longPassword;
     }
   }
-  if (type == 'repassword') {
+  if (type == 'gender') {
     if (val.isEmpty) {
-      return S.of(context).pleaseEnterPasswordAgain;
+      return S.of(context).genderCantBeEmpty;
     }
   }
   if (type == 'username') {

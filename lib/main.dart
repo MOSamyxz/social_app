@@ -65,9 +65,6 @@ class MyApp extends StatelessWidget {
 
 
 
-
-
-
 /* localizationsDelegates: const [
             AppLocale.delegate,
             GlobalMaterialLocalizations.delegate,

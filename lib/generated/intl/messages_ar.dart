@@ -29,6 +29,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "ar": MessageLookupByLibrary.simpleMessage("عربي"),
         "bySigningUpYouAgreeToOur": MessageLookupByLibrary.simpleMessage(
             "من خلال التسجيل فإنك توافق على"),
+        "checkEmail": MessageLookupByLibrary.simpleMessage(
+            "برجاء تأكيد حسابك عن طريق رابط التحقق المرسل الى بريدك الالكتروني"),
+        "checkEmailResetPassword": MessageLookupByLibrary.simpleMessage(
+            "برجاء تغيير كلمة السر عن طريق الرابط المرسل الى بريدك الالكتروني"),
         "createAnAccountAndStartMakingNewFriends":
             MessageLookupByLibrary.simpleMessage(
                 "أنشئ حساباً وابدأ بتكوين صداقات"),
@@ -36,18 +40,29 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("ليس لديك حساب ؟"),
         "emailAddress":
             MessageLookupByLibrary.simpleMessage("البريد الالكتروني"),
+        "emailAlreadyInUse": MessageLookupByLibrary.simpleMessage(
+            "البريد الي تحاول التسجيل به مسجل مسبقا"),
         "emailMustNotBeEmpty": MessageLookupByLibrary.simpleMessage(
             "برجاء أدخل البريد الالكتروني!"),
         "en": MessageLookupByLibrary.simpleMessage("انجليزي"),
         "enterTheEmail": MessageLookupByLibrary.simpleMessage(
             "أدخل بريدك الالكتروني الخاص بحسابك وسنقوم بإرسال بريد يحتوي على كود تحقق لتتمكن من إعادة تعيين كلمة مرورك."),
+        "female": MessageLookupByLibrary.simpleMessage("أنثى"),
         "forgetPassword":
             MessageLookupByLibrary.simpleMessage("هل نسيت كلمة المرور؟"),
+        "gender": MessageLookupByLibrary.simpleMessage("الجنس"),
+        "genderCantBeEmpty": MessageLookupByLibrary.simpleMessage(
+            "هذا الحقل لا يمكن ان يكون فارغا"),
         "getStartedFree": MessageLookupByLibrary.simpleMessage("ابدأ مجاناً"),
+        "goBackToSignIn": MessageLookupByLibrary.simpleMessage(
+            "العودة الى صفحة تسجيل الدخول"),
         "hello": MessageLookupByLibrary.simpleMessage("مرحبا بعودتك!"),
         "hwar": MessageLookupByLibrary.simpleMessage("حوار"),
         "longPassword": MessageLookupByLibrary.simpleMessage(
             "كلمة المرور لايمكن ان تكون اكبر من 16 رمز"),
+        "male": MessageLookupByLibrary.simpleMessage("ذكر"),
+        "noUserForThisEmail":
+            MessageLookupByLibrary.simpleMessage("هذا البريد غير مسجل لدينا"),
         "password": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
         "pleaseEnterAValidEmail":
             MessageLookupByLibrary.simpleMessage("برجاء أدخل بريد صحيح!"),
@@ -61,8 +76,6 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("برجاء ادخل اسم صحيح!"),
         "privacyPolicy":
             MessageLookupByLibrary.simpleMessage("سياسة الخصوصية الخاصة بنا"),
-        "rePassword":
-            MessageLookupByLibrary.simpleMessage("أعد ادخال كلمة المرور"),
         "resetPassword":
             MessageLookupByLibrary.simpleMessage("إعادة تعيين كلمة المرور"),
         "sendVerifyCode": MessageLookupByLibrary.simpleMessage("أرسل كود تحقق"),
@@ -73,6 +86,12 @@ class MessageLookup extends MessageLookupByLibrary {
             "سجل الدخول وابدأ بتكوين الصداقات"),
         "termsConditions":
             MessageLookupByLibrary.simpleMessage("الشروط والأحكام"),
+        "verifyEmail": MessageLookupByLibrary.simpleMessage(
+            "يرجى تأكيد حسابك أولا عن طريق الرابط المرسل بالبريد الخاص بك"),
+        "weakPassword": MessageLookupByLibrary.simpleMessage(
+            "كلمة المرور التي ادخلتها ضعيفة"),
+        "wrongPassword": MessageLookupByLibrary.simpleMessage(
+            "كلمة المرور لهذا الحساب غير صحيحة"),
         "yourName": MessageLookupByLibrary.simpleMessage("اسمك")
       };
 }

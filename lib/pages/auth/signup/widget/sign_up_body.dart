@@ -4,10 +4,12 @@ import 'package:chatapp/core/constants/size.dart';
 import 'package:chatapp/core/constants/styles.dart';
 import 'package:chatapp/core/widgets/vertical_space.dart';
 import 'package:chatapp/generated/l10n.dart';
+import 'package:chatapp/pages/auth/signup/cubit/sign_up_cubit.dart';
 import 'package:chatapp/pages/auth/signup/widget/already_have_account.dart';
 import 'package:chatapp/pages/auth/signup/widget/sign_up_form.dart';
 import 'package:chatapp/core/widgets/terms_conditions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
@@ -35,18 +37,13 @@ class SignUpBody extends StatelessWidget {
                 style: AppStyles.font24BoldBlack,
               ),
               const VerticalSpace(AppSize.s10),
-              Text(
-                S.of(context).createAnAccountAndStartMakingNewFriends,
-                style: AppStyles.font16RegularlighterBlack,
-                textAlign: TextAlign.center,
-              ),
-              const VerticalSpace(AppSize.s10),
               const SignUpForm(),
               AlreadyHaveAnAccount(
                 info: S.of(context).alreadyHaveAnAccount,
                 buttonText: S.of(context).signIn,
                 onPressed: () {
                   GoRouter.of(context).pop();
+                  BlocProvider.of<SignUpCubit>(context).controlerDispose();
                 },
               ),
               const VerticalSpace(AppSize.s20),

@@ -5,8 +5,10 @@ import 'package:chatapp/core/constants/styles.dart';
 import 'package:chatapp/core/widgets/custom_text_button.dart';
 import 'package:chatapp/core/widgets/vertical_space.dart';
 import 'package:chatapp/generated/l10n.dart';
+import 'package:chatapp/pages/auth/reset_password/cubit/reset_password_cubit.dart';
 import 'package:chatapp/pages/auth/reset_password/widget/reset_password_form.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
@@ -45,8 +47,10 @@ class ResetPasswordBody extends StatelessWidget {
               CustomTextButton(
                   onTap: () {
                     GoRouter.of(context).pop();
+                    BlocProvider.of<ResetPasswordCubit>(context)
+                        .controlerDispose();
                   },
-                  buttonText: "Go back to sign up")
+                  buttonText: S.of(context).goBackToSignIn)
             ],
           ),
         ),

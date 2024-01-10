@@ -29,25 +29,40 @@ class MessageLookup extends MessageLookupByLibrary {
         "ar": MessageLookupByLibrary.simpleMessage("AR"),
         "bySigningUpYouAgreeToOur": MessageLookupByLibrary.simpleMessage(
             "By signing up you agree to our"),
+        "checkEmail": MessageLookupByLibrary.simpleMessage(
+            "Please check the verification link send to your email"),
+        "checkEmailResetPassword": MessageLookupByLibrary.simpleMessage(
+            "Please check the link send to your email"),
         "createAnAccountAndStartMakingNewFriends":
             MessageLookupByLibrary.simpleMessage(
                 "Create an account and start making new friends"),
         "dontHaveAnAccount":
             MessageLookupByLibrary.simpleMessage("Don\'t have an account?"),
         "emailAddress": MessageLookupByLibrary.simpleMessage("Email address"),
+        "emailAlreadyInUse": MessageLookupByLibrary.simpleMessage(
+            "The account already exists for that email"),
         "emailMustNotBeEmpty":
             MessageLookupByLibrary.simpleMessage("Please enter your email!"),
         "en": MessageLookupByLibrary.simpleMessage("EN"),
         "enterTheEmail": MessageLookupByLibrary.simpleMessage(
             "Enter the email associated with your account abd we\'ll send an email with verify code to reset your password."),
+        "female": MessageLookupByLibrary.simpleMessage("Female"),
         "forgetPassword":
             MessageLookupByLibrary.simpleMessage("Forget password?"),
+        "gender": MessageLookupByLibrary.simpleMessage("Gender"),
+        "genderCantBeEmpty":
+            MessageLookupByLibrary.simpleMessage("This field can\'t be empty"),
         "getStartedFree":
             MessageLookupByLibrary.simpleMessage("Get started free"),
+        "goBackToSignIn":
+            MessageLookupByLibrary.simpleMessage(" Go back to sign in"),
         "hello": MessageLookupByLibrary.simpleMessage("Welcome back!"),
         "hwar": MessageLookupByLibrary.simpleMessage("7war"),
         "longPassword": MessageLookupByLibrary.simpleMessage(
             "Password can\'t be more than 16"),
+        "male": MessageLookupByLibrary.simpleMessage("Male"),
+        "noUserForThisEmail": MessageLookupByLibrary.simpleMessage(
+            "No user found for that email"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "pleaseEnterAValidEmail":
             MessageLookupByLibrary.simpleMessage("Please enter a valid Email!"),
@@ -60,7 +75,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "pleaseEnterValidUserName": MessageLookupByLibrary.simpleMessage(
             "Please enter a valid username!"),
         "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
-        "rePassword": MessageLookupByLibrary.simpleMessage("Confirm password"),
         "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
         "sendVerifyCode":
             MessageLookupByLibrary.simpleMessage("Send verify code"),
@@ -71,6 +85,12 @@ class MessageLookup extends MessageLookupByLibrary {
             "Sign in and make new friends"),
         "termsConditions":
             MessageLookupByLibrary.simpleMessage("Terms & Conditions"),
+        "verifyEmail": MessageLookupByLibrary.simpleMessage(
+            "Please verify your email first"),
+        "weakPassword": MessageLookupByLibrary.simpleMessage(
+            "The password provided is too weak"),
+        "wrongPassword": MessageLookupByLibrary.simpleMessage(
+            "Wrong password provided for that user"),
         "yourName": MessageLookupByLibrary.simpleMessage("Your name")
       };
 }

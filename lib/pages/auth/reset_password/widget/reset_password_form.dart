@@ -1,3 +1,4 @@
+import 'package:chatapp/core/constants/colors.dart';
 import 'package:chatapp/core/constants/size.dart';
 import 'package:chatapp/core/functions/validation.dart';
 import 'package:chatapp/core/widgets/custom_bautton.dart';
@@ -21,6 +22,7 @@ class ResetPasswordForm extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         children: [
           CustomeTextFormField(
+            controller: BlocProvider.of<ResetPasswordCubit>(context).email,
             hintText: S.of(context).emailAddress,
             validator: (input) {
               return validInput(input!, 6, 16, 'email', context);
@@ -28,11 +30,15 @@ class ResetPasswordForm extends StatelessWidget {
           ),
           const VerticalSpace(AppSize.s20),
           CustomButton(
-              onPressed: () {
-                BlocProvider.of<ResetPasswordCubit>(context)
-                    .resetPasswordValidat(context);
-              },
-              text: 'Send verify code')
+            onPressed: () {
+              BlocProvider.of<ResetPasswordCubit>(context)
+                  .resetPassword(context);
+            },
+            child: Text(
+              S.of(context).sendVerifyCode,
+              style: const TextStyle(color: AppColors.realWhiteColor),
+            ),
+          )
         ],
       ),
     );

@@ -1,6 +1,10 @@
+import 'package:chatapp/core/constants/assets.dart';
+import 'package:chatapp/core/constants/colors.dart';
 import 'package:chatapp/core/constants/size.dart';
+import 'package:chatapp/core/constants/styles.dart';
 import 'package:chatapp/core/functions/validation.dart';
 import 'package:chatapp/core/widgets/custom_bautton.dart';
+import 'package:chatapp/core/widgets/custom_drop_down_form_field.dart';
 import 'package:chatapp/core/widgets/custome_text_field.dart';
 import 'package:chatapp/core/widgets/vertical_space.dart';
 import 'package:chatapp/generated/l10n.dart';
@@ -20,7 +24,39 @@ class SignUpForm extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
+          BlocBuilder<SignUpCubit, SignUpState>(
+            builder: (context, state) {
+              return Stack(
+                children: [
+                  BlocProvider.of<SignUpCubit>(context).image != null
+                      ? CircleAvatar(
+                          radius: 64,
+                          backgroundImage: MemoryImage(
+                              BlocProvider.of<SignUpCubit>(context).image!),
+                        )
+                      : const CircleAvatar(
+                          radius: 64,
+                          backgroundImage: AssetImage(AppAssets.defProfile),
+                        ),
+                  Positioned(
+                    bottom: 0,
+                    left: 80,
+                    child: CircleAvatar(
+                      backgroundColor: AppColors.lighterBlueColor,
+                      child: IconButton(
+                        onPressed:
+                            BlocProvider.of<SignUpCubit>(context).selectImage,
+                        icon: const Icon(Icons.add_a_photo),
+                      ),
+                    ),
+                  )
+                ],
+              );
+            },
+          ),
+          const VerticalSpace(AppSize.s10),
           CustomeTextFormField(
+            controller: BlocProvider.of<SignUpCubit>(context).name,
             hintText: S.of(context).yourName,
             validator: (input) {
               return validInput(input!, 6, 16, 'username', context);
@@ -28,6 +64,7 @@ class SignUpForm extends StatelessWidget {
           ),
           const VerticalSpace(AppSize.s10),
           CustomeTextFormField(
+            controller: BlocProvider.of<SignUpCubit>(context).email,
             hintText: S.of(context).emailAddress,
             validator: (input) {
               return validInput(input!, 6, 16, 'email', context);
@@ -35,24 +72,44 @@ class SignUpForm extends StatelessWidget {
           ),
           const VerticalSpace(AppSize.s10),
           CustomeTextFormField(
+            controller: BlocProvider.of<SignUpCubit>(context).password,
             hintText: S.of(context).password,
             validator: (input) {
-              return validInput(input!, 6, 16, 'password', context);
+              return validInput(input!, 6, 32, 'password', context);
             },
           ),
           const VerticalSpace(AppSize.s10),
-          CustomeTextFormField(
-            hintText: S.of(context).rePassword,
-            validator: (input) {
-              return validInput(input!, 6, 16, 'repassword', context);
+          CustomDropDownFormField(
+            value: S.of(context).gender,
+            items: BlocProvider.of<SignUpCubit>(context)
+                .genderList
+                .map((e) => DropdownMenuItem(
+                      value: e,
+                      child: Text(
+                        e,
+                        style: AppStyles.font14MediumlighterBlack,
+                      ),
+                    ))
+                .toList(),
+            onChanged: (e) {
+              BlocProvider.of<SignUpCubit>(context).onSelectedGender(e!);
             },
           ),
           const VerticalSpace(AppSize.s10),
-          CustomButton(
-            onPressed: () {
-              BlocProvider.of<SignUpCubit>(context).signUpValidat(context);
+          BlocBuilder<SignUpCubit, SignUpState>(
+            builder: (context, state) {
+              return CustomButton(
+                  onPressed: () {
+                    BlocProvider.of<SignUpCubit>(context).signUp(context);
+                  },
+                  child: BlocProvider.of<SignUpCubit>(context).isLoading
+                      ? const CircularProgressIndicator()
+                      : Text(
+                          S.of(context).SignUp,
+                          style:
+                              const TextStyle(color: AppColors.realWhiteColor),
+                        ));
             },
-            text: S.of(context).SignUp,
           ),
           const VerticalSpace(AppSize.s20),
         ],

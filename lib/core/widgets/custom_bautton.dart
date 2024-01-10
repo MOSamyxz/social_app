@@ -7,10 +7,10 @@ class CustomButton extends StatelessWidget {
   const CustomButton({
     super.key,
     required this.onPressed,
-    required this.text,
+    required this.child,
   });
   final void Function() onPressed;
-  final String text;
+  final Widget child;
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
@@ -21,10 +21,7 @@ class CustomButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(AppSize.r12), // <-- Radius
       ),
       color: AppColors.blueColor,
-      child: Text(
-        text,
-        style: const TextStyle(color: AppColors.realWhiteColor),
-      ),
+      child: child,
     );
   }
 }

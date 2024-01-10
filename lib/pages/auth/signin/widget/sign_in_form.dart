@@ -1,3 +1,4 @@
+import 'package:chatapp/core/constants/colors.dart';
 import 'package:chatapp/core/constants/size.dart';
 import 'package:chatapp/core/functions/validation.dart';
 import 'package:chatapp/core/widgets/custom_bautton.dart';
@@ -22,24 +23,29 @@ class SignInForm extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         children: [
           CustomeTextFormField(
+            controller: BlocProvider.of<SignInCubit>(context).email,
             hintText: S.of(context).emailAddress,
             validator: (input) {
-              return validInput(input!, 6, 16, 'email', context);
+              return validInput(input!, 6, 32, 'email', context);
             },
           ),
           const VerticalSpace(AppSize.s10),
           CustomeTextFormField(
+            controller: BlocProvider.of<SignInCubit>(context).password,
             hintText: S.of(context).password,
             validator: (input) {
-              return validInput(input!, 6, 16, 'password', context);
+              return validInput(input!, 6, 32, 'password', context);
             },
           ),
           const VerticalSpace(AppSize.s10),
           CustomButton(
             onPressed: () {
-              BlocProvider.of<SignInCubit>(context).signInValidat(context);
+              BlocProvider.of<SignInCubit>(context).signIn(context);
             },
-            text: S.of(context).signIn,
+            child: Text(
+              S.of(context).signIn,
+              style: const TextStyle(color: AppColors.realWhiteColor),
+            ),
           ),
           const VerticalSpace(AppSize.s20),
         ],
