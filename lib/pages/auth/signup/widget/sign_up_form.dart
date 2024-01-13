@@ -6,6 +6,7 @@ import 'package:chatapp/core/functions/validation.dart';
 import 'package:chatapp/core/widgets/custom_bautton.dart';
 import 'package:chatapp/core/widgets/custom_drop_down_form_field.dart';
 import 'package:chatapp/core/widgets/custome_text_field.dart';
+import 'package:chatapp/core/widgets/horizontal_space.dart';
 import 'package:chatapp/core/widgets/vertical_space.dart';
 import 'package:chatapp/generated/l10n.dart';
 import 'package:chatapp/pages/auth/signup/cubit/sign_up_cubit.dart';
@@ -55,12 +56,29 @@ class SignUpForm extends StatelessWidget {
             },
           ),
           const VerticalSpace(AppSize.s10),
-          CustomeTextFormField(
-            controller: BlocProvider.of<SignUpCubit>(context).name,
-            hintText: S.of(context).yourName,
-            validator: (input) {
-              return validInput(input!, 6, 16, 'username', context);
-            },
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: CustomeTextFormField(
+                  controller: BlocProvider.of<SignUpCubit>(context).fName,
+                  hintText: S.of(context).firstName,
+                  validator: (input) {
+                    return validInput(input!, 6, 16, 'username', context);
+                  },
+                ),
+              ),
+              const HorizontalSpace(5),
+              Expanded(
+                child: CustomeTextFormField(
+                  controller: BlocProvider.of<SignUpCubit>(context).lName,
+                  hintText: S.of(context).lastName,
+                  validator: (input) {
+                    return validInput(input!, 6, 16, 'username', context);
+                  },
+                ),
+              ),
+            ],
           ),
           const VerticalSpace(AppSize.s10),
           CustomeTextFormField(
@@ -106,8 +124,12 @@ class SignUpForm extends StatelessWidget {
                       ? const CircularProgressIndicator()
                       : Text(
                           S.of(context).SignUp,
-                          style:
-                              const TextStyle(color: AppColors.realWhiteColor),
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelMedium!
+                              .copyWith(
+                                  fontWeight: AppFontWeight.semiBold,
+                                  color: AppColors.realWhiteColor),
                         ));
             },
           ),

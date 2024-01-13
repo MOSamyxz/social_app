@@ -48,6 +48,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "enterTheEmail": MessageLookupByLibrary.simpleMessage(
             "أدخل بريدك الالكتروني الخاص بحسابك وسنقوم بإرسال بريد يحتوي على كود تحقق لتتمكن من إعادة تعيين كلمة مرورك."),
         "female": MessageLookupByLibrary.simpleMessage("أنثى"),
+        "firstName": MessageLookupByLibrary.simpleMessage("الاسم الاول"),
         "forgetPassword":
             MessageLookupByLibrary.simpleMessage("هل نسيت كلمة المرور؟"),
         "gender": MessageLookupByLibrary.simpleMessage("الجنس"),
@@ -58,6 +59,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "العودة الى صفحة تسجيل الدخول"),
         "hello": MessageLookupByLibrary.simpleMessage("مرحبا بعودتك!"),
         "hwar": MessageLookupByLibrary.simpleMessage("حوار"),
+        "lastName": MessageLookupByLibrary.simpleMessage("اسم العائلة"),
         "longPassword": MessageLookupByLibrary.simpleMessage(
             "كلمة المرور لايمكن ان تكون اكبر من 16 رمز"),
         "male": MessageLookupByLibrary.simpleMessage("ذكر"),
@@ -91,7 +93,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "weakPassword": MessageLookupByLibrary.simpleMessage(
             "كلمة المرور التي ادخلتها ضعيفة"),
         "wrongPassword": MessageLookupByLibrary.simpleMessage(
-            "كلمة المرور لهذا الحساب غير صحيحة"),
-        "yourName": MessageLookupByLibrary.simpleMessage("اسمك")
+            "كلمة المرور لهذا الحساب غير صحيحة")
       };
 }

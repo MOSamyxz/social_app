@@ -1,7 +1,7 @@
 import 'package:chatapp/core/constants/colors.dart';
 import 'package:chatapp/core/routes/routes.dart';
 import 'package:chatapp/core/widgets/custom_bautton.dart';
-import 'package:chatapp/cubit/localization_cubit.dart';
+import 'package:chatapp/cubit/app_cubit.dart';
 import 'package:chatapp/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,7 +19,7 @@ class ArEnScreen extends StatelessWidget {
           children: [
             CustomButton(
               onPressed: () {
-                BlocProvider.of<LocalizationCubit>(context).setLangAr();
+                BlocProvider.of<AppCubit>(context).setLangAr();
                 GoRouter.of(context).push(Routes.signInScreen);
               },
               child: Text(
@@ -29,7 +29,7 @@ class ArEnScreen extends StatelessWidget {
             ),
             CustomButton(
               onPressed: () {
-                BlocProvider.of<LocalizationCubit>(context).setLangEn();
+                BlocProvider.of<AppCubit>(context).setLangEn();
                 GoRouter.of(context).pushReplacement(Routes.signInScreen);
               },
               child: Text(

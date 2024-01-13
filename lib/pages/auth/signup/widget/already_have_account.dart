@@ -1,5 +1,5 @@
-import 'package:chatapp/core/constants/colors.dart';
-import 'package:chatapp/core/constants/size.dart';
+import 'package:chatapp/core/widgets/custom_text_button.dart';
+import 'package:chatapp/core/widgets/horizontal_space.dart';
 import 'package:flutter/material.dart';
 
 class AlreadyHaveAnAccount extends StatelessWidget {
@@ -15,23 +15,20 @@ class AlreadyHaveAnAccount extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Expanded(
-          child: Text(
-            info,
-            style: const TextStyle(color: AppColors.blackColor),
-          ),
+        Text(
+          info,
+          style: Theme.of(context).textTheme.bodyMedium,
         ),
-        MaterialButton(
-          onPressed: onPressed,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(AppSize.r12), // <-- Radius
-          ),
-          color: AppColors.blueColor,
-          child: Text(
-            buttonText,
-            style: const TextStyle(color: AppColors.realWhiteColor),
-          ),
+        const HorizontalSpace(5),
+        CustomTextButton(
+          onTap: onPressed,
+          //  shape: RoundedRectangleBorder(
+          //    borderRadius: BorderRadius.circular(AppSize.r12), // <-- Radius
+          // ),
+          // color: AppColors.blueColor,
+          buttonText: buttonText,
         )
       ],
     );

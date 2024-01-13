@@ -18,6 +18,6 @@ bool isEmail(String em) {
 }
 
 bool isValidUsername(String username) {
-  final RegExp regex = RegExp(r'^[a-zA-Z0-9_]+$');
+  final RegExp regex = RegExp(r'^[a-zA-Z0-9أ-ي_]+$');
   return regex.hasMatch(username);
 }

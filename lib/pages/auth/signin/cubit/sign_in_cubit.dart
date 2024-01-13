@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:chatapp/data/firebase/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'sign_in_state.dart';
 
@@ -21,6 +22,7 @@ class SignInCubit extends Cubit<SignInState> {
           password: password.text,
           context: context,
         );
+        // ignore: use_build_context_synchronously
         controlerDispose();
 
         emit(SignInSuccessState());

@@ -16,7 +16,8 @@ class SignUpCubit extends Cubit<SignUpState> {
   List<String> genderList = [S().male, S().female];
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
-  TextEditingController name = TextEditingController();
+  TextEditingController fName = TextEditingController();
+  TextEditingController lName = TextEditingController();
   TextEditingController gender = TextEditingController(text: S().male);
   Uint8List? image;
   bool isLoading = false;
@@ -47,7 +48,7 @@ class SignUpCubit extends Cubit<SignUpState> {
             email: email.text,
             password: password.text,
             context: context,
-            username: name.text,
+            username: '${fName.text} ${lName.text}',
             gender: gender.text,
             file: image!);
         controlerDispose();
@@ -64,6 +65,7 @@ class SignUpCubit extends Cubit<SignUpState> {
   void controlerDispose() {
     email.clear();
     password.clear();
-    name.clear();
+    fName.clear();
+    lName.clear();
   }
 }

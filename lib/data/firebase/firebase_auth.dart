@@ -1,12 +1,16 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:typed_data';
 
 import 'package:chatapp/core/routes/routes.dart';
 import 'package:chatapp/core/services/cache_helper.dart';
+import 'package:chatapp/cubit/app_cubit.dart';
 import 'package:chatapp/data/firebase/firebase_storage_services.dart';
-import 'package:chatapp/data/model/user_model.dart' as model;
+import 'package:chatapp/data/model/user_model.dart';
 import 'package:chatapp/generated/l10n.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -30,7 +34,7 @@ class FirebaseAuthServices {
       );
       String photoUrl = await FirebaseStorageServices()
           .uploadImageToStorage('profilePics', file, false);
-      model.Users user = model.Users(
+      Users user = Users(
         userName: username,
         uId: credential.user!.uid,
         imageUrl: photoUrl,
@@ -48,12 +52,13 @@ class FirebaseAuthServices {
           .set(user.toJson());
 
       String uId = credential.user!.uid;
+
       CacheHelper.sharedPreferences.setString('uId', uId);
 
       _auth.currentUser!.sendEmailVerification();
 
       if (!context.mounted) return;
-      GoRouter.of(context).pop();
+      GoRouter.of(context).pushReplacement(Routes.signInScreen);
       Fluttertoast.showToast(
         msg: S.of(context).checkEmail,
         toastLength: Toast.LENGTH_SHORT,
@@ -90,6 +95,8 @@ class FirebaseAuthServices {
       if (!context.mounted) return;
 
       if (credential.user!.emailVerified) {
+        if (!context.mounted) return;
+        await BlocProvider.of<AppCubit>(context).refreshUser();
         GoRouter.of(context).pushReplacement(Routes.homeScreen);
       } else {
         Fluttertoast.showToast(

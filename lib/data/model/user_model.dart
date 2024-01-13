@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Users {
   final String uId;
   final String userName;
@@ -19,17 +21,17 @@ class Users {
       required this.followers,
       required this.following});
 
-  factory Users.fromJson(Map<String, dynamic> json) {
+  static Users fromFirestore(DocumentSnapshot doc) {
     return Users(
-      uId: json['uid'],
-      userName: json['userName'],
-      email: json['email'],
-      imageUrl: json['imageUrl'],
-      bio: json['bio'],
-      birthDay: json['birthDay'],
-      gender: json['gender'],
-      followers: json['followers'],
-      following: json['following'],
+      uId: doc['uid'],
+      userName: doc['userName'],
+      email: doc['email'],
+      imageUrl: doc['imageUrl'],
+      bio: doc['bio'],
+      birthDay: doc['birthDay'],
+      gender: doc['gender'],
+      followers: doc['followers'],
+      following: doc['following'],
     );
   }
 

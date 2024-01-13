@@ -47,6 +47,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "enterTheEmail": MessageLookupByLibrary.simpleMessage(
             "Enter the email associated with your account abd we\'ll send an email with verify code to reset your password."),
         "female": MessageLookupByLibrary.simpleMessage("Female"),
+        "firstName": MessageLookupByLibrary.simpleMessage("First Name"),
         "forgetPassword":
             MessageLookupByLibrary.simpleMessage("Forget password?"),
         "gender": MessageLookupByLibrary.simpleMessage("Gender"),
@@ -58,6 +59,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(" Go back to sign in"),
         "hello": MessageLookupByLibrary.simpleMessage("Welcome back!"),
         "hwar": MessageLookupByLibrary.simpleMessage("7war"),
+        "lastName": MessageLookupByLibrary.simpleMessage("Last Name"),
         "longPassword": MessageLookupByLibrary.simpleMessage(
             "Password can\'t be more than 16"),
         "male": MessageLookupByLibrary.simpleMessage("Male"),
@@ -90,7 +92,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "weakPassword": MessageLookupByLibrary.simpleMessage(
             "The password provided is too weak"),
         "wrongPassword": MessageLookupByLibrary.simpleMessage(
-            "Wrong password provided for that user"),
-        "yourName": MessageLookupByLibrary.simpleMessage("Your name")
+            "Wrong password provided for that user")
       };
 }

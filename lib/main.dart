@@ -1,6 +1,7 @@
+import 'package:chatapp/core/constants/theme.dart';
 import 'package:chatapp/core/routes/app_router.dart';
 import 'package:chatapp/core/services/cache_helper.dart';
-import 'package:chatapp/cubit/localization_cubit.dart';
+import 'package:chatapp/cubit/app_cubit.dart';
 import 'package:chatapp/firebase_options.dart';
 import 'package:chatapp/generated/l10n.dart';
 
@@ -17,20 +18,26 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+  bool? isDark = CacheHelper.sharedPreferences.getBool('isDark');
+
+  runApp(MyApp(isDark));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({
+  const MyApp(
+    this.isDark, {
     super.key,
   });
+  final bool? isDark;
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => LocalizationCubit()..init(),
-      child: BlocBuilder<LocalizationCubit, LocalizationState>(
+      create: (context) => AppCubit()
+        ..init()
+        ..changeAppMode(fromShared: isDark),
+      child: BlocBuilder<AppCubit, AppState>(
         builder: (context, state) {
           return ScreenUtilInit(
             designSize: const Size(360, 690),
@@ -39,11 +46,11 @@ class MyApp extends StatelessWidget {
             builder: (_, child) {
               return MaterialApp.router(
                 debugShowCheckedModeBanner: false,
-                theme: ThemeData(
-                  colorScheme: ColorScheme.fromSeed(
-                      seedColor: const Color.fromARGB(255, 54, 177, 93)),
-                  useMaterial3: true,
-                ),
+                theme: lightTheme,
+                darkTheme: darkTheme,
+                themeMode: BlocProvider.of<AppCubit>(context).isDark
+                    ? ThemeMode.dark
+                    : ThemeMode.light,
                 localizationsDelegates: const [
                   S.delegate,
                   GlobalMaterialLocalizations.delegate,
@@ -51,7 +58,8 @@ class MyApp extends StatelessWidget {
                   GlobalCupertinoLocalizations.delegate,
                 ],
                 supportedLocales: S.delegate.supportedLocales,
-                locale: BlocProvider.of<LocalizationCubit>(context).locale,
+                locale:
+                    Locale(CacheHelper.sharedPreferences.getString('lang')!),
                 routerConfig: AppRouter.router,
               );
             },

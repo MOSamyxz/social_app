@@ -5,8 +5,6 @@ import 'package:chatapp/generated/l10n.dart';
 import 'package:chatapp/pages/auth/reset_password/widget/reset_password_body.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../core/constants/colors.dart';
-
 GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
 class ResetPasswordView extends StatelessWidget {
@@ -15,7 +13,7 @@ class ResetPasswordView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.darkBlueColor,
+      backgroundColor: Theme.of(context).primaryColor,
       body: SafeArea(
         child: CustomScrollView(
           slivers: [

@@ -1,5 +1,6 @@
 import 'package:chatapp/core/constants/colors.dart';
 import 'package:chatapp/core/constants/size.dart';
+import 'package:chatapp/core/constants/styles.dart';
 import 'package:chatapp/core/functions/validation.dart';
 import 'package:chatapp/core/widgets/custom_bautton.dart';
 import 'package:chatapp/core/widgets/custome_text_field.dart';
@@ -44,10 +45,12 @@ class SignInForm extends StatelessWidget {
             },
             child: Text(
               S.of(context).signIn,
-              style: const TextStyle(color: AppColors.realWhiteColor),
+              style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                  fontWeight: AppFontWeight.semiBold,
+                  color: AppColors.realWhiteColor),
             ),
           ),
-          const VerticalSpace(AppSize.s20),
+          const VerticalSpace(AppSize.s10),
         ],
       ),
     );

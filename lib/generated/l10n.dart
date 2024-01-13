@@ -140,11 +140,21 @@ class S {
     );
   }
 
-  /// `Your name`
-  String get yourName {
+  /// `First Name`
+  String get firstName {
     return Intl.message(
-      'Your name',
-      name: 'yourName',
+      'First Name',
+      name: 'firstName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Last Name`
+  String get lastName {
+    return Intl.message(
+      'Last Name',
+      name: 'lastName',
       desc: '',
       args: [],
     );

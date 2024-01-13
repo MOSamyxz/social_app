@@ -1,32 +1,44 @@
 import 'package:chatapp/core/constants/colors.dart';
+import 'package:chatapp/core/services/cache_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppStyles {
+  static String fontFamily =
+      CacheHelper.sharedPreferences.getString('lang') == 'ar'
+          ? 'Cairo'
+          : 'Poppins';
   static TextStyle font24BoldWhite = TextStyle(
-      fontWeight: AppFontWeight.bold,
-      fontSize: 28.sp,
-      color: AppColors.realWhiteColor);
+    fontWeight: AppFontWeight.bold,
+    fontFamily: fontFamily,
+    fontSize: 28.sp,
+    // color: AppColors.realWhiteColor,
+  );
 
   static TextStyle font24BoldBlack = TextStyle(
-      fontWeight: AppFontWeight.bold,
-      fontSize: 28.sp,
-      color: AppColors.blackColor);
+    fontWeight: AppFontWeight.bold,
+    fontFamily: fontFamily,
+    fontSize: 28.sp,
+    // color: AppColors.blackColor,
+  );
 
   static TextStyle font14MediumlighterBlack = TextStyle(
     fontWeight: AppFontWeight.medium,
+    fontFamily: fontFamily,
     fontSize: 14.sp,
-    color: AppColors.lightBlackColor,
+    // color: AppColors.lightBlackColor,
   );
 
   static TextStyle font16RegularlighterBlack = TextStyle(
     fontWeight: AppFontWeight.regular,
+    fontFamily: fontFamily,
     fontSize: 16.sp,
     color: AppColors.lighterBlackColor,
   );
 
   static TextStyle font14RegularlighterBlack = TextStyle(
     fontWeight: AppFontWeight.regular,
+    fontFamily: fontFamily,
     fontSize: 14.sp,
     color: AppColors.lighterBlackColor,
   );

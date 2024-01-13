@@ -25,14 +25,13 @@ abstract class AppRouter {
                         // Checking if the snapshot has any data or not
                         if (snapshot.hasData) {
                           // if snapshot has data which means user is logged in then we check the width of screen and accordingly display the screen layout
-                          return const HomeScreen();
+                          return HomeScreen();
                         } else if (snapshot.hasError) {
                           return Center(
                             child: Text('${snapshot.error}'),
                           );
                         }
                       }
-
                       // means connection to future hasnt been made yet
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(

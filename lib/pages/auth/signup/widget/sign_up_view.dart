@@ -1,4 +1,3 @@
-import 'package:chatapp/core/constants/colors.dart';
 import 'package:chatapp/core/constants/size.dart';
 import 'package:chatapp/core/constants/styles.dart';
 import 'package:chatapp/core/widgets/vertical_space.dart';
@@ -18,7 +17,7 @@ class SignUpView extends StatelessWidget {
     return BlocProvider(
         create: (context) => SignUpCubit(),
         child: Scaffold(
-          backgroundColor: AppColors.darkBlueColor,
+          backgroundColor: Theme.of(context).primaryColor,
           body: SafeArea(
             child: CustomScrollView(
               slivers: [

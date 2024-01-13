@@ -1,7 +1,5 @@
-import 'package:chatapp/core/constants/colors.dart';
 import 'package:chatapp/core/constants/padding.dart';
 import 'package:chatapp/core/constants/size.dart';
-import 'package:chatapp/core/constants/styles.dart';
 import 'package:chatapp/core/widgets/custom_text_button.dart';
 import 'package:chatapp/core/widgets/vertical_space.dart';
 import 'package:chatapp/generated/l10n.dart';
@@ -22,10 +20,10 @@ class ResetPasswordBody extends StatelessWidget {
     return Expanded(
       child: Container(
         width: ScreenUtil.defaultSize.width,
-        decoration: const BoxDecoration(
-            color: AppColors.realWhiteColor,
+        decoration: BoxDecoration(
+            color: Theme.of(context).scaffoldBackgroundColor,
             borderRadius:
-                BorderRadius.vertical(top: Radius.circular(AppSize.r30))),
+                const BorderRadius.vertical(top: Radius.circular(AppSize.r30))),
         child: Padding(
           padding: AppPadding.screenPadding,
           child: Column(
@@ -33,12 +31,12 @@ class ResetPasswordBody extends StatelessWidget {
               const VerticalSpace(AppSize.s20),
               Text(
                 S.of(context).resetPassword,
-                style: AppStyles.font24BoldBlack,
+                style: Theme.of(context).textTheme.headlineMedium,
               ),
               const VerticalSpace(AppSize.s10),
               Text(
                 S.of(context).enterTheEmail,
-                style: AppStyles.font16RegularlighterBlack,
+                style: Theme.of(context).textTheme.labelMedium,
                 textAlign: TextAlign.center,
               ),
               const VerticalSpace(AppSize.s10),
