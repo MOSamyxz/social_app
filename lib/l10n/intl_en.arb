@@ -41,5 +41,19 @@
     "checkEmailResetPassword": "Please check the link send to your email",
     "verifyEmail": "Please verify your email first",
     "noUserForThisEmail": "No user found for that email",
-    "wrongPassword": "Wrong password provided for that user"
+    "wrongPassword": "Wrong password provided for that user",
+    "post": "Post",
+    "createPost": "Create post",
+    "video": "Video",
+    "image": "Image",
+    "whatOnMind": "What's on your mind?",
+    "comments": "Comments",
+    "comment": "Comment",
+    "save": "Save",
+    "like": "Like",
+    "love": "Love",
+    "sad": "Sad",
+    "angry": "Angry",
+    "haha": "Haha",
+    "wow": "Wow"
 }

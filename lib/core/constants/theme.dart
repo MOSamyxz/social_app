@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 ThemeData lightTheme = ThemeData(
-  useMaterial3: true,
+  //useMaterial3: true,
   primaryColor: AppColors.blueColor,
-  fontFamily: AppStyles.fontFamily,
+  // fontFamily: AppStyles.fontFamily,
   brightness: Brightness.light,
   scaffoldBackgroundColor: AppColors.lightScaffoldColor,
   cardTheme: const CardTheme(
@@ -23,25 +23,33 @@ ThemeData lightTheme = ThemeData(
       fontWeight: AppFontWeight.bold,
       fontSize: 28.sp,
     ),
+    headlineSmall: TextStyle(
+      fontWeight: AppFontWeight.bold,
+      fontSize: 24.sp,
+    ),
     labelMedium: TextStyle(
       fontWeight: AppFontWeight.regular,
       fontSize: 16.sp,
     ),
-    labelSmall: TextStyle(fontSize: 10.sp, color: AppColors.lightDateCardColor),
+    labelSmall: TextStyle(fontSize: 13.sp, color: AppColors.lightDateCardColor),
+    bodyLarge: TextStyle(
+        fontWeight: AppFontWeight.medium,
+        fontSize: 14.sp,
+        color: AppColors.lightDateCardColor),
     bodyMedium: TextStyle(
       fontWeight: AppFontWeight.medium,
       fontSize: 14.sp,
     ),
     bodySmall: TextStyle(
-      fontWeight: AppFontWeight.regular,
-      fontSize: 14.sp,
-    ),
+        fontWeight: AppFontWeight.regular,
+        fontSize: 14.sp,
+        color: AppColors.darkGreyColor),
   ),
 );
 ThemeData darkTheme = ThemeData(
-  useMaterial3: true,
+  // useMaterial3: true,
   primaryColor: AppColors.lightBlueColor,
-  fontFamily: AppStyles.fontFamily,
+  //fontFamily: AppStyles.fontFamily,
   brightness: Brightness.dark,
   scaffoldBackgroundColor: AppColors.darkScaffoldColor,
   cardTheme: const CardTheme(
@@ -58,18 +66,30 @@ ThemeData darkTheme = ThemeData(
       fontWeight: AppFontWeight.bold,
       fontSize: 28.sp,
     ),
+    headlineSmall: TextStyle(
+      fontWeight: AppFontWeight.bold,
+      fontSize: 24.sp,
+    ),
+    labelLarge: TextStyle(
+      fontWeight: AppFontWeight.regular,
+      fontSize: 20.sp,
+    ),
     labelMedium: TextStyle(
       fontWeight: AppFontWeight.regular,
       fontSize: 16.sp,
     ),
-    labelSmall: TextStyle(fontSize: 10.sp, color: AppColors.darkDateCardColor),
+    labelSmall: TextStyle(fontSize: 13.sp, color: AppColors.darkDateCardColor),
+    bodyLarge: TextStyle(
+        fontWeight: AppFontWeight.medium,
+        fontSize: 14.sp,
+        color: AppColors.darkDateCardColor),
     bodyMedium: TextStyle(
       fontWeight: AppFontWeight.medium,
       fontSize: 14.sp,
     ),
     bodySmall: TextStyle(
-      fontWeight: AppFontWeight.regular,
-      fontSize: 14.sp,
-    ),
+        fontWeight: AppFontWeight.regular,
+        fontSize: 14.sp,
+        color: AppColors.darkDateCardColor),
   ),
 );

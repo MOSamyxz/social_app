@@ -112,6 +112,7 @@ class SignUpForm extends StatelessWidget {
             onChanged: (e) {
               BlocProvider.of<SignUpCubit>(context).onSelectedGender(e!);
             },
+            label: S.of(context).gender,
           ),
           const VerticalSpace(AppSize.s10),
           BlocBuilder<SignUpCubit, SignUpState>(

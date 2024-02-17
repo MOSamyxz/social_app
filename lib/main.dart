@@ -19,8 +19,9 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   bool? isDark = CacheHelper.sharedPreferences.getBool('isDark');
-
-  runApp(MyApp(isDark));
+  runApp(MyApp(
+    isDark,
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
     return BlocProvider(
       create: (context) => AppCubit()
         ..init()
+        ..getUserData()
         ..changeAppMode(fromShared: isDark),
       child: BlocBuilder<AppCubit, AppState>(
         builder: (context, state) {
@@ -58,8 +60,9 @@ class MyApp extends StatelessWidget {
                   GlobalCupertinoLocalizations.delegate,
                 ],
                 supportedLocales: S.delegate.supportedLocales,
-                locale:
-                    Locale(CacheHelper.sharedPreferences.getString('lang')!),
+                locale: CacheHelper.sharedPreferences.getString('lang') == 'ar'
+                    ? const Locale('ar')
+                    : const Locale('en'),
                 routerConfig: AppRouter.router,
               );
             },
@@ -69,27 +72,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
-
-
-/* localizationsDelegates: const [
-            AppLocale.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: const [
-            Locale('ar', ''),
-            Locale('en', ''),
-          ],
-          localeResolutionCallback: (currentLang, supportLang) {
-            if (currentLang != null) {
-              for (Locale local in supportLang) {
-                if (local.languageCode == currentLang.languageCode) {
-                  return currentLang;
-                }
-              }
-            }
-            return supportLang.first;
-          }, */

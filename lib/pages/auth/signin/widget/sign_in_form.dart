@@ -2,14 +2,18 @@ import 'package:chatapp/core/constants/colors.dart';
 import 'package:chatapp/core/constants/size.dart';
 import 'package:chatapp/core/constants/styles.dart';
 import 'package:chatapp/core/functions/validation.dart';
+import 'package:chatapp/core/routes/routes.dart';
 import 'package:chatapp/core/widgets/custom_bautton.dart';
 import 'package:chatapp/core/widgets/custome_text_field.dart';
 import 'package:chatapp/core/widgets/vertical_space.dart';
+import 'package:chatapp/cubit/app_cubit.dart';
 import 'package:chatapp/generated/l10n.dart';
 import 'package:chatapp/pages/auth/signin/cubit/sign_in_cubit.dart';
+import 'package:chatapp/pages/home/cubit/home_cubit.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class SignInForm extends StatelessWidget {
   const SignInForm({
@@ -39,15 +43,22 @@ class SignInForm extends StatelessWidget {
             },
           ),
           const VerticalSpace(AppSize.s10),
-          CustomButton(
-            onPressed: () {
-              BlocProvider.of<SignInCubit>(context).signIn(context);
+          BlocListener<AppCubit, AppState>(
+            listener: (context, state) {
+              if (state is GettUserDataSuccessState) {}
+              GoRouter.of(context).push(Routes.applayout);
             },
-            child: Text(
-              S.of(context).signIn,
-              style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                  fontWeight: AppFontWeight.semiBold,
-                  color: AppColors.realWhiteColor),
+            child: CustomButton(
+              onPressed: () async {
+                BlocProvider.of<SignInCubit>(context).signIn(context);
+                await BlocProvider.of<AppCubit>(context).getUserData();
+              },
+              child: Text(
+                S.of(context).signIn,
+                style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                    fontWeight: AppFontWeight.semiBold,
+                    color: AppColors.realWhiteColor),
+              ),
             ),
           ),
           const VerticalSpace(AppSize.s10),

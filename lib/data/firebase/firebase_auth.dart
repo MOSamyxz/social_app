@@ -33,8 +33,8 @@ class FirebaseAuthServices {
         password: password,
       );
       String photoUrl = await FirebaseStorageServices()
-          .uploadImageToStorage('profilePics', file, false);
-      Users user = Users(
+          .uploadImageToStorage('Pics', 'profile', file, false);
+      UsersModel user = UsersModel(
         userName: username,
         uId: credential.user!.uid,
         imageUrl: photoUrl,
@@ -44,12 +44,15 @@ class FirebaseAuthServices {
         birthDay: '',
         followers: [],
         following: [],
+        receivedRequest: [],
+        sentRequest: [],
+        coverUrl: '',
       );
 
       await _firestore
           .collection("users")
           .doc(credential.user!.uid)
-          .set(user.toJson());
+          .set(user.toMap());
 
       String uId = credential.user!.uid;
 
@@ -95,9 +98,6 @@ class FirebaseAuthServices {
       if (!context.mounted) return;
 
       if (credential.user!.emailVerified) {
-        if (!context.mounted) return;
-        await BlocProvider.of<AppCubit>(context).refreshUser();
-        GoRouter.of(context).pushReplacement(Routes.homeScreen);
       } else {
         Fluttertoast.showToast(
           msg: S.of(context).verifyEmail,

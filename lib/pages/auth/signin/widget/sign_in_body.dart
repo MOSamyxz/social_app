@@ -22,11 +22,11 @@ class SignInBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        width: ScreenUtil.defaultSize.width,
+        width: ScreenUtil().screenWidth,
         decoration: BoxDecoration(
             color: Theme.of(context).scaffoldBackgroundColor,
             borderRadius:
-                const BorderRadius.vertical(top: Radius.circular(AppSize.r30))),
+                BorderRadius.vertical(top: Radius.circular(AppSize.r30))),
         child: Padding(
           padding: AppPadding.screenPadding,
           child: Column(

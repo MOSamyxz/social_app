@@ -5,9 +5,11 @@ import 'package:chatapp/pages/auth/reset_password/reset_password_screen.dart';
 import 'package:chatapp/pages/auth/signin/signin_screen.dart';
 import 'package:chatapp/pages/auth/signup/signup_screen.dart';
 import 'package:chatapp/pages/auth/verification/verification_screen.dart';
-import 'package:chatapp/pages/home/home_screen.dart';
+import 'package:chatapp/pages/layout/cubit/layout_cubit.dart';
+import 'package:chatapp/pages/layout/layout.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 abstract class AppRouter {
@@ -25,7 +27,12 @@ abstract class AppRouter {
                         // Checking if the snapshot has any data or not
                         if (snapshot.hasData) {
                           // if snapshot has data which means user is logged in then we check the width of screen and accordingly display the screen layout
-                          return HomeScreen();
+                          return BlocProvider(
+                            create: (context) => LayoutCubit()..init(),
+                            child: Builder(builder: (context) {
+                              return const AppLayout();
+                            }),
+                          );
                         } else if (snapshot.hasError) {
                           return Center(
                             child: Text('${snapshot.error}'),
@@ -60,8 +67,13 @@ abstract class AppRouter {
         builder: (context, state) => const SignUpScreen(),
       ),
       GoRoute(
-        path: Routes.homeScreen,
-        builder: (context, state) => const HomeScreen(),
+        path: Routes.applayout,
+        builder: (context, state) => BlocProvider(
+          create: (context) => LayoutCubit()..init(),
+          child: Builder(builder: (context) {
+            return const AppLayout();
+          }),
+        ),
       ),
     ],
   );

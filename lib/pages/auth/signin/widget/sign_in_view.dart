@@ -1,6 +1,5 @@
 import 'package:chatapp/core/constants/size.dart';
 import 'package:chatapp/core/widgets/vertical_space.dart';
-import 'package:chatapp/cubit/app_cubit.dart';
 import 'package:chatapp/generated/l10n.dart';
 import 'package:chatapp/pages/auth/signin/cubit/sign_in_cubit.dart';
 import 'package:chatapp/pages/auth/signin/widget/sign_in_body.dart';
@@ -16,9 +15,6 @@ class SignInView extends StatelessWidget {
       create: (context) => SignInCubit(),
       child: Scaffold(
         backgroundColor: Theme.of(context).primaryColor,
-        floatingActionButton: FloatingActionButton(onPressed: () {
-          BlocProvider.of<AppCubit>(context).changeAppMode();
-        }),
         body: SafeArea(
           child: CustomScrollView(slivers: [
             SliverFillRemaining(

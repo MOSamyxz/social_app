@@ -26,6 +26,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "alreadyHaveAnAccount":
             MessageLookupByLibrary.simpleMessage("Already have an account?"),
         "and": MessageLookupByLibrary.simpleMessage("and"),
+        "angry": MessageLookupByLibrary.simpleMessage("Angry"),
         "ar": MessageLookupByLibrary.simpleMessage("AR"),
         "bySigningUpYouAgreeToOur": MessageLookupByLibrary.simpleMessage(
             "By signing up you agree to our"),
@@ -33,9 +34,12 @@ class MessageLookup extends MessageLookupByLibrary {
             "Please check the verification link send to your email"),
         "checkEmailResetPassword": MessageLookupByLibrary.simpleMessage(
             "Please check the link send to your email"),
+        "comment": MessageLookupByLibrary.simpleMessage("Comment"),
+        "comments": MessageLookupByLibrary.simpleMessage("Comments"),
         "createAnAccountAndStartMakingNewFriends":
             MessageLookupByLibrary.simpleMessage(
                 "Create an account and start making new friends"),
+        "createPost": MessageLookupByLibrary.simpleMessage("Create post"),
         "dontHaveAnAccount":
             MessageLookupByLibrary.simpleMessage("Don\'t have an account?"),
         "emailAddress": MessageLookupByLibrary.simpleMessage("Email address"),
@@ -57,11 +61,15 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Get started free"),
         "goBackToSignIn":
             MessageLookupByLibrary.simpleMessage(" Go back to sign in"),
+        "haha": MessageLookupByLibrary.simpleMessage("Haha"),
         "hello": MessageLookupByLibrary.simpleMessage("Welcome back!"),
         "hwar": MessageLookupByLibrary.simpleMessage("7war"),
+        "image": MessageLookupByLibrary.simpleMessage("Image"),
         "lastName": MessageLookupByLibrary.simpleMessage("Last Name"),
+        "like": MessageLookupByLibrary.simpleMessage("Like"),
         "longPassword": MessageLookupByLibrary.simpleMessage(
             "Password can\'t be more than 16"),
+        "love": MessageLookupByLibrary.simpleMessage("Love"),
         "male": MessageLookupByLibrary.simpleMessage("Male"),
         "noUserForThisEmail": MessageLookupByLibrary.simpleMessage(
             "No user found for that email"),
@@ -76,8 +84,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Please enter your username!"),
         "pleaseEnterValidUserName": MessageLookupByLibrary.simpleMessage(
             "Please enter a valid username!"),
+        "post": MessageLookupByLibrary.simpleMessage("Post"),
         "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
         "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
+        "sad": MessageLookupByLibrary.simpleMessage("Sad"),
+        "save": MessageLookupByLibrary.simpleMessage("Save"),
         "sendVerifyCode":
             MessageLookupByLibrary.simpleMessage("Send verify code"),
         "shortPassword": MessageLookupByLibrary.simpleMessage(
@@ -89,8 +100,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Terms & Conditions"),
         "verifyEmail": MessageLookupByLibrary.simpleMessage(
             "Please verify your email first"),
+        "video": MessageLookupByLibrary.simpleMessage("Video"),
         "weakPassword": MessageLookupByLibrary.simpleMessage(
             "The password provided is too weak"),
+        "whatOnMind":
+            MessageLookupByLibrary.simpleMessage("What\'s on your mind?"),
+        "wow": MessageLookupByLibrary.simpleMessage("Wow"),
         "wrongPassword": MessageLookupByLibrary.simpleMessage(
             "Wrong password provided for that user")
       };

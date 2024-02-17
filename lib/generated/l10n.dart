@@ -479,6 +479,146 @@ class S {
       args: [],
     );
   }
+
+  /// `Post`
+  String get post {
+    return Intl.message(
+      'Post',
+      name: 'post',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create post`
+  String get createPost {
+    return Intl.message(
+      'Create post',
+      name: 'createPost',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Video`
+  String get video {
+    return Intl.message(
+      'Video',
+      name: 'video',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Image`
+  String get image {
+    return Intl.message(
+      'Image',
+      name: 'image',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `What's on your mind?`
+  String get whatOnMind {
+    return Intl.message(
+      'What\'s on your mind?',
+      name: 'whatOnMind',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Comments`
+  String get comments {
+    return Intl.message(
+      'Comments',
+      name: 'comments',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Comment`
+  String get comment {
+    return Intl.message(
+      'Comment',
+      name: 'comment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save`
+  String get save {
+    return Intl.message(
+      'Save',
+      name: 'save',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Like`
+  String get like {
+    return Intl.message(
+      'Like',
+      name: 'like',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Love`
+  String get love {
+    return Intl.message(
+      'Love',
+      name: 'love',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sad`
+  String get sad {
+    return Intl.message(
+      'Sad',
+      name: 'sad',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Angry`
+  String get angry {
+    return Intl.message(
+      'Angry',
+      name: 'angry',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Haha`
+  String get haha {
+    return Intl.message(
+      'Haha',
+      name: 'haha',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wow`
+  String get wow {
+    return Intl.message(
+      'Wow',
+      name: 'wow',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -2,6 +2,11 @@ import 'package:chatapp/core/utils/utils.dart';
 import 'package:chatapp/generated/l10n.dart';
 
 validInput(String val, min, max, String type, context) {
+  if (type == 'empty') {
+    if (val.isEmpty) {
+      return S.of(context).emailMustNotBeEmpty;
+    }
+  }
   if (type == 'email') {
     if (val.isEmpty) {
       return S.of(context).emailMustNotBeEmpty;

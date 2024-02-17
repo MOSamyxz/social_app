@@ -32,7 +32,7 @@ class SignUpCubit extends Cubit<SignUpState> {
   }
 
   selectImage() async {
-    Uint8List pickedImage = await pickImage(ImageSource.gallery);
+    Uint8List pickedImage = await pickProfileCoverImage(ImageSource.gallery);
     emit(ChangeAvatarLoadingState());
 
     image = pickedImage;

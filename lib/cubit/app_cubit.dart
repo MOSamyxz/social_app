@@ -10,28 +10,31 @@ part 'app_state.dart';
 class AppCubit extends Cubit<AppState> {
   AppCubit() : super(AppInitial());
 
-  void init() {
+  Future<void> init() async {
+    //refreshPosts();
     getLang();
-    refreshUser();
   }
 
   void setLangAr() {
     emit(AppLocaleState());
-    CacheHelper.sharedPreferences.setString('lang', 'ar');
+    local = 'ar';
+    CacheHelper.sharedPreferences.setString('lang', local);
     getLang();
-    emit(AppLocaleArChangeState());
   }
 
   void setLangEn() {
     emit(AppLocaleState());
-    CacheHelper.sharedPreferences.setString('lang', 'en');
+    local = 'en';
+    CacheHelper.sharedPreferences.setString('lang', local);
     getLang();
-    emit(AppLocaleEnChangeState());
   }
 
   void getLang() {
-    CacheHelper.sharedPreferences.getString('lang')!;
+    CacheHelper.sharedPreferences.getString('lang');
+    emit(AppLocaleChangeState());
   }
+
+  String local = 'ar';
 
   bool isDark = false;
 
@@ -43,27 +46,25 @@ class AppCubit extends Cubit<AppState> {
     } else {
       emit(AppLoadModeState());
       isDark = !isDark;
-      CacheHelper.sharedPreferences.setBool('isDark', isDark).then((value) {
-        emit(AppSaveModeState());
-      });
+      CacheHelper.sharedPreferences.setBool('isDark', isDark).then((value) {});
       emit(AppChangeModeState());
     }
   }
 
-  Users? _user;
+  UsersModel? _user;
   final FirestoreServices _firestoreServices = FirestoreServices();
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  Future<void> refreshUser() async {
-    emit(GetUserDataLoadingState());
-    print(_auth.currentUser?.uid ?? '======');
+  Future<void> getUserData() async {
+    emit(GetCurrentUserDataLoadingState());
     if (_auth.currentUser?.uid != null) {
-      Users user = await _firestoreServices.getUserDetails(
+      UsersModel user = await _firestoreServices.getUserDetails(
           collection: 'users', doc: _auth.currentUser!.uid);
       _user = user;
     }
-    emit(GetUserDataSuccessState());
+    emit(GetCurrentUserDataSuccessState());
+    print('done========================================');
   }
 
-  Users get getUser => _user!;
+  UsersModel get getUser => _user!;
 }
