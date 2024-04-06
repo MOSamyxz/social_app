@@ -1,3 +1,4 @@
+import 'package:chatapp/core/constants/colors.dart';
 import 'package:chatapp/core/constants/size.dart';
 import 'package:chatapp/core/utils/to_ar_num_converter.dart';
 import 'package:chatapp/core/utils/utils.dart';
@@ -145,29 +146,23 @@ class _StoryViewScreenState extends State<StoryViewScreen> {
                           ],
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 10.w, vertical: 10.h),
-                          child: Row(
-                            children: [
-                              GestureDetector(
-                                  onTap: () {},
-                                  child: CircleAvatar(
-                                    backgroundColor: const Color.fromARGB(
-                                        255, 255, 106, 106),
-                                    child: story.likes.contains(myUser.uId)
-                                        ? const FaIcon(
-                                            FontAwesomeIcons.solidHeart)
-                                        : const FaIcon(FontAwesomeIcons.heart),
-                                  )),
-                              const HorizontalSpace(10),
-                              if (story.storyAutherId == myUser.uId)
-                                Text('${story.likes.length} Likes'),
-                              const Spacer(),
-                              if (story.storyAutherId == myUser.uId)
-                                Text('${story.views.length} views'),
-                            ],
-                          ),
-                        )
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 10.w, vertical: 20.h),
+                            child:
+                                //story.storyAutherId == myUser.uId?
+                                Container(
+                              width: ScreenUtil().screenWidth,
+                              color: AppColors.blackColor.withOpacity(0.2),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text('${story.views.length}'),
+                                  const HorizontalSpace(5),
+                                  const Icon(Icons.visibility_outlined)
+                                ],
+                              ),
+                            ) //:const SizedBox(),
+                            )
                       ],
                     );
                   }));

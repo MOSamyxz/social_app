@@ -130,9 +130,13 @@ class StoryItem extends StatelessWidget {
                     ],
                   ),
                   const VerticalSpace(5),
-                  Text(
-                    user.userName,
-                    style: TextStyle(fontSize: 14.sp),
+                  Container(
+                    width: 95,
+                    child: Text(
+                      user.userName,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(fontSize: 14.sp),
+                    ),
                   )
                 ],
               ),
