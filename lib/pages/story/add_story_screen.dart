@@ -37,46 +37,43 @@ class AddStoryScreen extends StatelessWidget {
               ],
             ),
             body: SingleChildScrollView(
-              child: Expanded(
-                child: Column(children: [
-                  BlocProvider.of<StoryCubit>(context).file == null
-                      ? Container(
-                          alignment: Alignment.center,
-                          width: double.infinity,
-                          height: ScreenUtil().screenHeight * 0.75,
-                          decoration: const BoxDecoration(color: Colors.red),
-                          child: Text(BlocProvider.of<StoryCubit>(context)
-                              .storyTextController
-                              .text))
-                      : Stack(
-                          alignment: Alignment.bottomCenter,
-                          children: [
-                            ImageVideoView(
-                              fileType: BlocProvider.of<StoryCubit>(context)
-                                  .storyType!,
-                              file: BlocProvider.of<StoryCubit>(context).file!,
-                            ),
-                            BlocProvider.of<StoryCubit>(context)
-                                        .storyTextController
-                                        .text ==
-                                    ''
-                                ? const SizedBox()
-                                : Container(
-                                    padding: EdgeInsets.only(bottom: 25.h),
-                                    alignment: Alignment.center,
-                                    width: double.infinity,
-                                    color:
-                                        AppColors.blackColor.withOpacity(0.3),
-                                    child: Text(
-                                        BlocProvider.of<StoryCubit>(context)
-                                            .storyTextController
-                                            .text),
-                                  )
-                          ],
-                        ),
-                  AddStoryTextFIeld(),
-                ]),
-              ),
+              child: Column(children: [
+                BlocProvider.of<StoryCubit>(context).file == null
+                    ? Container(
+                        alignment: Alignment.center,
+                        width: double.infinity,
+                        height: ScreenUtil().screenHeight * 0.75,
+                        decoration: const BoxDecoration(color: Colors.red),
+                        child: Text(BlocProvider.of<StoryCubit>(context)
+                            .storyTextController
+                            .text))
+                    : Stack(
+                        alignment: Alignment.bottomCenter,
+                        children: [
+                          ImageVideoView(
+                            fileType:
+                                BlocProvider.of<StoryCubit>(context).storyType!,
+                            file: BlocProvider.of<StoryCubit>(context).file!,
+                          ),
+                          BlocProvider.of<StoryCubit>(context)
+                                      .storyTextController
+                                      .text ==
+                                  ''
+                              ? const SizedBox()
+                              : Container(
+                                  padding: EdgeInsets.only(bottom: 25.h),
+                                  alignment: Alignment.center,
+                                  width: double.infinity,
+                                  color: AppColors.blackColor.withOpacity(0.3),
+                                  child: Text(
+                                      BlocProvider.of<StoryCubit>(context)
+                                          .storyTextController
+                                          .text),
+                                )
+                        ],
+                      ),
+                AddStoryTextFIeld(),
+              ]),
             ),
           );
         },
