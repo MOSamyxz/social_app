@@ -43,12 +43,12 @@ class _SearchBodyState extends State<SearchBody> {
         ),
       ),
       body: isShowUsers
-          ? _buildUserSearchResults()
+          ? _buildUserSearchResults(widget.user)
           : SearchPostListBuilder(snapshot: widget.snapshot, user: widget.user),
     );
   }
 
-  Widget _buildUserSearchResults() {
+  Widget _buildUserSearchResults(UsersModel user) {
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance
           .collection('users')
@@ -72,7 +72,9 @@ class _SearchBodyState extends State<SearchBody> {
             return InkWell(
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => ProfileScreen(profileUser: user),
+                  builder: (context) => ProfileScreen(
+                    profileUser: user,
+                  ),
                 ),
               ),
               child: ListTile(

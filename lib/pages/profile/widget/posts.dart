@@ -1,7 +1,7 @@
 import 'package:chatapp/data/model/like_data_model.dart';
 import 'package:chatapp/data/model/post_model.dart';
 import 'package:chatapp/data/model/user_model.dart';
-import 'package:chatapp/pages/home/widget/post_card.dart';
+import 'package:chatapp/pages/home/widget/post_widgets/post_card.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

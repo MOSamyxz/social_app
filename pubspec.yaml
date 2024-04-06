@@ -67,16 +67,15 @@ dependencies:
   video_player: ^2.0.4
 
   # for displaying the stories
-  story_view: ^0.15.0
-
+  story_view: ^0.16.5
   # for responsive UI
   flutter_screenutil: ^5.9.0
 
   # caching
   shared_preferences: ^2.2.2
   # stteManagemnt
-  bloc: ^8.1.3
-  flutter_bloc: ^8.1.4
+  bloc: ^8.1.4
+  flutter_bloc: ^8.1.5
   # routing
   go_router: ^13.0.1
   # for localization
@@ -84,6 +83,8 @@ dependencies:
   intl: ^0.18.1
   flutter_staggered_animations: ^1.1.1
   flutter_staggered_grid_view: ^0.7.0
+  animated_toggle_switch: ^0.8.1
+  flutter_story_view: ^0.0.3
 
 
 

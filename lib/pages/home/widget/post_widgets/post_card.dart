@@ -3,10 +3,9 @@ import 'package:chatapp/data/model/like_data_model.dart';
 import 'package:chatapp/data/model/post_model.dart';
 import 'package:chatapp/data/model/user_model.dart';
 import 'package:chatapp/pages/home/full_screen_image.dart';
-import 'package:chatapp/pages/home/widget/post_header.dart';
-import 'package:chatapp/pages/home/widget/stream_post_satats.dart';
-import 'package:chatapp/pages/home/widget/video_view_home.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:chatapp/pages/home/widget/post_widgets/post_header.dart';
+import 'package:chatapp/pages/home/widget/post_widgets/stream_post_satats.dart';
+import 'package:chatapp/pages/home/widget/post_widgets/video_view_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -28,7 +27,8 @@ class PostCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isLiked = post.likes.contains(FirebaseAuth.instance.currentUser!.uid);
+    // UsersModel user = BlocProvider.of<AppCubit>(context).getUser;
+    final isLiked = post.likes.contains(user.uId);
 
     return Container(
       margin: EdgeInsets.only(bottom: 5.h),
@@ -36,7 +36,7 @@ class PostCard extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            PostHeader(post: post),
+            PostHeader(post: post, user: user),
             post.content != '' ? const VerticalSpace(5) : const SizedBox(),
             post.postType == 'post'
                 ? const SizedBox()

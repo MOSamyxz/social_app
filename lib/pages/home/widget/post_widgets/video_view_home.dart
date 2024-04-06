@@ -7,11 +7,13 @@ class VideoViewHome extends StatefulWidget {
     required this.video,
     required this.isSearchView,
     this.child,
+    this.aspectRatio,
   });
 
   final Uri video;
   final bool isSearchView;
   final Widget? child;
+  final double? aspectRatio;
   @override
   State<VideoViewHome> createState() => _VideoViewState();
 }
@@ -40,7 +42,7 @@ class _VideoViewState extends State<VideoViewHome> {
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
-      aspectRatio: _videoController.value.aspectRatio,
+      aspectRatio: widget.aspectRatio ?? _videoController.value.aspectRatio,
       child: Stack(
         children: [
           GestureDetector(

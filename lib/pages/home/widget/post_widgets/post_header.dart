@@ -9,10 +9,9 @@ import 'package:chatapp/data/model/post_model.dart';
 import 'package:chatapp/data/model/user_model.dart';
 import 'package:chatapp/pages/edit_post/edit_post_screen.dart';
 import 'package:chatapp/pages/home/cubit/home_cubit.dart';
-import 'package:chatapp/pages/home/widget/post_time_from_now.dart';
-import 'package:chatapp/pages/post/firebase_posts/firestore_posts.dart';
+import 'package:chatapp/pages/home/widget/post_widgets/post_time_from_now.dart';
+import 'package:chatapp/data/firestore_posts/firestore_posts.dart';
 import 'package:chatapp/pages/profile/profile_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,9 +22,11 @@ class PostHeader extends StatelessWidget {
   const PostHeader({
     Key? key,
     required this.post,
+    required this.user,
   }) : super(key: key);
 
   final Post post;
+  final UsersModel user;
 
   @override
   Widget build(BuildContext context) {
@@ -35,12 +36,13 @@ class PostHeader extends StatelessWidget {
           onTap: () async {
             await BlocProvider.of<HomeCubit>(context)
                 .getUserById(post.posterId);
-            UsersModel user = BlocProvider.of<HomeCubit>(context).userById;
+            UsersModel profileUser =
+                BlocProvider.of<HomeCubit>(context).userById;
             Future.delayed(const Duration(seconds: 1));
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => ProfileScreen(
-                  profileUser: user,
+                  profileUser: profileUser,
                 ),
               ),
             );
@@ -72,11 +74,11 @@ class PostHeader extends StatelessWidget {
                           post.posterName,
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
-                        PostTimeFromNow(post: post),
+                        TimeFromNow(post: post),
                       ],
                     ),
                     const Spacer(),
-                    post.posterId == FirebaseAuth.instance.currentUser!.uid
+                    post.posterId == user.uId
                         ? IconButton(
                             onPressed: () {
                               showDialog(

@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:chatapp/data/model/user_model.dart';
-import 'package:chatapp/pages/post/firebase_posts/firestore_posts.dart';
+import 'package:chatapp/data/firestore_posts/firestore_posts.dart';
 import 'package:flutter/material.dart';
 
 part 'comments_state.dart';

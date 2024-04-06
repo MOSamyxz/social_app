@@ -8,19 +8,28 @@ class CustomButton extends StatelessWidget {
     super.key,
     required this.onPressed,
     required this.child,
+    this.color,
+    this.height,
+    this.width,
+    this.radius,
   });
   final void Function() onPressed;
+  final Color? color;
+  final double? height;
+  final double? radius;
+  final double? width;
   final Widget child;
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
-      minWidth: double.infinity,
-      height: 50.h,
+      minWidth: width ?? double.infinity,
+      height: height ?? 50.h,
       onPressed: onPressed,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppSize.r12), // <-- Radius
+        borderRadius:
+            BorderRadius.circular(radius ?? AppSize.r12), // <-- Radius
       ),
-      color: AppColors.blueColor,
+      color: color ?? AppColors.blueColor,
       child: child,
     );
   }

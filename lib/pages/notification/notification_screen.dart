@@ -1,95 +1,104 @@
 import 'package:chatapp/core/constants/colors.dart';
-import 'package:chatapp/core/constants/size.dart';
+import 'package:chatapp/core/constants/padding.dart';
+import 'package:chatapp/core/widgets/horizontal_space.dart';
+import 'package:chatapp/cubit/app_cubit.dart';
 import 'package:chatapp/data/model/user_model.dart';
 import 'package:chatapp/pages/notification/cubit/notification_cubit.dart';
+import 'package:chatapp/pages/notification/received_requests.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class NotificationScreen extends StatelessWidget {
   const NotificationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => NotificationCubit(),
-      child: BlocBuilder<NotificationCubit, NotificationState>(
-        builder: (context, state) {
-          return Scaffold(
-            appBar: AppBar(
-              title: const Text('Notifications'),
-            ),
-            body: FutureBuilder(
-                future: FirebaseFirestore.instance
-                    .collection('users')
-                    .doc(FirebaseAuth.instance.currentUser!.uid)
-                    .get(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) {
-                    return Center(child: Text('Error: ${snapshot.error}'));
-                  } else if (snapshot.hasData) {
-                    var user = UsersModel.fromMap(
-                        snapshot.data!.data() as Map<String, dynamic>);
-                    BlocProvider.of<NotificationCubit>(context)
-                        .getUsersById(user.receivedRequest);
-                    List<UsersModel> requests =
-                        BlocProvider.of<NotificationCubit>(context).usersById;
-                    return ListView.builder(
-                        itemCount: requests.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ListTile(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                    AppSize.r12), // <-- Radius
-                              ),
-                              tileColor: Theme.of(context).cardTheme.color,
-                              leading: CircleAvatar(
-                                backgroundImage:
-                                    NetworkImage(requests[index].imageUrl),
-                              ),
-                              title: RichText(
-                                textAlign: TextAlign.start,
-                                text: TextSpan(
-                                  children: [
-                                    TextSpan(
-                                        text: requests[index].userName,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium),
-                                    TextSpan(
-                                        text: ' has sent you a followe request',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodySmall!),
-                                  ],
+    UsersModel user = BlocProvider.of<AppCubit>(context).getUser;
+
+    return StreamBuilder(
+        stream: FirebaseFirestore.instance
+            .collection('users')
+            .doc(user.uId)
+            .snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          var snapshotUser =
+              UsersModel.fromMap(snapshot.data!.data() as Map<String, dynamic>);
+          return BlocProvider(
+            create: (context) => NotificationCubit(),
+            child: BlocConsumer<NotificationCubit, NotificationState>(
+              listener: (context, state) {
+                if (state is GettUsersDataByIdSuccessState) {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Builder(builder: (context) {
+                                return ReceivedRequsestsScreen(user: user);
+                              })));
+                }
+              },
+              builder: (context, state) {
+                return Scaffold(
+                  appBar: AppBar(
+                    title: const Text('Notifications'),
+                  ),
+                  body: Column(
+                    children: [
+                      snapshotUser.receivedRequest.isNotEmpty
+                          ? GestureDetector(
+                              onTap: () {
+                                BlocProvider.of<NotificationCubit>(context)
+                                    .getUsersById(snapshotUser.receivedRequest);
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).cardTheme.color,
+                                ),
+                                child: Padding(
+                                  padding: AppPadding.screenPadding,
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        alignment: Alignment.center,
+                                        width: 20.w,
+                                        height: 20.w,
+                                        decoration: BoxDecoration(
+                                            color:
+                                                AppColors.red.withOpacity(0.8),
+                                            borderRadius:
+                                                BorderRadius.circular(20.w)),
+                                        child: Text(
+                                          '${snapshotUser.receivedRequest.length}',
+                                          style: const TextStyle(
+                                              color: AppColors.realWhiteColor),
+                                        ),
+                                      ),
+                                      const HorizontalSpace(5),
+                                      const Expanded(
+                                          child: Text('Received requests')),
+                                      const FaIcon(FontAwesomeIcons.arrowRight)
+                                    ],
+                                  ),
                                 ),
                               ),
-                              trailing: TextButton(
-                                  onPressed: () {
-                                    BlocProvider.of<NotificationCubit>(context)
-                                        .acceptFollowRequest(
-                                            requests[index].uId);
-                                  },
-                                  child: const Text(
-                                    'Accept',
-                                    style:
-                                        TextStyle(color: AppColors.blueColor),
-                                  )),
-                            ),
-                          );
-                        });
-                  } else {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                }),
+                            )
+                          : const SizedBox(),
+                      const Center(
+                        child: Text('No Notifications yet'),
+                      )
+                    ],
+                  ),
+                );
+              },
+            ),
           );
-        },
-      ),
-    );
+        });
   }
 }

@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:chatapp/data/firebase/firebase_auth.dart';
+import 'package:chatapp/data/firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 part 'reset_password_state.dart';
@@ -16,7 +16,7 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
             .resetPassword(context: context, email: email.text);
         controlerDispose();
       } on Exception catch (e) {
-        print(e.toString());
+        e.toString();
       }
     }
   }

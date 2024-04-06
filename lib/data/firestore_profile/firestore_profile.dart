@@ -19,8 +19,23 @@ class FirestorProfile {
           .collection('users')
           .doc(myUid)
           .update({'imageUrl': newProfile});
+      updatePostsPeofileForUser(myUid, newProfile);
     } on Exception catch (e) {
       e.toString();
+    }
+  }
+
+  Future<void> updatePostsPeofileForUser(
+      String myUid, String newProfile) async {
+    final QuerySnapshot postsSnapshot = await _firestore
+        .collection('posts')
+        .where('posterId', isEqualTo: myUid)
+        .get();
+
+    final List<DocumentSnapshot> posts = postsSnapshot.docs;
+
+    for (final post in posts) {
+      await post.reference.update({'posterProfileUrl': newProfile});
     }
   }
 
@@ -37,8 +52,22 @@ class FirestorProfile {
         'birthDay': birthDay,
         'gender': gender
       });
+      updatePostsUsernameForUser(myUid, userName);
     } on Exception catch (e) {
       e.toString();
+    }
+  }
+
+  Future<void> updatePostsUsernameForUser(String myUid, String userName) async {
+    final QuerySnapshot postsSnapshot = await _firestore
+        .collection('posts')
+        .where('posterId', isEqualTo: myUid)
+        .get();
+
+    final List<DocumentSnapshot> posts = postsSnapshot.docs;
+
+    for (final post in posts) {
+      await post.reference.update({'posterName': userName});
     }
   }
 }

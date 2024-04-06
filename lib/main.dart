@@ -7,6 +7,7 @@ import 'package:chatapp/generated/l10n.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 // ignore: depend_on_referenced_packages
@@ -41,6 +42,10 @@ class MyApp extends StatelessWidget {
         ..changeAppMode(fromShared: isDark),
       child: BlocBuilder<AppCubit, AppState>(
         builder: (context, state) {
+          SystemChrome.setSystemUIOverlayStyle(
+              BlocProvider.of<AppCubit>(context).isDark
+                  ? SystemUiOverlayStyle.light
+                  : SystemUiOverlayStyle.dark);
           return ScreenUtilInit(
             designSize: const Size(360, 690),
             minTextAdapt: true,

@@ -4,14 +4,14 @@ import 'package:chatapp/data/model/post_model.dart';
 import 'package:chatapp/data/model/user_model.dart';
 import 'package:chatapp/generated/l10n.dart';
 import 'package:chatapp/pages/home/cubit/home_cubit.dart';
-import 'package:chatapp/pages/home/widget/post_card_like_button.dart';
+import 'package:chatapp/pages/home/widget/post_widgets/post_card_like_button.dart';
 import 'package:chatapp/pages/post/comments_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class PostLikeCommentSaveButtons extends StatefulWidget {
-  const PostLikeCommentSaveButtons({
+class PostLikeCommentShareButtons extends StatefulWidget {
+  const PostLikeCommentShareButtons({
     super.key,
     required this.isLiked,
     required this.post,
@@ -25,12 +25,12 @@ class PostLikeCommentSaveButtons extends StatefulWidget {
   final LikesDataModel? likesData;
 
   @override
-  State<PostLikeCommentSaveButtons> createState() =>
-      _PostLikeCommentSaveButtonsState();
+  State<PostLikeCommentShareButtons> createState() =>
+      _PostLikeCommentShareButtonsState();
 }
 
-class _PostLikeCommentSaveButtonsState
-    extends State<PostLikeCommentSaveButtons> {
+class _PostLikeCommentShareButtonsState
+    extends State<PostLikeCommentShareButtons> {
   bool showReactionButtons = false;
 
   @override
@@ -89,7 +89,17 @@ class _PostLikeCommentSaveButtonsState
             Expanded(
               child: PostCardButton(
                 text: S.of(context).save,
-                onPressed: () {},
+                onPressed: () {
+                  BlocProvider.of<HomeCubit>(context).savePost(context,
+                      posterId: widget.post.posterId,
+                      posterName: widget.post.posterName,
+                      posterProfileUrl: widget.post.posterProfileUrl,
+                      content: widget.post.content,
+                      postType: widget.post.postType,
+                      createdAt: widget.post.createdAt,
+                      downloadUrl: widget.post.fileUrl,
+                      postId: widget.post.postId);
+                },
                 icon: FontAwesomeIcons.bookmark,
               ),
             ),

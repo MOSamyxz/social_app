@@ -6,7 +6,7 @@ import 'package:chatapp/core/widgets/horizontal_space.dart';
 import 'package:chatapp/data/model/like_data_model.dart';
 import 'package:chatapp/data/model/post_model.dart';
 import 'package:chatapp/data/model/user_model.dart';
-import 'package:chatapp/pages/home/widget/post_like_comment_save_buttons.dart';
+import 'package:chatapp/pages/home/widget/post_widgets/post_like_comment_save_buttons.dart';
 import 'package:chatapp/pages/post/comments_screen.dart';
 import 'package:chatapp/pages/post/likes_screen.dart';
 import 'package:flutter/material.dart';
@@ -98,7 +98,7 @@ class PostStats extends StatelessWidget {
             ],
           ),
           const Divider(),
-          PostLikeCommentSaveButtons(
+          PostLikeCommentShareButtons(
             isLiked: isLiked,
             post: post,
             likesData: likesData,

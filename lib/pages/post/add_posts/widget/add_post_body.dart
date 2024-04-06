@@ -3,7 +3,7 @@ import 'package:chatapp/core/constants/padding.dart';
 import 'package:chatapp/data/model/user_model.dart';
 import 'package:chatapp/generated/l10n.dart';
 import 'package:chatapp/pages/post/add_posts/cubit/post_cubit.dart';
-import 'package:chatapp/pages/post/add_posts/widget/add_psot_header.dart';
+import 'package:chatapp/pages/post/add_posts/widget/add_post_header.dart';
 import 'package:chatapp/pages/post/add_posts/widget/image_video_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

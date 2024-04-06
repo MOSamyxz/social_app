@@ -4,18 +4,15 @@ import 'package:chatapp/data/model/post_model.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class PostTimeFromNow extends StatelessWidget {
-  const PostTimeFromNow({
-    super.key,
-    required this.post,
-  });
+class TimeFromNow extends StatelessWidget {
+  const TimeFromNow({super.key, required this.post, this.isSaved = false});
 
   final Post post;
-
+  final bool isSaved;
   @override
   Widget build(BuildContext context) {
     return Text(
-      getPostTimeText(post.createdAt),
+      getPostTimeText(isSaved ? post.savedAt! : post.createdAt),
       style: Theme.of(context).textTheme.labelSmall,
     );
   }

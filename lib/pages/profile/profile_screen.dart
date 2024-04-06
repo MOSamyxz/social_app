@@ -4,14 +4,20 @@ import 'package:chatapp/data/model/user_model.dart';
 import 'package:chatapp/pages/profile/cubit/profile_cubit.dart';
 import 'package:chatapp/pages/profile/widget/build_profile_posts.dart';
 import 'package:chatapp/pages/profile/widget/profile_header.dart';
+import 'package:chatapp/pages/saved_posts/saved_posts.dart';
+import 'package:chatapp/pages/settings/settings_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({Key? key, this.profileUser}) : super(key: key);
+  const ProfileScreen({
+    Key? key,
+    this.profileUser,
+  }) : super(key: key);
 
   final UsersModel? profileUser;
 
@@ -62,10 +68,37 @@ class _ProfileScreenState extends State<ProfileScreen> {
         builder: (context, state) {
           UsersModel user =
               widget.profileUser ?? BlocProvider.of<AppCubit>(context).getUser;
+          UsersModel myUser = BlocProvider.of<AppCubit>(context).getUser;
 
           return Scaffold(
               appBar: AppBar(
                 backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                actions: [
+                  FirebaseAuth.instance.currentUser!.uid == user.uId
+                      ? Row(
+                          children: [
+                            IconButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const SavedPostsScreen()));
+                                },
+                                icon: const FaIcon(FontAwesomeIcons.bookmark)),
+                            IconButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const SettingScreen()));
+                                },
+                                icon: const FaIcon(FontAwesomeIcons.gear)),
+                          ],
+                        )
+                      : const SizedBox()
+                ],
               ),
               body: SingleChildScrollView(
                 child: Column(
@@ -105,9 +138,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           }
                         }),
                     VerticalSpace(10.h),
-                    BuildProfilePosts(
-                      profileUser: user,
-                    )
+                    myUser.following.contains(user.uId) ||
+                            myUser.uId == user.uId
+                        ? BuildProfilePosts(
+                            profileUser: user,
+                          )
+                        : const Text('You need to follow this user first.!'),
                   ],
                 ),
               ));

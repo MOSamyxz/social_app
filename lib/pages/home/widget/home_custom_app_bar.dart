@@ -1,10 +1,8 @@
 import 'package:chatapp/core/constants/padding.dart';
-import 'package:chatapp/core/widgets/horizontal_space.dart';
-import 'package:chatapp/cubit/app_cubit.dart';
-import 'package:chatapp/data/firebase/firebase_auth.dart';
 import 'package:chatapp/generated/l10n.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomeCustomAppBar extends StatelessWidget {
   const HomeCustomAppBar({
@@ -24,32 +22,15 @@ class HomeCustomAppBar extends StatelessWidget {
           const Spacer(),
           IconButton(
               onPressed: () {
-                FirebaseAuthServices().signOut(context);
-                //     BlocProvider.of<AppCubit>(context)
-                //      .changeAppMode();
+                // Navigator.push(context,
+                //  MaterialPageRoute(builder: (context) => CahtsScreen()));
+                Fluttertoast.showToast(
+                  msg: 'Soon!',
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.BOTTOM,
+                );
               },
-              icon: const Icon(Icons.logout)),
-          IconButton(
-              onPressed: () {
-                // FirebaseAuthServices().signOut(context);
-                BlocProvider.of<AppCubit>(context).changeAppMode();
-              },
-              icon: const Icon(Icons.brightness_4_outlined)),
-          GestureDetector(
-            onTap: () {
-              // FirebaseAuthServices().signOut(context);
-              BlocProvider.of<AppCubit>(context).setLangAr();
-            },
-            child: Text(S.of(context).ar),
-          ),
-          const HorizontalSpace(10),
-          GestureDetector(
-            onTap: () {
-              // FirebaseAuthServices().signOut(context);
-              BlocProvider.of<AppCubit>(context).setLangEn();
-            },
-            child: Text(S.of(context).en),
-          )
+              icon: const FaIcon(FontAwesomeIcons.facebookMessenger)),
         ],
       ),
     );

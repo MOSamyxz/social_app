@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:chatapp/core/utils/utils.dart';
-import 'package:chatapp/data/firebase/firebase_storage_services.dart';
+import 'package:chatapp/data/firebase_auth/firebase_storage_services.dart';
 import 'package:chatapp/generated/l10n.dart';
-import 'package:chatapp/pages/profile/firestore_profile/firestore_profile.dart';
+import 'package:chatapp/data/firestore_profile/firestore_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';

@@ -6,6 +6,10 @@ final class HomeInitial extends HomeState {}
 
 final class ReactButtonVisibilityState extends HomeState {}
 
-class GettUserDataSuccessState extends HomeState {}
+class GettUserDataByIdSuccessState extends HomeState {}
 
-class GetUserDataLoadingState extends HomeState {}
+class GetUserDataByIdLoadingState extends HomeState {}
+
+class GetUsersDataByIdLoadingState extends HomeState {}
+
+class GetUsersDataByIdSuccessState extends HomeState {}

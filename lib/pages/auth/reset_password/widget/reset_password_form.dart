@@ -9,6 +9,7 @@ import 'package:chatapp/generated/l10n.dart';
 import 'package:chatapp/pages/auth/reset_password/cubit/reset_password_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ResetPasswordForm extends StatelessWidget {
   const ResetPasswordForm({
@@ -23,6 +24,7 @@ class ResetPasswordForm extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         children: [
           CustomeTextFormField(
+            prefix: FontAwesomeIcons.envelope,
             controller: BlocProvider.of<ResetPasswordCubit>(context).email,
             hintText: S.of(context).emailAddress,
             validator: (input) {

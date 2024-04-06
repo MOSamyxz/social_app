@@ -9,6 +9,8 @@ final class VideoPickedSuccessState extends PostState {}
 
 final class VideoPickedLoadingState extends PostState {}
 
+final class ImagePickedLoadingState extends PostState {}
+
 final class ImagePickedSuccessState extends PostState {}
 
 final class FileRemovedSuccessState extends PostState {}

@@ -1,5 +1,5 @@
 import 'package:chatapp/data/model/user_model.dart';
-import 'package:chatapp/pages/home/widget/post_shimmer.dart';
+import 'package:chatapp/pages/home/widget/post_widgets/post_shimmer.dart';
 import 'package:chatapp/pages/profile/widget/posts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';

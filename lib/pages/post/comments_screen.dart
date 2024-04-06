@@ -40,151 +40,167 @@ class CommentScreen extends StatelessWidget {
               : AppColors.realWhiteColor,
           title: const Text('Comments'),
         ),
-        body: Container(
-          height: ScreenUtil().screenHeight,
-          child: Column(
-            children: [
-              StreamBuilder(
-                stream: FirebaseFirestore.instance
-                    .collection('posts')
-                    .doc(postId)
-                    .collection('comments')
-                    .orderBy('createdAt', descending: true)
-                    .snapshots(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) {
-                    return Center(child: Text('Error: ${snapshot.error}'));
-                  } else if (snapshot.hasData) {
-                    List<CommentModel> comments =
-                        snapshot.data!.docs.map((doc) {
-                      return CommentModel.fromMap(doc.data());
-                    }).toList();
-                    return Expanded(
-                      child: ListView.separated(
-                        itemCount: comments.length,
-                        itemBuilder: (context, index) {
-                          final isLiked = comments[index]
-                              .likes!
-                              .contains(FirebaseAuth.instance.currentUser!.uid);
+        body: Column(
+          children: [
+            Expanded(child: CommentList(postId: postId, user: user)),
+            BlocBuilder<HomeCubit, HomeState>(
+              builder: (context, state) {
+                return CommentTextField(user: user, postId: postId);
+              },
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
 
-                          return Padding(
-                            padding: AppPadding.screenPadding,
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              textDirection: TextDirection.ltr,
-                              children: [
-                                CircleAvatar(
-                                  backgroundImage: NetworkImage(
-                                      comments[index].authorProfileUrl),
-                                ),
-                                const HorizontalSpace(10),
-                                Column(
-                                  textDirection: isArabicText(
-                                          '${comments[index].createdAt!}')
+class CommentList extends StatelessWidget {
+  const CommentList({
+    super.key,
+    required this.postId,
+    required this.user,
+    this.physics,
+  });
+
+  final String postId;
+  final UsersModel user;
+  final ScrollPhysics? physics;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: ScreenUtil().screenHeight,
+      child: Column(
+        children: [
+          StreamBuilder(
+            stream: FirebaseFirestore.instance
+                .collection('posts')
+                .doc(postId)
+                .collection('comments')
+                .orderBy('createdAt', descending: true)
+                .snapshots(),
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                return Center(child: Text('Error: ${snapshot.error}'));
+              } else if (snapshot.hasData) {
+                List<CommentModel> comments = snapshot.data!.docs.map((doc) {
+                  return CommentModel.fromMap(doc.data());
+                }).toList();
+                return Expanded(
+                  child: ListView.separated(
+                    physics: physics,
+                    itemCount: comments.length,
+                    itemBuilder: (context, index) {
+                      final isLiked = comments[index]
+                          .likes!
+                          .contains(FirebaseAuth.instance.currentUser!.uid);
+
+                      return Padding(
+                        padding: AppPadding.screenPadding,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          textDirection: TextDirection.ltr,
+                          children: [
+                            CircleAvatar(
+                              backgroundImage: NetworkImage(
+                                  comments[index].authorProfileUrl),
+                            ),
+                            const HorizontalSpace(10),
+                            Column(
+                              textDirection:
+                                  isArabicText('${comments[index].createdAt!}')
                                       ? TextDirection.rtl
                                       : TextDirection.ltr,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      padding: EdgeInsets.all(5.h),
-                                      decoration: BoxDecoration(
-                                          color:
-                                              BlocProvider.of<AppCubit>(context)
-                                                      .isDark
-                                                  ? Theme.of(context)
-                                                      .cardTheme
-                                                      .color
-                                                  : AppColors
-                                                      .lightScaffoldColor,
-                                          borderRadius: BorderRadius.circular(
-                                              AppSize.r15)),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            comments[index].authorName,
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 16.sp),
-                                          ),
-                                          Text(
-                                            comments[index].text,
-                                            style: TextStyle(fontSize: 16.sp),
-                                          ),
-                                        ],
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.all(5.h),
+                                  decoration: BoxDecoration(
+                                      color: BlocProvider.of<AppCubit>(context)
+                                              .isDark
+                                          ? Theme.of(context).cardTheme.color
+                                          : AppColors.lightScaffoldColor,
+                                      borderRadius:
+                                          BorderRadius.circular(AppSize.r15)),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        comments[index].authorName,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16.sp),
                                       ),
-                                    ),
-                                    BlocBuilder<HomeCubit, HomeState>(
-                                      builder: (context, state) {
-                                        return Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              getPostTimeText(
-                                                  comments[index].createdAt!),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyLarge,
-                                            ),
-                                            const HorizontalSpace(10),
-                                            GestureDetector(
-                                              onTap: () {
-                                                BlocProvider.of<HomeCubit>(
-                                                        context)
-                                                    .likeDislikeComment(
-                                                        postId: postId,
-                                                        commentId:
-                                                            comments[index]
-                                                                .commentId,
-                                                        likes: comments[index]
-                                                            .likes!,
-                                                        user: user);
-                                              },
-                                              child: Text(
-                                                S.of(context).like,
-                                                style: isLiked
-                                                    ? Theme.of(context)
-                                                        .textTheme
-                                                        .bodyLarge!
-                                                        .copyWith(
-                                                            color: AppColors
-                                                                .blueColor)
-                                                    : Theme.of(context)
-                                                        .textTheme
-                                                        .bodyLarge,
-                                              ),
-                                            ),
-                                          ],
-                                        );
-                                      },
-                                    )
-                                  ],
+                                      Text(
+                                        comments[index].text,
+                                        style: TextStyle(fontSize: 16.sp),
+                                      ),
+                                    ],
+                                  ),
                                 ),
+                                BlocBuilder<HomeCubit, HomeState>(
+                                  builder: (context, state) {
+                                    return Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          getPostTimeText(
+                                              comments[index].createdAt!),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyLarge,
+                                        ),
+                                        const HorizontalSpace(10),
+                                        GestureDetector(
+                                          onTap: () {
+                                            BlocProvider.of<HomeCubit>(context)
+                                                .likeDislikeComment(
+                                                    postId: postId,
+                                                    commentId: comments[index]
+                                                        .commentId,
+                                                    likes:
+                                                        comments[index].likes!,
+                                                    user: user);
+                                          },
+                                          child: Text(
+                                            S.of(context).like,
+                                            style: isLiked
+                                                ? Theme.of(context)
+                                                    .textTheme
+                                                    .bodyLarge!
+                                                    .copyWith(
+                                                        color:
+                                                            AppColors.blueColor)
+                                                : Theme.of(context)
+                                                    .textTheme
+                                                    .bodyLarge,
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                )
                               ],
                             ),
-                          );
-                        },
-                        separatorBuilder: (BuildContext context, int index) {
-                          return const VerticalSpace(5);
-                        },
-                      ),
-                    );
-                  } else {
-                    return const CircularProgressIndicator();
-                  }
-                },
-              ),
-              BlocBuilder<HomeCubit, HomeState>(
-                builder: (context, state) {
-                  return CommentTextField(user: user, postId: postId);
-                },
-              )
-            ],
+                          ],
+                        ),
+                      );
+                    },
+                    separatorBuilder: (BuildContext context, int index) {
+                      return const VerticalSpace(5);
+                    },
+                  ),
+                );
+              } else {
+                return const CircularProgressIndicator();
+              }
+            },
           ),
-        ),
+        ],
       ),
     );
   }

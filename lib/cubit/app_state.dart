@@ -19,3 +19,5 @@ class GetCurrentUserDataLoadingState extends AppState {}
 class GetCurrentUserDataSuccessState extends AppState {}
 
 class AppInitializedState extends AppState {}
+
+final class IndexChangeState extends AppState {}

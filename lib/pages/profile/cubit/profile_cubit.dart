@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 
-import 'package:chatapp/pages/profile/firestore_follow/firestore_follow.dart';
+import 'package:chatapp/data/firestore_follow/firestore_follow.dart';
 
 part 'profile_state.dart';
 

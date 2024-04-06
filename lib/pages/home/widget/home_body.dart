@@ -1,7 +1,8 @@
 import 'package:chatapp/data/model/user_model.dart';
 import 'package:chatapp/pages/home/widget/home_custom_app_bar.dart';
 import 'package:chatapp/pages/home/widget/home_fab.dart';
-import 'package:chatapp/pages/home/widget/post_list_builder.dart';
+import 'package:chatapp/pages/home/widget/post_widgets/post_list_builder.dart';
+import 'package:chatapp/pages/story/story_widgets/home_story_list_builder.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -19,11 +20,14 @@ class HomeBody extends StatelessWidget {
     return Scaffold(
       floatingActionButton: const HomeFAB(),
       body: SafeArea(
-        child: Column(
-          children: [
-            const HomeCustomAppBar(),
-            HomePostListBuilder(snapshot: snapshot, user: user)
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const HomeCustomAppBar(),
+              const HomeStoryListBuilder(),
+              HomePostListBuilder(snapshot: snapshot, user: user)
+            ],
+          ),
         ),
       ),
     );

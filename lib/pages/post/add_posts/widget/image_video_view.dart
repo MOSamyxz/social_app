@@ -9,17 +9,17 @@ class ImageVideoView extends StatelessWidget {
     Key? key,
     required this.fileType,
     required this.file,
-    required this.onPressed,
+    this.onPressed,
   }) : super(key: key);
 
   final String fileType;
   final File file;
-  final void Function() onPressed;
+  final void Function()? onPressed;
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        fileType == 'postMediaImage'
+        fileType == 'postMediaImage' || fileType == 'image'
             ? Image.file(file)
             : VideoView(
                 video: file,

@@ -1,5 +1,6 @@
 import 'package:chatapp/core/routes/routes.dart';
 import 'package:chatapp/core/services/cache_helper.dart';
+import 'package:chatapp/cubit/app_cubit.dart';
 import 'package:chatapp/pages/ar_en/ar_en_screen.dart';
 import 'package:chatapp/pages/auth/reset_password/reset_password_screen.dart';
 import 'package:chatapp/pages/auth/signin/signin_screen.dart';
@@ -28,7 +29,9 @@ abstract class AppRouter {
                         if (snapshot.hasData) {
                           // if snapshot has data which means user is logged in then we check the width of screen and accordingly display the screen layout
                           return BlocProvider(
-                            create: (context) => LayoutCubit()..init(),
+                            create: (context) => AppCubit()
+                              ..controllerInit()
+                              ..getUserData(),
                             child: Builder(builder: (context) {
                               return const AppLayout();
                             }),

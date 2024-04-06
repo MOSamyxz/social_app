@@ -18,7 +18,7 @@ ThemeData lightTheme = ThemeData(
       fontWeight: AppFontWeight.bold,
       fontSize: 40.sp,
     ),
-    headlineLarge: TextStyle(),
+    headlineLarge: const TextStyle(),
     headlineMedium: TextStyle(
       fontWeight: AppFontWeight.bold,
       fontSize: 28.sp,
@@ -61,7 +61,7 @@ ThemeData darkTheme = ThemeData(
       fontWeight: AppFontWeight.bold,
       fontSize: 40.sp,
     ),
-    headlineLarge: TextStyle(),
+    headlineLarge: const TextStyle(),
     headlineMedium: TextStyle(
       fontWeight: AppFontWeight.bold,
       fontSize: 28.sp,

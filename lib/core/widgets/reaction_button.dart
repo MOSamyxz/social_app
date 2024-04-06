@@ -4,6 +4,7 @@ import 'package:chatapp/core/constants/size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+// ignore: constant_identifier_names
 enum ReactionType { Like, Love, Haha, Angry, Sad, Wow }
 
 class ReactionButtonGroup extends StatefulWidget {
@@ -12,6 +13,7 @@ class ReactionButtonGroup extends StatefulWidget {
   const ReactionButtonGroup({super.key, required this.onReactionSelected});
 
   @override
+  // ignore: library_private_types_in_public_api
   _ReactionButtonGroupState createState() => _ReactionButtonGroupState();
 }
 
@@ -27,7 +29,7 @@ class _ReactionButtonGroupState extends State<ReactionButtonGroup>
 
     _animationController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 300),
     );
     _animationController.addListener(() {
       setState(() {});

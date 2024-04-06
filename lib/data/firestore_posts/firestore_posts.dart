@@ -59,6 +59,51 @@ class FireStorePosts {
     }
   }
 
+  //Share post
+
+  Future<String?> savePost({
+    required String posterName,
+    required String posterId,
+    required String posterProfileUrl,
+    required String content,
+    required String postId,
+    required String postType,
+    String? downloadUrl,
+  }) async {
+    try {
+      final saverId = _auth.currentUser!.uid;
+      final now = DateTime.now();
+
+      // Create our post
+      Post post = Post(
+        postId: postId,
+        posterId: posterId,
+        saverId: saverId,
+        content: content,
+        postType: postType,
+        fileUrl: downloadUrl,
+        savedAt: now,
+        createdAt: now,
+        likes: const [],
+        posterName: posterName,
+        posterProfileUrl: posterProfileUrl,
+        likesData: [],
+      );
+
+      // Post to firestore
+      _firestore
+          .collection('users')
+          .doc(saverId)
+          .collection('savedPosts')
+          .doc(postId)
+          .set(post.toMap());
+
+      return null;
+    } catch (e) {
+      return e.toString();
+    }
+  }
+
   // Update Post
 
   Future<String?> updatePost({

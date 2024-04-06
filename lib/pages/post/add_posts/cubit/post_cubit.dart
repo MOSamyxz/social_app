@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:chatapp/core/utils/utils.dart';
 import 'package:chatapp/pages/post/add_posts/add_post_screen.dart';
-import 'package:chatapp/pages/post/firebase_posts/firestore_posts.dart';
+import 'package:chatapp/data/firestore_posts/firestore_posts.dart';
 import 'package:flutter/material.dart';
 
 part 'post_state.dart';
@@ -27,6 +27,8 @@ class PostCubit extends Cubit<PostState> {
   }
 
   pickedImage() async {
+    emit(ImagePickedLoadingState());
+
     fileType = 'postMediaImage';
     file = await pickImage();
     emit(ImagePickedSuccessState());

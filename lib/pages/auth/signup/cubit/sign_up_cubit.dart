@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 import 'package:bloc/bloc.dart';
 import 'package:chatapp/core/utils/utils.dart';
-import 'package:chatapp/data/firebase/firebase_auth.dart';
+import 'package:chatapp/data/firebase_auth/firebase_auth.dart';
 import 'package:chatapp/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -57,7 +57,7 @@ class SignUpCubit extends Cubit<SignUpState> {
         emit(SignUpSuccessState());
       } on Exception catch (e) {
         emit(SignUpErrorState());
-        print(e.toString());
+        e.toString();
       }
     }
   }

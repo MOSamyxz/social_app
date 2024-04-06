@@ -1,7 +1,7 @@
 import 'package:chatapp/data/model/like_data_model.dart';
 import 'package:chatapp/data/model/post_model.dart';
 import 'package:chatapp/data/model/user_model.dart';
-import 'package:chatapp/pages/home/widget/post_satates.dart';
+import 'package:chatapp/pages/home/widget/post_widgets/post_satates.dart';
 import 'package:flutter/material.dart';
 
 class StreamPostStats extends StatelessWidget {

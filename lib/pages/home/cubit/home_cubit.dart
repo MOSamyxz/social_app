@@ -2,37 +2,52 @@ import 'package:bloc/bloc.dart';
 import 'package:chatapp/core/constants/assets.dart';
 import 'package:chatapp/core/constants/colors.dart';
 import 'package:chatapp/core/widgets/reaction_button.dart';
-import 'package:chatapp/data/firebase/firestore_services.dart';
+import 'package:chatapp/data/firebase_auth/firestore_services.dart';
 import 'package:chatapp/data/model/post_model.dart';
 import 'package:chatapp/data/model/user_model.dart';
 import 'package:chatapp/generated/l10n.dart';
-import 'package:chatapp/pages/post/firebase_posts/firestore_posts.dart';
+import 'package:chatapp/data/firestore_posts/firestore_posts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial());
   late TextEditingController commentController;
+  late TextEditingController storyController;
 
   void init() async {
     commentController = TextEditingController();
+    storyController = TextEditingController();
   }
 
   UsersModel? _userById;
   final FirestoreServices _firestoreServices = FirestoreServices();
   Future<void> getUserById(userid) async {
-    emit(GetUserDataLoadingState());
+    emit(GetUserDataByIdLoadingState());
 
     UsersModel user = await _firestoreServices.getUserDetails(
         collection: 'users', doc: userid);
     _userById = user;
 
-    emit(GettUserDataSuccessState());
+    emit(GettUserDataByIdSuccessState());
   }
 
   UsersModel get userById => _userById!;
+
+  List<UsersModel>? _usersById;
+  Future<void> getUsersById(userid) async {
+    emit(GetUsersDataByIdLoadingState());
+
+    List<UsersModel> users = await _firestoreServices.getUsersDetailsByIds(
+        collection: 'users', userIds: userid);
+    _usersById = users;
+    emit(GetUsersDataByIdSuccessState());
+  }
+
+  List<UsersModel> get usersById => _usersById!;
 
   void createComment({
     required String postId,
@@ -246,5 +261,32 @@ class HomeCubit extends Cubit<HomeState> {
             height: MediaQuery.of(context).size.height, child: childe);
       },
     );
+  }
+
+  void savePost(context,
+      {required String posterId,
+      required String posterName,
+      required String posterProfileUrl,
+      required String content,
+      required String postId,
+      required String postType,
+      String? downloadUrl,
+      required DateTime createdAt}) async {
+    FireStorePosts()
+        .savePost(
+            posterName: posterName,
+            posterId: posterId,
+            posterProfileUrl: posterProfileUrl,
+            content: content,
+            postType: postType,
+            downloadUrl: downloadUrl,
+            postId: postId)
+        .then((value) {
+      Fluttertoast.showToast(
+        msg: 'Saved',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+      );
+    }).catchError((_) {});
   }
 }

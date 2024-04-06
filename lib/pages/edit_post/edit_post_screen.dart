@@ -6,7 +6,7 @@ import 'package:chatapp/data/model/user_model.dart';
 import 'package:chatapp/generated/l10n.dart';
 import 'package:chatapp/pages/post/add_posts/cubit/post_cubit.dart';
 
-import 'package:chatapp/pages/post/add_posts/widget/add_psot_header.dart';
+import 'package:chatapp/pages/post/add_posts/widget/add_post_header.dart';
 import 'package:chatapp/pages/post/add_posts/widget/post_button.dart';
 
 import 'package:flutter/material.dart';

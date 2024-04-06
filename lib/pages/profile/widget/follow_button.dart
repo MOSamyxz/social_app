@@ -1,7 +1,7 @@
 import 'package:chatapp/core/constants/colors.dart';
 import 'package:chatapp/core/constants/padding.dart';
 import 'package:chatapp/core/widgets/horizontal_space.dart';
-import 'package:chatapp/data/firebase/firebase_auth.dart';
+import 'package:chatapp/data/firebase_auth/firebase_auth.dart';
 import 'package:chatapp/data/model/user_model.dart';
 import 'package:chatapp/pages/edit_profile/edit_profile_screen.dart';
 import 'package:chatapp/pages/profile/cubit/profile_cubit.dart';

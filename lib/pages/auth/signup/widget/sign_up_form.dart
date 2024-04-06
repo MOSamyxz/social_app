@@ -12,6 +12,7 @@ import 'package:chatapp/generated/l10n.dart';
 import 'package:chatapp/pages/auth/signup/cubit/sign_up_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SignUpForm extends StatelessWidget {
   const SignUpForm({
@@ -61,6 +62,7 @@ class SignUpForm extends StatelessWidget {
             children: [
               Expanded(
                 child: CustomeTextFormField(
+                  prefix: FontAwesomeIcons.user,
                   controller: BlocProvider.of<SignUpCubit>(context).fName,
                   hintText: S.of(context).firstName,
                   validator: (input) {
@@ -71,6 +73,7 @@ class SignUpForm extends StatelessWidget {
               const HorizontalSpace(5),
               Expanded(
                 child: CustomeTextFormField(
+                  prefix: FontAwesomeIcons.user,
                   controller: BlocProvider.of<SignUpCubit>(context).lName,
                   hintText: S.of(context).lastName,
                   validator: (input) {
@@ -82,6 +85,7 @@ class SignUpForm extends StatelessWidget {
           ),
           const VerticalSpace(AppSize.s10),
           CustomeTextFormField(
+            prefix: FontAwesomeIcons.envelope,
             controller: BlocProvider.of<SignUpCubit>(context).email,
             hintText: S.of(context).emailAddress,
             validator: (input) {
@@ -90,6 +94,7 @@ class SignUpForm extends StatelessWidget {
           ),
           const VerticalSpace(AppSize.s10),
           CustomeTextFormField(
+            prefix: Icons.lock,
             controller: BlocProvider.of<SignUpCubit>(context).password,
             hintText: S.of(context).password,
             validator: (input) {
@@ -98,6 +103,7 @@ class SignUpForm extends StatelessWidget {
           ),
           const VerticalSpace(AppSize.s10),
           CustomDropDownFormField(
+            prefix: FontAwesomeIcons.marsAndVenus,
             value: S.of(context).gender,
             items: BlocProvider.of<SignUpCubit>(context)
                 .genderList
