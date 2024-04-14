@@ -61,7 +61,6 @@ class SearchPostListBuilder extends StatelessWidget {
                       LikesDataModel likesData =
                           LikesDataModel.fromMap(snapshot.data!.docs[0].data());
                       return PostCard(
-                        index: index,
                         user: user,
                         post: post,
                         likesData: likesData,
@@ -71,7 +70,6 @@ class SearchPostListBuilder extends StatelessWidget {
                     // Handle the case when likesData has data and comments is null or empty
                     else {
                       return PostCard(
-                        index: index,
                         user: user,
                         post: post,
                         likesData: LikesDataModel(

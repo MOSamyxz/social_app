@@ -56,7 +56,6 @@ class HomePostListBuilder extends StatelessWidget {
                             return user.following.contains(post.posterId) ||
                                     post.posterId == user.uId
                                 ? PostCard(
-                                    index: index,
                                     user: user,
                                     post: post,
                                     likesData: likesData,
@@ -66,9 +65,9 @@ class HomePostListBuilder extends StatelessWidget {
                           }
                           // Handle the case when likesData has data and comments is null or empty
                           else {
-                            return user.following.contains(post.posterId)
+                            return user.following.contains(post.posterId) ||
+                                    post.posterId == user.uId
                                 ? PostCard(
-                                    index: index,
                                     user: user,
                                     post: post,
                                     likesData: LikesDataModel(

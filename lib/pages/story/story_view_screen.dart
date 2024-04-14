@@ -11,7 +11,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:story_view/story_view.dart';
 
 class StoryViewScreen extends StatefulWidget {
@@ -74,11 +73,12 @@ class _StoryViewScreenState extends State<StoryViewScreen> {
 
   @override
   Widget build(BuildContext context) {
+    UsersModel user = BlocProvider.of<AppCubit>(context).getUser;
+
     return BlocProvider(
       create: (context) => StoryCubit()..init(),
       child: BlocBuilder<StoryCubit, StoryState>(
         builder: (context, state) {
-          UsersModel myUser = BlocProvider.of<AppCubit>(context).getUser;
           StoryModel story =
               widget.stories[BlocProvider.of<StoryCubit>(context).currentIndex];
           return Scaffold(
@@ -145,24 +145,25 @@ class _StoryViewScreenState extends State<StoryViewScreen> {
                             )
                           ],
                         ),
-                        Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 10.w, vertical: 20.h),
-                            child:
-                                //story.storyAutherId == myUser.uId?
-                                Container(
-                              width: ScreenUtil().screenWidth,
-                              color: AppColors.blackColor.withOpacity(0.2),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text('${story.views.length}'),
-                                  const HorizontalSpace(5),
-                                  const Icon(Icons.visibility_outlined)
-                                ],
-                              ),
-                            ) //:const SizedBox(),
-                            )
+                        if (story.storyAutherId == user.uId)
+                          Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 10.w, vertical: 20.h),
+                              child:
+                                  //story.storyAutherId == myUser.uId?
+                                  Container(
+                                width: ScreenUtil().screenWidth,
+                                color: AppColors.blackColor.withOpacity(0.2),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text('${story.views.length}'),
+                                    const HorizontalSpace(5),
+                                    const Icon(Icons.visibility_outlined)
+                                  ],
+                                ),
+                              ) //:const SizedBox(),
+                              )
                       ],
                     );
                   }));

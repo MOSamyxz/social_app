@@ -30,9 +30,7 @@ class FirebaseAuthServices {
         email: email,
         password: password,
       );
-      final lastStory =
-          Timestamp.fromDate(DateTime.now().subtract(const Duration(hours: 1)));
-
+      final nowTimestamp = Timestamp.now();
       String photoUrl = await FirebaseStorageServices()
           .uploadImageToStorage('Pics', 'profile', file, false);
       UsersModel user = UsersModel(
@@ -50,7 +48,7 @@ class FirebaseAuthServices {
         coverUrl: '',
         lastActive: DateTime.now(),
         isOnline: true,
-        lastStory: lastStory,
+        lastPublishedStory: nowTimestamp,
       );
 
       await _firestore

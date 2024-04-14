@@ -19,45 +19,49 @@ class HomeStoryListBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     UsersModel myUser = BlocProvider.of<AppCubit>(context).getUser;
-    return StreamBuilder(
-        stream: FirebaseFirestore.instance
-            .collection('users')
-            .where('lastStory', isGreaterThan: DateTime.now())
-            .snapshots(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const CircularProgressIndicator();
-          } else {
-            return SizedBox(
-              height: ScreenUtil().screenHeight * 0.18,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  AddStoryItem(
-                    myUser: myUser,
-                  ),
-                  Expanded(
-                    child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: snapshot.data!.docs.length,
-                        itemBuilder: ((context, index) {
-                          var users = UsersModel.fromMap(
-                              snapshot.data!.docs[index].data());
-                          snapshot.data!.docs.map((doc) {
-                            return UsersModel.fromMap(doc.data());
-                          }).toList();
-                          return StoryItem(
-                            user: users,
-                            itemCount: snapshot.data!.docs.length,
-                          );
-                        })),
-                  ),
-                ],
-              ),
-            );
-          }
-        });
+    return Container(
+      padding: EdgeInsets.all(10.w),
+      color: Theme.of(context).cardTheme.color,
+      child: StreamBuilder(
+          stream: FirebaseFirestore.instance
+              .collection('users')
+              .where('lastPublishedStory', isGreaterThan: DateTime.now())
+              .snapshots(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const CircularProgressIndicator();
+            } else {
+              return SizedBox(
+                height: ScreenUtil().screenHeight * 0.16,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    AddStoryItem(
+                      myUser: myUser,
+                    ),
+                    Expanded(
+                      child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: snapshot.data!.docs.length,
+                          itemBuilder: ((context, index) {
+                            var users = UsersModel.fromMap(
+                                snapshot.data!.docs[index].data());
+                            snapshot.data!.docs.map((doc) {
+                              return UsersModel.fromMap(doc.data());
+                            }).toList();
+                            return StoryItem(
+                              user: users,
+                              itemCount: snapshot.data!.docs.length,
+                            );
+                          })),
+                    ),
+                  ],
+                ),
+              );
+            }
+          }),
+    );
   }
 }
 
@@ -131,6 +135,7 @@ class StoryItem extends StatelessWidget {
                   ),
                   const VerticalSpace(5),
                   Container(
+                    alignment: Alignment.center,
                     width: 95,
                     child: Text(
                       user.userName,

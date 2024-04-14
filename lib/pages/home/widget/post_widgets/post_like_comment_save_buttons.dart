@@ -58,12 +58,23 @@ class _PostLikeCommentShareButtonsState
                       !widget.isLiked
                           ? BlocProvider.of<HomeCubit>(context).react = 'Like'
                           : null;
-                      await BlocProvider.of<HomeCubit>(context).likeDislikePost(
+                      BlocProvider.of<HomeCubit>(context).likeDislikePost(
                         postId: widget.post.postId,
                         likes: widget.post.likes,
                         user: widget.user,
                         likesData: widget.post.likesData,
                       );
+                      !widget.isLiked
+                          ? BlocProvider.of<HomeCubit>(context)
+                              .likeNotification(
+                              post: widget.post,
+                              user: widget.user,
+                            )
+                          : BlocProvider.of<HomeCubit>(context)
+                              .removeLikeNotification(
+                              post: widget.post,
+                              user: widget.user,
+                            );
                     },
                     image: BlocProvider.of<HomeCubit>(context).getLikeReact(
                         isLiked: widget.isLiked,
@@ -113,6 +124,10 @@ class _PostLikeCommentShareButtonsState
                   reactionType: reactionType,
                   post: widget.post,
                   user: widget.user);
+              BlocProvider.of<HomeCubit>(context).likeNotification(
+                post: widget.post,
+                user: widget.user,
+              );
               setState(() {
                 showReactionButtons = !showReactionButtons;
               });

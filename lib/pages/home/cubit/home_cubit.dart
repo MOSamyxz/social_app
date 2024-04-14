@@ -3,6 +3,7 @@ import 'package:chatapp/core/constants/assets.dart';
 import 'package:chatapp/core/constants/colors.dart';
 import 'package:chatapp/core/widgets/reaction_button.dart';
 import 'package:chatapp/data/firebase_auth/firestore_services.dart';
+import 'package:chatapp/data/firestore_posts/firestore_notifications.dart';
 import 'package:chatapp/data/model/post_model.dart';
 import 'package:chatapp/data/model/user_model.dart';
 import 'package:chatapp/generated/l10n.dart';
@@ -73,6 +74,37 @@ class HomeCubit extends Cubit<HomeState> {
         likeType: react);
   }
 
+  Future<void> likeNotification(
+      {required Post post,
+      String? lastReactID,
+      String? lastReactImageUrl,
+      String? lastReactName,
+      required UsersModel user}) async {
+    await FireStoreNotifications().sendReactNotification(
+      likeType: react,
+      post: post,
+      user: user,
+    );
+  }
+
+  Future<void> removeLikeNotification(
+      {required Post post, required UsersModel user}) async {
+    await FireStoreNotifications().sendRemoveReactNotification(
+      likeType: react,
+      post: post,
+      user: user,
+    );
+    if (post.likes.length == 1) {
+      removeNotification(post: post);
+    }
+  }
+
+  Future<void> removeNotification({required Post post}) async {
+    await FireStoreNotifications().removeNotification(
+      post: post,
+    );
+  }
+
   Future<void> updateLike(
       {required String postId,
       required List<String> likes,
@@ -111,6 +143,7 @@ class HomeCubit extends Cubit<HomeState> {
                 user: user,
                 likesData: post.likesData,
               );
+
         // Handle like reaction
         break;
       case ReactionType.Wow:

@@ -8,4 +8,8 @@ class AppAssets {
   static const String angry = '$reactPath/angry.png';
   static const String sad = '$reactPath/sad.png';
   static const String wow = '$reactPath/wow.png';
+
+  //images
+  static const String images = 'assets/images';
+  static const String noPost = '$images/nopost.png';
 }

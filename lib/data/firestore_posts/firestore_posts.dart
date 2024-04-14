@@ -8,6 +8,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:uuid/uuid.dart';
+import 'dart:developer';
 
 class FireStorePosts {
   final _auth = FirebaseAuth.instance;
@@ -17,11 +18,14 @@ class FireStorePosts {
   Future<String?> makePost({
     required String posterName,
     required String posterProfileUrl,
-    required String content,
+    String? content,
     File? file,
     required String postType,
   }) async {
     try {
+      if (_auth.currentUser == null) {
+        log('Error: Current user is null');
+      }
       final postId = const Uuid().v1();
       final posterId = _auth.currentUser!.uid;
       final now = DateTime.now();
@@ -38,23 +42,26 @@ class FireStorePosts {
 
       // Create our post
       Post post = Post(
-        postId: postId,
-        posterId: posterId,
-        content: content,
-        postType: postType,
-        fileUrl: downloadUrl,
-        createdAt: now,
-        likes: const [],
-        posterName: posterName,
-        posterProfileUrl: posterProfileUrl,
-        likesData: [],
-      );
+          postId: postId,
+          posterId: posterId,
+          content: content ?? '',
+          postType: postType,
+          fileUrl: downloadUrl,
+          createdAt: now,
+          likes: const [],
+          posterName: posterName,
+          posterProfileUrl: posterProfileUrl,
+          likesData: [],
+          saverId: '',
+          savedAt: null);
 
       // Post to firestore
       _firestore.collection('posts').doc(postId).set(post.toMap());
-
+      log('done');
+      log('${DateTime.fromMillisecondsSinceEpoch(now.millisecondsSinceEpoch)}');
       return null;
     } catch (e) {
+      log('${e.toString()} --//////-');
       return e.toString();
     }
   }

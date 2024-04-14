@@ -51,7 +51,10 @@ class SavedPostsScreen extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => PostView(
-                                      user: user, post: post, index: index)));
+                                        user: user,
+                                        posterName: post.posterName,
+                                        postId: post.postId,
+                                      )));
                         },
                         child: Container(
                             decoration: BoxDecoration(

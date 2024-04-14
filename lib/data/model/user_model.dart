@@ -15,7 +15,7 @@ class UsersModel {
   final List<String> sentRequest;
   final DateTime lastActive;
   final bool isOnline;
-  final Timestamp lastStory;
+  final Timestamp? lastPublishedStory;
 
   const UsersModel({
     required this.uId,
@@ -32,7 +32,7 @@ class UsersModel {
     required this.sentRequest,
     this.isOnline = false,
     required this.lastActive,
-    required this.lastStory,
+    this.lastPublishedStory,
   });
 
   static UsersModel fromMap(Map<String, dynamic> map) {
@@ -47,7 +47,7 @@ class UsersModel {
       gender: map['gender'],
       followers: map['followers'],
       following: map['following'],
-      lastStory: (map['lastStory'] as Timestamp),
+      lastPublishedStory: (map['lastPublishedStory'] as Timestamp),
       receivedRequest: List<String>.from((map['receivedRequest'] ?? [])),
       sentRequest: List<String>.from((map['sentRequest'] ?? [])),
       isOnline: map['isOnline'] ?? false,
@@ -67,7 +67,7 @@ class UsersModel {
       'gender': gender,
       'followers': followers,
       'following': following,
-      'lastStory': lastStory,
+      'lastPublishedStory': lastPublishedStory,
       'receivedRequest': receivedRequest,
       'sentRequest': sentRequest,
       'isOnline': isOnline,

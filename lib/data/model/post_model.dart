@@ -39,7 +39,7 @@ class Post {
       'content': content,
       'fileUrl': fileUrl,
       'createdAt': createdAt.millisecondsSinceEpoch,
-      'savedAt': savedAt!.millisecondsSinceEpoch,
+      'savedAt': savedAt?.millisecondsSinceEpoch,
       'likesData': likesData,
       'postType': postType,
       'likes': likes,

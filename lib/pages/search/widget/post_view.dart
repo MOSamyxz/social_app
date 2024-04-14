@@ -13,17 +13,13 @@ class PostView extends StatelessWidget {
   const PostView({
     Key? key,
     required this.user,
-    required this.post,
-    required this.index,
-    this.commentsLength,
-    this.likesData,
+    required this.posterName,
+    required this.postId,
   }) : super(key: key);
 
   final UsersModel user;
-  final Post post;
-  final int index;
-  final int? commentsLength;
-  final LikesDataModel? likesData;
+  final String posterName;
+  final String postId;
 
   @override
   Widget build(BuildContext context) {
@@ -33,12 +29,12 @@ class PostView extends StatelessWidget {
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
-              title: Text('${post.posterName} post'),
+              title: Text('$posterName post'),
             ),
             body: StreamBuilder(
                 stream: FirebaseFirestore.instance
                     .collection('posts')
-                    .doc(post.postId)
+                    .doc(postId)
                     .snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
@@ -81,7 +77,6 @@ class PostView extends StatelessWidget {
                                                     .data!.docs[0]
                                                     .data());
                                             return PostCard(
-                                              index: index,
                                               user: user,
                                               post: post,
                                               likesData: likesData,
@@ -91,7 +86,6 @@ class PostView extends StatelessWidget {
                                           // Handle the case when likesData has data and comments is null or empty
                                           else {
                                             return PostCard(
-                                              index: index,
                                               user: user,
                                               post: post,
                                               likesData: LikesDataModel(

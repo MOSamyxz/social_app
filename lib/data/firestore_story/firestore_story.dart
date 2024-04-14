@@ -62,8 +62,8 @@ class FireStoreStories {
           .set(story.toMap());
       _firestore
           .collection('users')
-          .doc(myUid)
-          .update({'lastStory': expiryTimestamp});
+          .doc(storyAutherId)
+          .update({'lastPublishedStory': expiryTimestamp});
       return null;
     } catch (e) {
       return e.toString();

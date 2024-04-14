@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
@@ -62,7 +63,9 @@ class PostCubit extends Cubit<PostState> {
     )
         .then((value) {
       Navigator.of(context).pop();
-    }).catchError((_) {});
+    }).catchError((e) {
+      log('${e.toString()} ------------');
+    });
   }
 
   void updatePost(context,

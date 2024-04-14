@@ -14,7 +14,6 @@ class PostCard extends StatelessWidget {
     super.key,
     required this.user,
     required this.post,
-    required this.index,
     this.likesData,
     this.commentsLength,
   });
@@ -22,7 +21,6 @@ class PostCard extends StatelessWidget {
   final UsersModel user;
   final Post post;
   final LikesDataModel? likesData;
-  final int index;
   final int? commentsLength;
 
   @override
