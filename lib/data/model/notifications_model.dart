@@ -3,33 +3,25 @@ class NotificationsModel {
   final String posterName;
   final String posterImageUrl;
   final String postId;
-  final String? reactID;
   final List<String>? reactName;
   final List<String>? reactImageUrl;
-  final String? lastReactID;
-  final String? lastReactName;
-  final String? lastReactImageUrl;
+  final List<String>? commenterName;
+  final List<String>? commenterImageUrl;
   final String? likeType;
-  final String? commenterID;
-  final String? commenterName;
-  final String? commenterImageUrl;
+  final bool isComment;
   final DateTime createdAt;
 
   NotificationsModel({
     required this.posterId,
     required this.posterName,
     required this.posterImageUrl,
-    required this.postId,
-    this.reactID,
-    this.reactName,
-    this.reactImageUrl,
-    this.lastReactID,
-    this.lastReactName,
-    this.lastReactImageUrl,
-    this.likeType,
-    this.commenterID,
     this.commenterName,
     this.commenterImageUrl,
+    required this.postId,
+    this.reactName,
+    this.reactImageUrl,
+    this.likeType,
+    required this.isComment,
     required this.createdAt,
   });
 
@@ -39,16 +31,12 @@ class NotificationsModel {
       'posterName': posterName,
       'posterImageUrl': posterImageUrl,
       'postId': postId,
-      'reactID': reactID,
       'reactName': reactName,
-      'reactImageUrl': reactImageUrl,
-      'lastReactID': lastReactID,
-      'lastReactName': lastReactName,
-      'lastReactImageUrl': lastReactImageUrl,
-      'likeType': likeType,
-      'commenterID': commenterID,
       'commenterName': commenterName,
       'commenterImageUrl': commenterImageUrl,
+      'reactImageUrl': reactImageUrl,
+      'likeType': likeType,
+      'isComment': isComment,
       'createdAt': createdAt.millisecondsSinceEpoch,
     };
   }
@@ -59,16 +47,12 @@ class NotificationsModel {
         posterName: map['posterName'],
         posterImageUrl: map['posterImageUrl'],
         postId: map['postId'],
-        reactID: map['reactID'],
         reactName: List<String>.from(map['reactName'] ?? []),
         reactImageUrl: List<String>.from(map['reactImageUrl'] ?? []),
-        lastReactID: map['lastReactID'],
-        lastReactName: map['lastReactName'],
-        lastReactImageUrl: map['lastReactImageUrl'],
+        commenterName: List<String>.from(map['commenterName'] ?? []),
+        commenterImageUrl: List<String>.from(map['commenterImageUrl'] ?? []),
         likeType: map['likeType'],
-        commenterID: map['commenterID'],
-        commenterName: map['commenterName'],
-        commenterImageUrl: map['commenterImageUrl'],
+        isComment: map['isComment'],
         createdAt: DateTime.fromMillisecondsSinceEpoch(
           map['createdAt'] ?? 0,
         ));

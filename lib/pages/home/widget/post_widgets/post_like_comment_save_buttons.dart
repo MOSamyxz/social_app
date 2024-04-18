@@ -1,3 +1,4 @@
+import 'package:chatapp/core/constants/assets.dart';
 import 'package:chatapp/core/widgets/reaction_button.dart';
 import 'package:chatapp/data/model/like_data_model.dart';
 import 'package:chatapp/data/model/post_model.dart';
@@ -49,6 +50,7 @@ class _PostLikeCommentShareButtonsState
                   });
                 },
                 child: PostCardButton(
+                    isComment: false,
                     text: widget.isLiked
                         ? BlocProvider.of<HomeCubit>(context).getReact(context,
                             isLiked: widget.isLiked,
@@ -86,19 +88,21 @@ class _PostLikeCommentShareButtonsState
               ),
             ),
             PostCardButton(
+              isComment: true,
               text: S.of(context).comment,
               onPressed: () {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) => CommentScreen(
-                              postId: widget.post.postId,
+                              post: widget.post,
                             )));
               },
-              icon: FontAwesomeIcons.comment,
+              image: AppAssets.comment,
             ),
             Expanded(
               child: PostCardButton(
+                isComment: false,
                 text: S.of(context).save,
                 onPressed: () {
                   BlocProvider.of<HomeCubit>(context).savePost(context,
@@ -109,7 +113,8 @@ class _PostLikeCommentShareButtonsState
                       postType: widget.post.postType,
                       createdAt: widget.post.createdAt,
                       downloadUrl: widget.post.fileUrl,
-                      postId: widget.post.postId);
+                      postId: widget.post.postId,
+                      posterToken: widget.post.posterToken);
                 },
                 icon: FontAwesomeIcons.bookmark,
               ),

@@ -91,7 +91,7 @@ class PostStats extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) => CommentScreen(
-                                postId: post.postId,
+                                post: post,
                               )));
                 },
               ),

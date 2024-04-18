@@ -9,6 +9,7 @@ class UsersModel {
   final String bio;
   final String birthDay;
   final String gender;
+  final String token;
   final List followers;
   final List following;
   final List<String> receivedRequest;
@@ -26,6 +27,7 @@ class UsersModel {
     required this.bio,
     required this.birthDay,
     required this.gender,
+    required this.token,
     required this.followers,
     required this.following,
     required this.receivedRequest,
@@ -45,6 +47,7 @@ class UsersModel {
       bio: map['bio'],
       birthDay: map['birthDay'],
       gender: map['gender'],
+      token: map['token'],
       followers: map['followers'],
       following: map['following'],
       lastPublishedStory: (map['lastPublishedStory'] as Timestamp),
@@ -65,6 +68,7 @@ class UsersModel {
       'bio': bio,
       'birthDay': birthDay,
       'gender': gender,
+      'token': token,
       'followers': followers,
       'following': following,
       'lastPublishedStory': lastPublishedStory,

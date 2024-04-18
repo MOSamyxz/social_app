@@ -3,6 +3,7 @@ import 'package:chatapp/core/constants/assets.dart';
 import 'package:chatapp/core/constants/colors.dart';
 import 'package:chatapp/core/widgets/reaction_button.dart';
 import 'package:chatapp/data/firebase_auth/firestore_services.dart';
+import 'package:chatapp/data/firebase_notifications.dart';
 import 'package:chatapp/data/firestore_posts/firestore_notifications.dart';
 import 'package:chatapp/data/model/post_model.dart';
 import 'package:chatapp/data/model/user_model.dart';
@@ -75,16 +76,17 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   Future<void> likeNotification(
-      {required Post post,
-      String? lastReactID,
-      String? lastReactImageUrl,
-      String? lastReactName,
-      required UsersModel user}) async {
+      {required Post post, required UsersModel user}) async {
     await FireStoreNotifications().sendReactNotification(
       likeType: react,
       post: post,
       user: user,
     );
+    await FirebaseNotification().sendMessage(
+        title: '7war App',
+        discreption: '${user.userName} liked your post.',
+        token: post.posterToken,
+        data: {'postId': post.postId, 'type': 'like'});
   }
 
   Future<void> removeLikeNotification(
@@ -95,12 +97,46 @@ class HomeCubit extends Cubit<HomeState> {
       user: user,
     );
     if (post.likes.length == 1) {
-      removeNotification(post: post);
+      removeLikeNotifications(post: post);
     }
   }
 
-  Future<void> removeNotification({required Post post}) async {
+  Future<void> removeLikeNotifications({required Post post}) async {
     await FireStoreNotifications().removeNotification(
+      post: post,
+    );
+  }
+
+  Future<void> commentNotification(
+      {required Post post, required UsersModel user}) async {
+    await FireStoreNotifications().sendCommentNotification(
+      likeType: react,
+      post: post,
+      user: user,
+    );
+    await FirebaseNotification().sendMessage(
+        title: '7war App',
+        discreption: '${user.userName} commented on your post.',
+        token: post.posterToken,
+        data: {'postId': post.postId, 'type': 'comment'});
+  }
+
+  Future<void> removeCommentNotification(
+      {required Post post,
+      required UsersModel user,
+      required int length}) async {
+    await FireStoreNotifications().sendRemoveCommentNotification(
+      likeType: react,
+      post: post,
+      user: user,
+    );
+    if (length == 1) {
+      removeCommentNotifications(post: post);
+    }
+  }
+
+  Future<void> removeCommentNotifications({required Post post}) async {
+    await FireStoreNotifications().removeCommentNotification(
       post: post,
     );
   }
@@ -303,6 +339,7 @@ class HomeCubit extends Cubit<HomeState> {
       required String content,
       required String postId,
       required String postType,
+      required String posterToken,
       String? downloadUrl,
       required DateTime createdAt}) async {
     FireStorePosts()
@@ -313,7 +350,8 @@ class HomeCubit extends Cubit<HomeState> {
             content: content,
             postType: postType,
             downloadUrl: downloadUrl,
-            postId: postId)
+            postId: postId,
+            posterToken: posterToken)
         .then((value) {
       Fluttertoast.showToast(
         msg: 'Saved',

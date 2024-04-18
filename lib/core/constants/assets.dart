@@ -12,4 +12,5 @@ class AppAssets {
   //images
   static const String images = 'assets/images';
   static const String noPost = '$images/nopost.png';
+  static const String comment = '$images/bubble-chat.png';
 }

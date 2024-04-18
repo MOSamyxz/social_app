@@ -32,6 +32,7 @@ class AppPostView extends StatelessWidget {
                   context,
                   posterName: user.userName,
                   posterProfileUrl: user.imageUrl,
+                  posterToken: user.token,
                 );
               },
             ),

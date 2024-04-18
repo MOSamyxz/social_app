@@ -52,7 +52,9 @@ class PostCubit extends Cubit<PostState> {
   }
 
   void createPost(context,
-      {required String posterName, required String posterProfileUrl}) async {
+      {required String posterName,
+      required String posterToken,
+      required String posterProfileUrl}) async {
     FireStorePosts()
         .makePost(
       content: postController.text,
@@ -60,6 +62,7 @@ class PostCubit extends Cubit<PostState> {
       postType: fileType == null ? 'post' : fileType!,
       posterName: posterName,
       posterProfileUrl: posterProfileUrl,
+      posterToken: posterToken,
     )
         .then((value) {
       Navigator.of(context).pop();

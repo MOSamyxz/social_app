@@ -108,7 +108,7 @@ class PostView extends StatelessWidget {
                                     child: CommentList(
                                         physics:
                                             const NeverScrollableScrollPhysics(),
-                                        postId: post.postId,
+                                        post: post,
                                         user: user),
                                   )
                                 ],

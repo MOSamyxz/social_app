@@ -1,10 +1,10 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:typed_data';
-
 import 'package:chatapp/core/routes/routes.dart';
 import 'package:chatapp/core/services/cache_helper.dart';
 import 'package:chatapp/data/firebase_auth/firebase_storage_services.dart';
+import 'package:chatapp/data/firebase_notifications.dart';
 import 'package:chatapp/data/model/user_model.dart';
 import 'package:chatapp/generated/l10n.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -33,6 +33,8 @@ class FirebaseAuthServices {
       final nowTimestamp = Timestamp.now();
       String photoUrl = await FirebaseStorageServices()
           .uploadImageToStorage('Pics', 'profile', file, false);
+      String? savedToken = await FirebaseNotification().registerDeviceToken();
+
       UsersModel user = UsersModel(
         userName: username,
         uId: credential.user!.uid,
@@ -49,6 +51,7 @@ class FirebaseAuthServices {
         lastActive: DateTime.now(),
         isOnline: true,
         lastPublishedStory: nowTimestamp,
+        token: savedToken!,
       );
 
       await _firestore
@@ -96,6 +99,11 @@ class FirebaseAuthServices {
     try {
       final credential = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
+      final myUid = FirebaseAuth.instance.currentUser!.uid;
+
+      String? savedToken = await FirebaseNotification().registerDeviceToken();
+
+      _firestore.collection('users').doc(myUid).update({'token': savedToken});
 
       if (credential.user!.emailVerified) {
         GoRouter.of(context).pushReplacement(Routes.applayout);

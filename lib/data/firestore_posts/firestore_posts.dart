@@ -18,6 +18,7 @@ class FireStorePosts {
   Future<String?> makePost({
     required String posterName,
     required String posterProfileUrl,
+    required String posterToken,
     String? content,
     File? file,
     required String postType,
@@ -53,7 +54,8 @@ class FireStorePosts {
           posterProfileUrl: posterProfileUrl,
           likesData: [],
           saverId: '',
-          savedAt: null);
+          savedAt: null,
+          posterToken: posterToken);
 
       // Post to firestore
       _firestore.collection('posts').doc(postId).set(post.toMap());
@@ -75,6 +77,7 @@ class FireStorePosts {
     required String content,
     required String postId,
     required String postType,
+    required String posterToken,
     String? downloadUrl,
   }) async {
     try {
@@ -95,6 +98,7 @@ class FireStorePosts {
         posterName: posterName,
         posterProfileUrl: posterProfileUrl,
         likesData: [],
+        posterToken: posterToken,
       );
 
       // Post to firestore
@@ -301,5 +305,22 @@ class FireStorePosts {
     } catch (e) {
       return e.toString();
     }
+  }
+
+  Future<String?> deleteComment({
+    required String postId,
+    required String commentId,
+  }) async {
+    try {
+      await _firestore
+          .collection('posts')
+          .doc(postId)
+          .collection('comments')
+          .doc(commentId)
+          .delete();
+    } catch (err) {
+      return err.toString();
+    }
+    return null;
   }
 }

@@ -7,12 +7,15 @@ import 'package:chatapp/core/widgets/horizontal_space.dart';
 import 'package:chatapp/core/widgets/vertical_space.dart';
 import 'package:chatapp/cubit/app_cubit.dart';
 import 'package:chatapp/data/model/comment_model.dart';
+import 'package:chatapp/data/model/post_model.dart';
 import 'package:chatapp/data/model/user_model.dart';
 import 'package:chatapp/generated/l10n.dart';
 import 'package:chatapp/pages/home/cubit/home_cubit.dart';
+import 'package:chatapp/pages/post/comments/cubit/comments_cubit.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -20,9 +23,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class CommentScreen extends StatelessWidget {
   const CommentScreen({
     super.key,
-    required this.postId,
+    required this.post,
   });
-  final String postId;
+  final Post post;
 
   @override
   Widget build(BuildContext context) {
@@ -42,10 +45,10 @@ class CommentScreen extends StatelessWidget {
         ),
         body: Column(
           children: [
-            Expanded(child: CommentList(postId: postId, user: user)),
+            Expanded(child: CommentList(post: post, user: user)),
             BlocBuilder<HomeCubit, HomeState>(
               builder: (context, state) {
-                return CommentTextField(user: user, postId: postId);
+                return CommentTextField(user: user, post: post);
               },
             )
           ],
@@ -58,12 +61,12 @@ class CommentScreen extends StatelessWidget {
 class CommentList extends StatelessWidget {
   const CommentList({
     super.key,
-    required this.postId,
+    required this.post,
     required this.user,
     this.physics,
   });
 
-  final String postId;
+  final Post post;
   final UsersModel user;
   final ScrollPhysics? physics;
 
@@ -76,7 +79,7 @@ class CommentList extends StatelessWidget {
           StreamBuilder(
             stream: FirebaseFirestore.instance
                 .collection('posts')
-                .doc(postId)
+                .doc(post.postId)
                 .collection('comments')
                 .orderBy('createdAt', descending: true)
                 .snapshots(),
@@ -114,30 +117,47 @@ class CommentList extends StatelessWidget {
                                       : TextDirection.ltr,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Container(
-                                  padding: EdgeInsets.all(5.h),
-                                  decoration: BoxDecoration(
-                                      color: BlocProvider.of<AppCubit>(context)
-                                              .isDark
-                                          ? Theme.of(context).cardTheme.color
-                                          : AppColors.lightScaffoldColor,
-                                      borderRadius:
-                                          BorderRadius.circular(AppSize.r15)),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        comments[index].authorName,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16.sp),
-                                      ),
-                                      Text(
-                                        comments[index].text,
-                                        style: TextStyle(fontSize: 16.sp),
-                                      ),
-                                    ],
+                                GestureDetector(
+                                  onLongPress: () {
+                                    BlocProvider.of<CommentsCubit>(context)
+                                        .deleteComment(
+                                            postId: post.postId,
+                                            commentId:
+                                                comments[index].commentId);
+                                    BlocProvider.of<HomeCubit>(context)
+                                        .removeCommentNotification(
+                                            post: post,
+                                            user: user,
+                                            length: comments.length);
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.all(5.h),
+                                    decoration: BoxDecoration(
+                                        color:
+                                            BlocProvider.of<AppCubit>(context)
+                                                    .isDark
+                                                ? Theme.of(context)
+                                                    .cardTheme
+                                                    .color
+                                                : AppColors.lightScaffoldColor,
+                                        borderRadius:
+                                            BorderRadius.circular(AppSize.r15)),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          comments[index].authorName,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16.sp),
+                                        ),
+                                        Text(
+                                          comments[index].text,
+                                          style: TextStyle(fontSize: 16.sp),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                                 BlocBuilder<HomeCubit, HomeState>(
@@ -159,7 +179,7 @@ class CommentList extends StatelessWidget {
                                           onTap: () {
                                             BlocProvider.of<HomeCubit>(context)
                                                 .likeDislikeComment(
-                                                    postId: postId,
+                                                    postId: post.postId,
                                                     commentId: comments[index]
                                                         .commentId,
                                                     likes:
@@ -278,11 +298,11 @@ class CommentTextField extends StatefulWidget {
   const CommentTextField({
     super.key,
     required this.user,
-    required this.postId,
+    required this.post,
   });
 
   final UsersModel user;
-  final String postId;
+  final Post post;
 
   @override
   State<CommentTextField> createState() => _CommentTextFieldState();
@@ -363,7 +383,9 @@ class _CommentTextFieldState extends State<CommentTextField> {
                 child: InkWell(
                   onTap: () {
                     BlocProvider.of<HomeCubit>(context).createComment(
-                        postId: widget.postId, user: widget.user);
+                        postId: widget.post.postId, user: widget.user);
+                    BlocProvider.of<HomeCubit>(context).commentNotification(
+                        post: widget.post, user: widget.user);
                     BlocProvider.of<HomeCubit>(context)
                         .commentController
                         .clear();

@@ -36,4 +36,11 @@ class CommentsCubit extends Cubit<CommentsState> {
       commentId: commentId,
     );
   }
+
+  Future<void> deleteComment({
+    required String postId,
+    required String commentId,
+  }) async {
+    await FireStorePosts().deleteComment(postId: postId, commentId: commentId);
+  }
 }

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Post {
   final String postId;
+  final String posterToken;
   final String posterId;
   final String posterName;
   final String posterProfileUrl;
@@ -16,6 +17,7 @@ class Post {
 
   Post({
     required this.postId,
+    required this.posterToken,
     required this.posterId,
     required this.posterName,
     required this.posterProfileUrl,
@@ -32,6 +34,7 @@ class Post {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'postId': postId,
+      'posterToken': posterToken,
       'posterId': posterId,
       'posterName': posterName,
       'saverId': saverId,
@@ -49,6 +52,7 @@ class Post {
   factory Post.fromMap(Map<String, dynamic> map) {
     return Post(
         postId: map['postId'] ?? '',
+        posterToken: map['posterToken'] ?? '',
         posterId: map['posterId'] ?? '',
         posterName: map['posterName'] ?? '',
         saverId: map['saverId'] ?? '',
@@ -69,6 +73,7 @@ class Post {
   factory Post.fromSnapshot(DocumentSnapshot<Object?> map) {
     return Post(
         postId: map['postId'] ?? '',
+        posterToken: map['posterToken'] ?? '',
         posterId: map['posterId'] ?? '',
         posterName: map['posterName'] ?? '',
         posterProfileUrl: map['posterProfileUrl'] ?? '',

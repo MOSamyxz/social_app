@@ -1,7 +1,10 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:chatapp/core/constants/theme.dart';
 import 'package:chatapp/core/routes/app_router.dart';
 import 'package:chatapp/core/services/cache_helper.dart';
+import 'package:chatapp/core/services/local_notifications.dart';
 import 'package:chatapp/cubit/app_cubit.dart';
+import 'package:chatapp/data/firebase_notifications.dart';
 import 'package:chatapp/firebase_options.dart';
 import 'package:chatapp/generated/l10n.dart';
 
@@ -16,6 +19,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   CacheHelper().init();
+  await AwesomeNotificationServices().initializeNotifications();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -25,14 +30,40 @@ void main() async {
   ));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp(
     this.isDark, {
     super.key,
   });
   final bool? isDark;
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+    FirebaseNotification().requestPermission();
+    FirebaseNotification().setupFirebaseMessaging();
+  }
+
   // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return App(isDark: widget.isDark);
+  }
+}
+
+class App extends StatelessWidget {
+  const App({
+    super.key,
+    required this.isDark,
+  });
+
+  final bool? isDark;
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(

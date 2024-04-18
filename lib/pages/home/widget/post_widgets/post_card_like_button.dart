@@ -13,12 +13,14 @@ class PostCardButton extends StatelessWidget {
     required this.onPressed,
     this.icon,
     this.color,
+    required this.isComment,
   });
   final String text;
   final String? image;
   final void Function() onPressed;
   final IconData? icon;
   final Color? color;
+  final bool isComment;
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
@@ -38,10 +40,16 @@ class PostCardButton extends StatelessWidget {
                     color: color ?? AppColors.darkGreyColor,
                   ),
                 )
-              : Image.asset(
-                  image!,
-                  width: AppSize.r25,
-                ),
+              : isComment
+                  ? Image.asset(
+                      image!,
+                      width: AppSize.r25,
+                      color: AppColors.darkGreyColor,
+                    )
+                  : Image.asset(
+                      image!,
+                      width: AppSize.r25,
+                    ),
           const HorizontalSpace(5),
           Text(
             text,
