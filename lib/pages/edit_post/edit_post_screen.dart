@@ -38,7 +38,6 @@ class EditPostScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: AppSize.s10),
                   child: PostButton(
-                    user: user,
                     text: 'Edit',
                     onPressed: () {
                       BlocProvider.of<PostCubit>(context).updatePost(
@@ -59,6 +58,9 @@ class EditPostScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   mainAxisSize: MainAxisSize.max,
                   children: [
+                    BlocProvider.of<PostCubit>(context).isLoading
+                        ? const LinearProgressIndicator()
+                        : const SizedBox(),
                     Expanded(
                       child: Padding(
                         padding: AppPadding.screenPadding,

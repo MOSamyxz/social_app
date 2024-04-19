@@ -1,4 +1,3 @@
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:chatapp/core/constants/theme.dart';
 import 'package:chatapp/core/routes/app_router.dart';
 import 'package:chatapp/core/services/cache_helper.dart';

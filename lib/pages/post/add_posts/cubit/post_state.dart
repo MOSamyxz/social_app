@@ -14,3 +14,9 @@ final class ImagePickedLoadingState extends PostState {}
 final class ImagePickedSuccessState extends PostState {}
 
 final class FileRemovedSuccessState extends PostState {}
+
+final class PostLoadingState extends PostState {}
+
+final class PostSuccessState extends PostState {}
+
+final class PostErrorState extends PostState {}

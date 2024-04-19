@@ -15,6 +15,7 @@ class PostCubit extends Cubit<PostState> {
   late TextEditingController editPostController;
   File? file;
   String? fileType;
+  bool isLoading = false;
   init() {
     postController = TextEditingController();
     editPostController = TextEditingController();
@@ -55,6 +56,8 @@ class PostCubit extends Cubit<PostState> {
       {required String posterName,
       required String posterToken,
       required String posterProfileUrl}) async {
+    emit(PostLoadingState());
+    isLoading = true;
     FireStorePosts()
         .makePost(
       content: postController.text,
@@ -66,17 +69,22 @@ class PostCubit extends Cubit<PostState> {
     )
         .then((value) {
       Navigator.of(context).pop();
+      isLoading = false;
+      emit(PostSuccessState());
     }).catchError((e) {
+      emit(PostErrorState());
       log('${e.toString()} ------------');
     });
   }
 
   void updatePost(context,
       {required String postId, required String postContent}) {
+    isLoading = true;
     FireStorePosts()
         .updatePost(postId: postId, postContent: postContent)
         .then((value) {
       Navigator.of(context).pop();
+      isLoading = false;
     }).catchError((_) {});
   }
 }

@@ -20,3 +20,9 @@ final class CurrentIndexChangeState extends StoryState {}
 final class GetStoriesState extends StoryState {}
 
 final class StoryLikeDisLikeState extends StoryState {}
+
+final class PostStoryLoadingState extends StoryState {}
+
+final class PostStorySuccessState extends StoryState {}
+
+final class PostStoryErrorState extends StoryState {}

@@ -80,6 +80,8 @@ class StoryCubit extends Cubit<StoryState> {
     required String storyAuther,
     required String storyAutherProfileUrl,
   }) async {
+    emit(PostStoryLoadingState());
+    isLoading = true;
     FireStoreStories()
         .makeStory(
       storyAuther: storyAuther,
@@ -90,7 +92,11 @@ class StoryCubit extends Cubit<StoryState> {
     )
         .then((value) {
       Navigator.of(context).pop();
-    }).catchError((_) {});
+      isLoading = false;
+      emit(PostStorySuccessState());
+    }).catchError((_) {
+      emit(PostStoryErrorState());
+    });
   }
 
   void onchanged(String text) {

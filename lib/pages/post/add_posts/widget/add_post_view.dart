@@ -18,40 +18,46 @@ class AppPostView extends StatelessWidget {
   Widget build(BuildContext context) {
     UsersModel user = BlocProvider.of<AppCubit>(context).getUser;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(S.of(context).createPost), // Set the title here
-        actions: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: AppSize.s10),
-            child: PostButton(
-              user: user,
-              text: S.of(context).post,
-              onPressed: () {
-                BlocProvider.of<PostCubit>(context).createPost(
-                  context,
-                  posterName: user.userName,
-                  posterProfileUrl: user.imageUrl,
-                  posterToken: user.token,
-                );
-              },
-            ),
-          )
-        ], // Set the actions here
-      ),
-      //bottomNavigationBar: const ImageVideoAddPostButton(),
-      body: BlocBuilder<PostCubit, PostState>(
-        builder: (context, state) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              AddPostBody(user: user),
-              const ImageVideoAddPostButton()
-            ],
-          );
-        },
-      ),
+    return BlocBuilder<PostCubit, PostState>(
+      builder: (context, state) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(S.of(context).createPost), // Set the title here
+            actions: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: AppSize.s10),
+                child: PostButton(
+                  text: S.of(context).post,
+                  onPressed: () {
+                    BlocProvider.of<PostCubit>(context).createPost(
+                      context,
+                      posterName: user.userName,
+                      posterProfileUrl: user.imageUrl,
+                      posterToken: user.token,
+                    );
+                  },
+                ),
+              )
+            ], // Set the actions here
+          ),
+          //bottomNavigationBar: const ImageVideoAddPostButton(),
+          body: BlocBuilder<PostCubit, PostState>(
+            builder: (context, state) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  BlocProvider.of<PostCubit>(context).isLoading
+                      ? LinearProgressIndicator()
+                      : SizedBox(),
+                  AddPostBody(user: user),
+                  const ImageVideoAddPostButton()
+                ],
+              );
+            },
+          ),
+        );
+      },
     );
   }
 }
