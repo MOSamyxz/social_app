@@ -63,7 +63,7 @@ class SavedPostsScreen extends StatelessWidget {
                                 color: Theme.of(context).cardTheme.color),
                             child: Row(
                               children: [
-                                Container(
+                                SizedBox(
                                   width: ScreenUtil().screenWidth * 0.25,
                                   height: ScreenUtil().screenWidth * 0.25,
                                   child: post.fileUrl == ''
@@ -102,7 +102,7 @@ class SavedPostsScreen extends StatelessWidget {
                                             : post.postType == 'postMediaImage'
                                                 ? 'Image'
                                                 : 'Video'),
-                                        Text(' ● '),
+                                        const Text(' ● '),
                                         Text(getPostTimeText(post.savedAt!))
                                       ],
                                     ),

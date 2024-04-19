@@ -69,17 +69,6 @@ class LikesScreen extends StatelessWidget {
                                                   width: AppSize.r25,
                                                 ),
                         )
-
-                        /* case ReactionType.Like:
-        return Icons.thumb_up;
-      case ReactionType.Love:
-        return Icons.favorite;
-      case ReactionType.Haha:
-        return Icons.sentiment_satisfied;
-      case ReactionType.Angry:
-        return Icons.sentiment_very_dissatisfied;
-      case ReactionType.Sad:
-        return Icons.sentiment_dissatisfied; */
                       ],
                     ),
                     title: Text(likesData.userName),

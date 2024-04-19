@@ -4,7 +4,7 @@ import 'package:chatapp/data/model/user_model.dart';
 import 'package:chatapp/pages/home/cubit/home_cubit.dart';
 import 'package:chatapp/pages/home/widget/post_widgets/post_card.dart';
 import 'package:chatapp/pages/home/widget/post_widgets/post_shimmer.dart';
-import 'package:chatapp/pages/post/comments_screen.dart';
+import 'package:chatapp/pages/post/comments/widgets/comment_list.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
