@@ -51,7 +51,10 @@ class CommentBody extends StatelessWidget {
                     ? Theme.of(context).cardTheme.color
                     : AppColors.lightScaffoldColor,
                 borderRadius: BorderRadius.circular(AppSize.r15)),
-            child: CommentContent(comments: comments, index: index),
+            child: CommentContent(
+              comments: comments,
+              index: index,
+            ),
           ),
         ),
         CommentReactButton(

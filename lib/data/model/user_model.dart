@@ -14,8 +14,7 @@ class UsersModel {
   final List following;
   final List<String> receivedRequest;
   final List<String> sentRequest;
-  final DateTime lastActive;
-  final bool isOnline;
+  final bool isVerified;
   final Timestamp? lastPublishedStory;
 
   const UsersModel({
@@ -32,8 +31,7 @@ class UsersModel {
     required this.following,
     required this.receivedRequest,
     required this.sentRequest,
-    this.isOnline = false,
-    required this.lastActive,
+    this.isVerified = false,
     this.lastPublishedStory,
   });
 
@@ -53,8 +51,7 @@ class UsersModel {
       lastPublishedStory: (map['lastPublishedStory'] as Timestamp),
       receivedRequest: List<String>.from((map['receivedRequest'] ?? [])),
       sentRequest: List<String>.from((map['sentRequest'] ?? [])),
-      isOnline: map['isOnline'] ?? false,
-      lastActive: DateTime.fromMillisecondsSinceEpoch(map['lastActive'] ?? 0),
+      isVerified: map['isVerified'] ?? false,
     );
   }
 
@@ -74,8 +71,7 @@ class UsersModel {
       'lastPublishedStory': lastPublishedStory,
       'receivedRequest': receivedRequest,
       'sentRequest': sentRequest,
-      'isOnline': isOnline,
-      'lastActive': lastActive.millisecondsSinceEpoch,
+      'isVerified': isVerified,
     };
   }
 }

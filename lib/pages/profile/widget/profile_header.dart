@@ -14,9 +14,11 @@ class ProfileHeader extends StatelessWidget {
     required this.postLen,
     required this.isFollowing,
     required this.isSentRequest,
+    required this.myUser,
   }) : super(key: key);
 
   final UsersModel user;
+  final UsersModel myUser;
   final int postLen;
   final bool isFollowing;
   final bool isSentRequest;
@@ -33,6 +35,7 @@ class ProfileHeader extends StatelessWidget {
           ProfileStates(postLen: postLen, user: user),
           StreamFollowButton(
             profileUser: user,
+            myUser: myUser,
             isFollowing: isFollowing,
             isSentRequest: isSentRequest,
           ),

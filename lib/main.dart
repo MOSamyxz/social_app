@@ -69,6 +69,7 @@ class App extends StatelessWidget {
       create: (context) => AppCubit()
         ..init()
         ..getUserData()
+        ..getVerifiedMembers()
         ..changeAppMode(fromShared: isDark),
       child: BlocBuilder<AppCubit, AppState>(
         builder: (context, state) {

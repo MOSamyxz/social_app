@@ -29,23 +29,38 @@ class AddStoryScreen extends StatelessWidget {
                     })
               ],
             ),
-            body: SingleChildScrollView(
-              child: Column(children: [
-                BlocProvider.of<StoryCubit>(context).isLoading
-                    ? const LinearProgressIndicator()
-                    : const SizedBox(),
-                BlocProvider.of<StoryCubit>(context).file == null
-                    ? Container(
-                        alignment: Alignment.center,
-                        width: double.infinity,
-                        height: ScreenUtil().screenHeight * 0.75,
-                        decoration: const BoxDecoration(color: Colors.red),
-                        child: Text(BlocProvider.of<StoryCubit>(context)
-                            .storyTextController
-                            .text))
-                    : const ImageVideoViews(),
-                const AddStoryTextFIeld(),
-              ]),
+            body: Stack(
+              children: [
+                SingleChildScrollView(
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        BlocProvider.of<StoryCubit>(context).file == null
+                            ? Container(
+                                alignment: Alignment.center,
+                                width: double.infinity,
+                                height: ScreenUtil().screenHeight * 0.75,
+                                decoration:
+                                    const BoxDecoration(color: Colors.red),
+                                child: Text(BlocProvider.of<StoryCubit>(context)
+                                    .storyTextController
+                                    .text))
+                            : const Center(child: ImageVideoViews()),
+                        SizedBox(
+                          height: 60.h,
+                        )
+                      ]),
+                ),
+                Column(
+                  children: [
+                    BlocProvider.of<StoryCubit>(context).isLoading
+                        ? const LinearProgressIndicator()
+                        : const SizedBox(),
+                    const Spacer(),
+                    const AddStoryTextFIeld(),
+                  ],
+                )
+              ],
             ),
           );
         },

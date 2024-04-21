@@ -5,6 +5,7 @@ import 'package:chatapp/generated/l10n.dart';
 import 'package:chatapp/data/firestore_profile/firestore_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 
 part 'eidtprofile_state.dart';
@@ -18,6 +19,7 @@ class EidtProfileCubit extends Cubit<EidtProfileState> {
   late TextEditingController gender;
   List<String> genderList = [S().male, S().female];
   bool isLoading = false;
+  bool isLoadingData = false;
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
   void init({
@@ -44,11 +46,19 @@ class EidtProfileCubit extends Cubit<EidtProfileState> {
 
   Future<void> updateData() async {
     if (formkey.currentState!.validate()) {
+      isLoadingData = true;
       FirestorProfile().updateData(
         userName: userName.text,
         bio: bio.text,
         birthDay: birthday.text,
         gender: gender.text,
+      );
+      isLoadingData = false;
+
+      Fluttertoast.showToast(
+        msg: 'Updated',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
       );
     }
   }
@@ -80,6 +90,11 @@ class EidtProfileCubit extends Cubit<EidtProfileState> {
 
     FirestorProfile().updateProfile(photoUrl);
     isLoading = false;
+    Fluttertoast.showToast(
+      msg: 'Updated',
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+    );
     emit(ChangeProfileSuccessState());
   }
 
@@ -91,7 +106,11 @@ class EidtProfileCubit extends Cubit<EidtProfileState> {
 
     FirestorProfile().updateCover(photoUrl);
     isLoading = false;
-
+    Fluttertoast.showToast(
+      msg: 'Updated',
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+    );
     emit(ChangeCoverSuccessState());
   }
 }

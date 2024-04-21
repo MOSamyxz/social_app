@@ -125,6 +125,40 @@ class EditProfileScreen extends StatelessWidget {
                           ],
                         ),
                       ),
+                      BlocProvider.of<EidtProfileCubit>(context).cover !=
+                                  null ||
+                              BlocProvider.of<EidtProfileCubit>(context)
+                                      .profile !=
+                                  null
+                          ? CustomButton(
+                              onPressed: () {
+                                if (BlocProvider.of<EidtProfileCubit>(context)
+                                        .cover !=
+                                    null) {
+                                  BlocProvider.of<EidtProfileCubit>(context)
+                                      .updateCover();
+                                }
+                                if (BlocProvider.of<EidtProfileCubit>(context)
+                                        .profile !=
+                                    null) {
+                                  BlocProvider.of<EidtProfileCubit>(context)
+                                      .updateProfile();
+                                }
+                              },
+                              child: BlocProvider.of<EidtProfileCubit>(context)
+                                      .isLoading
+                                  ? const CircularProgressIndicator()
+                                  : Text(
+                                      'Edit',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelMedium!
+                                          .copyWith(
+                                              fontWeight:
+                                                  AppFontWeight.semiBold,
+                                              color: AppColors.realWhiteColor),
+                                    ))
+                          : const SizedBox(),
                       const VerticalSpace(AppSize.s10),
                       CustomeTextFormField(
                         controller:
@@ -194,23 +228,11 @@ class EditProfileScreen extends StatelessWidget {
                       const VerticalSpace(AppSize.s10),
                       CustomButton(
                           onPressed: () {
-                            if (BlocProvider.of<EidtProfileCubit>(context)
-                                    .cover !=
-                                null) {
-                              BlocProvider.of<EidtProfileCubit>(context)
-                                  .updateCover();
-                            }
-                            if (BlocProvider.of<EidtProfileCubit>(context)
-                                    .profile !=
-                                null) {
-                              BlocProvider.of<EidtProfileCubit>(context)
-                                  .updateProfile();
-                            }
                             BlocProvider.of<EidtProfileCubit>(context)
                                 .updateData();
                           },
                           child: BlocProvider.of<EidtProfileCubit>(context)
-                                  .isLoading
+                                  .isLoadingData
                               ? const CircularProgressIndicator()
                               : Text(
                                   'Edit',

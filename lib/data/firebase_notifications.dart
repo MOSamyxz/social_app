@@ -39,7 +39,7 @@ class FirebaseNotification {
       {required String title,
       required String discreption,
       required String token,
-      required Map<String, dynamic> data}) async {
+      required Map<String, dynamic>? data}) async {
     var headersList = {
       'Accept': '*/*',
       'Content-Type': 'application/json',

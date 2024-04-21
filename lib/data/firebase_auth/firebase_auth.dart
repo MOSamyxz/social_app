@@ -48,8 +48,7 @@ class FirebaseAuthServices {
         receivedRequest: [],
         sentRequest: [],
         coverUrl: '',
-        lastActive: DateTime.now(),
-        isOnline: true,
+        isVerified: false,
         lastPublishedStory: nowTimestamp,
         token: savedToken!,
       );

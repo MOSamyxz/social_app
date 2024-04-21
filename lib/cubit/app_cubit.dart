@@ -84,6 +84,19 @@ class AppCubit extends Cubit<AppState> {
 
   UsersModel get getUser => _user!;
 
+  List<dynamic>? _verifiedMembers;
+  Future<void> getVerifiedMembers() async {
+    emit(GetVerifiedMembersDataLoadingState());
+
+    var verified = await _firestoreServices.getVerifiedMembers(
+        collection: 'members', doc: 'verified');
+    _verifiedMembers = verified;
+    print(verified);
+    emit(GetVerifiedMembersDataSuccessState());
+  }
+
+  List<dynamic> get verifiedMembers => _verifiedMembers!;
+
   int currentPage = 0;
   late PageController pageController; // for tabs animation
   late ScrollController scrollController;

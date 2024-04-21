@@ -44,9 +44,20 @@ class PostShimmer extends StatelessWidget {
             width: ScreenUtil().screenWidth,
             height: ScreenUtil().screenHeight * 0.3,
           ),
-          VerticalSpace(AppSize.s10),
+          const VerticalSpace(AppSize.s10),
         ],
       ),
+    );
+  }
+}
+
+class StoryShimmer extends StatelessWidget {
+  const StoryShimmer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return CircleShimmer(
+      size: AppSize.r60,
     );
   }
 }

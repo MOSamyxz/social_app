@@ -16,6 +16,10 @@ class AppLoadModeState extends AppState {}
 
 class GetCurrentUserDataLoadingState extends AppState {}
 
+class GetVerifiedMembersDataSuccessState extends AppState {}
+
+class GetVerifiedMembersDataLoadingState extends AppState {}
+
 class GetCurrentUserDataSuccessState extends AppState {}
 
 class AppInitializedState extends AppState {}

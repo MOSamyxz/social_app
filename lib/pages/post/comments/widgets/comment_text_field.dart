@@ -97,6 +97,7 @@ class _CommentTextFieldState extends State<CommentTextField> {
                   onTap: () {
                     BlocProvider.of<HomeCubit>(context).createComment(
                         postId: widget.post.postId, user: widget.user);
+
                     BlocProvider.of<HomeCubit>(context).commentNotification(
                         post: widget.post, user: widget.user);
                     BlocProvider.of<HomeCubit>(context)

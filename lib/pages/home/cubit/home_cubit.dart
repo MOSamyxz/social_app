@@ -39,18 +39,6 @@ class HomeCubit extends Cubit<HomeState> {
 
   UsersModel get userById => _userById!;
 
-  List<UsersModel>? _usersById;
-  Future<void> getUsersById(userid) async {
-    emit(GetUsersDataByIdLoadingState());
-
-    List<UsersModel> users = await _firestoreServices.getUsersDetailsByIds(
-        collection: 'users', userIds: userid);
-    _usersById = users;
-    emit(GetUsersDataByIdSuccessState());
-  }
-
-  List<UsersModel> get usersById => _usersById!;
-
   void createComment({
     required String postId,
     required UsersModel user,
@@ -77,16 +65,18 @@ class HomeCubit extends Cubit<HomeState> {
 
   Future<void> likeNotification(
       {required Post post, required UsersModel user}) async {
-    await FireStoreNotifications().sendReactNotification(
-      likeType: react,
-      post: post,
-      user: user,
-    );
-    await FirebaseNotification().sendMessage(
-        title: '7war App',
-        discreption: '${user.userName} liked your post.',
-        token: post.posterToken,
-        data: {'postId': post.postId, 'type': 'like'});
+    if (user.uId != post.posterId) {
+      await FireStoreNotifications().sendReactNotification(
+        likeType: react,
+        post: post,
+        user: user,
+      );
+      await FirebaseNotification().sendMessage(
+          title: '7war App',
+          discreption: '${user.userName} liked your post.',
+          token: post.posterToken,
+          data: {'postId': post.postId, 'type': 'like'});
+    }
   }
 
   Future<void> removeLikeNotification(
@@ -109,16 +99,18 @@ class HomeCubit extends Cubit<HomeState> {
 
   Future<void> commentNotification(
       {required Post post, required UsersModel user}) async {
-    await FireStoreNotifications().sendCommentNotification(
-      likeType: react,
-      post: post,
-      user: user,
-    );
-    await FirebaseNotification().sendMessage(
-        title: '7war App',
-        discreption: '${user.userName} commented on your post.',
-        token: post.posterToken,
-        data: {'postId': post.postId, 'type': 'comment'});
+    if (user.uId != post.posterId) {
+      await FireStoreNotifications().sendCommentNotification(
+        likeType: react,
+        post: post,
+        user: user,
+      );
+      await FirebaseNotification().sendMessage(
+          title: '7war App',
+          discreption: '${user.userName} commented on your post.',
+          token: post.posterToken,
+          data: {'postId': post.postId, 'type': 'comment'});
+    }
   }
 
   Future<void> removeCommentNotification(

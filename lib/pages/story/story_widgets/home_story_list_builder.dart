@@ -4,6 +4,7 @@ import 'package:chatapp/core/widgets/vertical_space.dart';
 import 'package:chatapp/cubit/app_cubit.dart';
 import 'package:chatapp/data/model/story_model.dart';
 import 'package:chatapp/data/model/user_model.dart';
+import 'package:chatapp/pages/home/widget/post_widgets/post_shimmer.dart';
 import 'package:chatapp/pages/story/add_story_screen.dart';
 import 'package:chatapp/pages/story/story_view_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -29,7 +30,7 @@ class HomeStoryListBuilder extends StatelessWidget {
               .snapshots(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const CircularProgressIndicator();
+              return const StoryShimmer();
             } else {
               return SizedBox(
                 height: ScreenUtil().screenHeight * 0.16,
@@ -86,6 +87,8 @@ class StoryItem extends StatelessWidget {
           if (!snapshot.hasData) {
             // Handle the case when the snapshot is empty or the index is out of range
             return const SizedBox.shrink();
+          } else if (snapshot.connectionState == ConnectionState.waiting) {
+            return const StoryShimmer();
           }
           var storyModel = snapshot.data!.docs
               .map((doc) => StoryModel.fromMap(doc.data()))

@@ -12,6 +12,7 @@ import 'package:chatapp/generated/l10n.dart';
 import 'package:chatapp/pages/auth/signup/cubit/sign_up_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SignUpForm extends StatelessWidget {
@@ -125,7 +126,14 @@ class SignUpForm extends StatelessWidget {
             builder: (context, state) {
               return CustomButton(
                   onPressed: () {
-                    BlocProvider.of<SignUpCubit>(context).signUp(context);
+                    if (BlocProvider.of<SignUpCubit>(context).image != null) {
+                      BlocProvider.of<SignUpCubit>(context).signUp(context);
+                    }
+                    Fluttertoast.showToast(
+                      msg: 'Please Pick a profile picture first',
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.BOTTOM,
+                    );
                   },
                   child: BlocProvider.of<SignUpCubit>(context).isLoading
                       ? const CircularProgressIndicator()

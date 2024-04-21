@@ -1,9 +1,13 @@
+import 'package:chatapp/core/constants/colors.dart';
 import 'package:chatapp/core/constants/size.dart';
 import 'package:chatapp/core/utils/to_ar_num_converter.dart';
 import 'package:chatapp/core/utils/utils.dart';
 import 'package:chatapp/core/widgets/horizontal_space.dart';
+import 'package:chatapp/cubit/app_cubit.dart';
 import 'package:chatapp/data/model/story_model.dart';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class StoryHeader extends StatelessWidget {
@@ -16,6 +20,8 @@ class StoryHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<dynamic> verifiedMembers =
+        BlocProvider.of<AppCubit>(context).verifiedMembers;
     return Padding(
       padding: EdgeInsets.only(top: 50.h, left: 20.w),
       child: Row(
@@ -29,7 +35,19 @@ class StoryHeader extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(story.storyAutherName),
+              Row(
+                children: [
+                  Text(story.storyAutherName),
+                  const HorizontalSpace(2),
+                  verifiedMembers.contains(story.storyAutherId)
+                      ? Icon(
+                          Icons.verified,
+                          color: AppColors.blueColor,
+                          size: AppSize.r15,
+                        )
+                      : const SizedBox()
+                ],
+              ),
               Text(getStoryTimeText(story.createdAt)),
             ],
           ),

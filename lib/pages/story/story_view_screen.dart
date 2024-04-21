@@ -8,6 +8,7 @@ import 'package:chatapp/pages/story/story_widgets/story_views_item.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:story_view/story_view.dart';
 
 class StoryViewScreen extends StatefulWidget {
@@ -51,6 +52,7 @@ class _StoryViewScreenState extends State<StoryViewScreen> {
             } else {
               return StoryItem.pageImage(
                 url: story.fileUrl!,
+                captionOuterPadding: EdgeInsets.symmetric(vertical: 40.h),
                 caption: Text(
                   story.content!,
                   textAlign: TextAlign.center,

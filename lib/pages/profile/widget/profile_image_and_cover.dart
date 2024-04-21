@@ -30,7 +30,9 @@ class ProfileImageAndCover extends StatelessWidget {
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: NetworkImage(user.coverUrl!),
+                        image: NetworkImage(user.coverUrl != ''
+                            ? user.coverUrl!
+                            : 'https://flowbite.com/docs/images/examples/image-3@2x.jpg'),
                       ),
                     )),
               ],

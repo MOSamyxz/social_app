@@ -1,10 +1,11 @@
 // ignore_for_file: use_build_context_synchronously
-
+import 'package:chatapp/core/constants/colors.dart';
 import 'package:chatapp/core/constants/size.dart';
 import 'package:chatapp/core/constants/styles.dart';
 import 'package:chatapp/core/utils/utils.dart';
 import 'package:chatapp/core/widgets/horizontal_space.dart';
 import 'package:chatapp/core/widgets/vertical_space.dart';
+import 'package:chatapp/cubit/app_cubit.dart';
 import 'package:chatapp/data/model/post_model.dart';
 import 'package:chatapp/data/model/user_model.dart';
 import 'package:chatapp/pages/edit_post/edit_post_screen.dart';
@@ -30,6 +31,8 @@ class PostHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<dynamic> verifiedMembers =
+        BlocProvider.of<AppCubit>(context).verifiedMembers;
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
         return GestureDetector(
@@ -69,10 +72,22 @@ class PostHeader extends StatelessWidget {
                       textDirection: TextDirection.ltr,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          textDirection: TextDirection.ltr,
-                          post.posterName,
-                          style: Theme.of(context).textTheme.titleMedium,
+                        Row(
+                          children: [
+                            Text(
+                              textDirection: TextDirection.ltr,
+                              post.posterName,
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                            const HorizontalSpace(2),
+                            verifiedMembers.contains(post.posterId)
+                                ? Icon(
+                                    Icons.verified,
+                                    color: AppColors.blueColor,
+                                    size: AppSize.r15,
+                                  )
+                                : const SizedBox()
+                          ],
                         ),
                         TimeFromNow(post: post),
                       ],

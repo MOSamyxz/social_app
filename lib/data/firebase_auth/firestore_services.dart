@@ -16,6 +16,16 @@ class FirestoreServices {
     return user;
   }
 
+  Future<dynamic> getVerifiedMembers({
+    required String collection,
+    required String doc,
+  }) async {
+    final userData = await _firestore.collection(collection).doc(doc).get();
+
+    List<dynamic> user = userData['verifiedmembers'];
+    return user;
+  }
+
   Future<List<UsersModel>> getUsersDetailsByIds({
     required String collection,
     required List<String> userIds,

@@ -16,9 +16,11 @@ class StreamFollowButton extends StatelessWidget {
     required this.profileUser,
     required this.isFollowing,
     required this.isSentRequest,
+    required this.myUser,
   });
 
   final UsersModel profileUser;
+  final UsersModel myUser;
   final bool isFollowing;
   final bool isSentRequest;
   @override
@@ -78,7 +80,8 @@ class StreamFollowButton extends StatelessWidget {
                   : ProfileButton(
                       onPressed: () {
                         BlocProvider.of<ProfileCubit>(context)
-                            .sendFollowRequest(profileUser.uId);
+                            .sendFollowRequest(
+                                user: profileUser, myUser: myUser);
                       },
                       color: AppColors.blueColor,
                       textColor: AppColors.realWhiteColor,
