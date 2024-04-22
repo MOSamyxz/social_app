@@ -13,13 +13,10 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AppCubit()
-        ..getUserData()
-        ..getVerifiedMembers(),
+      create: (context) => AppCubit()..getUserData(),
       child: BlocBuilder<AppCubit, AppState>(
         builder: (context, state) {
-          if (state is GetCurrentUserDataSuccessState ||
-              state is GetVerifiedMembersDataSuccessState) {
+          if (state is GetCurrentUserDataSuccessState) {
             return StreamBuilder(
               stream: FirebaseFirestore.instance
                   .collection('posts')

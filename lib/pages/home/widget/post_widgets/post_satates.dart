@@ -20,11 +20,13 @@ class PostStats extends StatelessWidget {
     required this.isLiked,
     required this.likesData,
     required this.user,
+    required this.isSaved,
   });
 
   final Post post;
   final int commentsLenght;
   final bool isLiked;
+  final bool isSaved;
   final LikesDataModel? likesData;
   final UsersModel user;
 
@@ -73,33 +75,51 @@ class PostStats extends StatelessWidget {
                 ),
                 onTap: () {},
               ),
-              InkWell(
-                child: Container(
-                  padding: const EdgeInsets.symmetric(vertical: 4),
-                  child: Text(
-                    '$commentsLenght comments',
-                    style: TextStyle(
-                      fontWeight: AppFontWeight.regular,
-                      fontSize: 16.sp,
-                      color: AppColors.darkGreyColor,
+              Row(
+                children: [
+                  InkWell(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      child: Text(
+                        '$commentsLenght comments',
+                        style: TextStyle(
+                          fontWeight: AppFontWeight.regular,
+                          fontSize: 16.sp,
+                          color: AppColors.darkGreyColor,
+                        ),
+                        textDirection: TextDirection.ltr,
+                      ),
                     ),
-                    textDirection: TextDirection.ltr,
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CommentScreen(
+                                    post: post,
+                                  )));
+                    },
                   ),
-                ),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => CommentScreen(
-                                post: post,
-                              )));
-                },
+                  const Text(' ● '),
+                  Container(
+                    padding: const EdgeInsets.symmetric(vertical: 4),
+                    child: Text(
+                      '${post.saves.length} saves',
+                      style: TextStyle(
+                        fontWeight: AppFontWeight.regular,
+                        fontSize: 16.sp,
+                        color: AppColors.darkGreyColor,
+                      ),
+                      textDirection: TextDirection.ltr,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
           const Divider(),
           PostLikeCommentShareButtons(
             isLiked: isLiked,
+            isSaved: isSaved,
             post: post,
             likesData: likesData,
             user: user,

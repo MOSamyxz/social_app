@@ -55,7 +55,8 @@ class FireStorePosts {
           likesData: [],
           saverId: '',
           savedAt: null,
-          posterToken: posterToken);
+          posterToken: posterToken,
+          saves: []);
 
       // Post to firestore
       _firestore.collection('posts').doc(postId).set(post.toMap());
@@ -68,7 +69,7 @@ class FireStorePosts {
     }
   }
 
-  //Share post
+  //Save post
 
   Future<String?> savePost({
     required String posterName,
@@ -83,7 +84,6 @@ class FireStorePosts {
     try {
       final saverId = _auth.currentUser!.uid;
       final now = DateTime.now();
-
       // Create our post
       Post post = Post(
         postId: postId,
@@ -99,8 +99,8 @@ class FireStorePosts {
         posterProfileUrl: posterProfileUrl,
         likesData: [],
         posterToken: posterToken,
+        saves: [],
       );
-
       // Post to firestore
       _firestore
           .collection('users')
@@ -108,11 +108,33 @@ class FireStorePosts {
           .collection('savedPosts')
           .doc(postId)
           .set(post.toMap());
-
+      _firestore.collection('posts').doc(postId).update({
+        'saves': FieldValue.arrayUnion([saverId])
+      });
       return null;
     } catch (e) {
       return e.toString();
     }
+  }
+
+  //Remove Saved post
+  Future<String?> deleteSavedPost({required String postId}) async {
+    try {
+      final saverId = _auth.currentUser!.uid;
+
+      await _firestore
+          .collection('users')
+          .doc(saverId)
+          .collection('savedPosts')
+          .doc(postId)
+          .delete();
+      _firestore.collection('posts').doc(postId).update({
+        'saves': FieldValue.arrayRemove([saverId])
+      });
+    } catch (err) {
+      return err.toString();
+    }
+    return null;
   }
 
   // Update Post
@@ -208,16 +230,6 @@ class FireStorePosts {
             .collection('likesData')
             .doc(userId)
             .update({'likeType': likeType});
-
-        /*   _firestore.collection('posts').doc(postId).update({
-          'likesData': FieldValue.arrayRemove(['$userId $likeType']),
-        });*/
-        /*     _firestore.collection('posts').doc(postId).update({
-          'likesData': FieldValue.arrayUnion(['$userId $likeType']),
-        });*/
-        /* _firestore.collection('posts').doc(postId).update({
-          'likesData.$userId': likeType,
-        });*/
       }
 
       return null;

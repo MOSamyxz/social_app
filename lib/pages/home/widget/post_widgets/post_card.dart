@@ -8,6 +8,7 @@ import 'package:chatapp/pages/home/widget/post_widgets/stream_post_satats.dart';
 import 'package:chatapp/pages/home/widget/post_widgets/video_view_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class PostCard extends StatelessWidget {
   const PostCard({
@@ -27,6 +28,7 @@ class PostCard extends StatelessWidget {
   Widget build(BuildContext context) {
     // UsersModel user = BlocProvider.of<AppCubit>(context).getUser;
     final isLiked = post.likes.contains(user.uId);
+    final isSaved = post.saves.contains(user.uId);
 
     return Container(
       margin: EdgeInsets.only(bottom: 5.h),
@@ -52,10 +54,8 @@ class PostCard extends StatelessWidget {
                         },
                         child: SizedBox(
                           width: ScreenUtil().screenWidth,
-                          child: Image(
-                            image: NetworkImage(
-                              post.fileUrl!,
-                            ),
+                          child: CachedNetworkImage(
+                            imageUrl: post.fileUrl!,
                             fit: BoxFit.contain,
                           ),
                         ),
@@ -67,6 +67,7 @@ class PostCard extends StatelessWidget {
             StreamPostStats(
               post: post,
               isLiked: isLiked,
+              isSaved: isSaved,
               likesData: likesData,
               user: user,
               commentsLenght: commentsLength,

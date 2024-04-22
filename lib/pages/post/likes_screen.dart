@@ -1,20 +1,15 @@
 import 'package:chatapp/core/constants/assets.dart';
-import 'package:chatapp/core/constants/colors.dart';
 import 'package:chatapp/core/constants/size.dart';
 import 'package:chatapp/core/widgets/horizontal_space.dart';
-import 'package:chatapp/cubit/app_cubit.dart';
 import 'package:chatapp/data/model/like_data_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LikesScreen extends StatelessWidget {
   const LikesScreen({super.key, required this.postId});
   final String postId;
   @override
   Widget build(BuildContext context) {
-    List<dynamic> verifiedMembers =
-        BlocProvider.of<AppCubit>(context).verifiedMembers;
     return StreamBuilder(
         stream: FirebaseFirestore.instance
             .collection('posts')
@@ -81,13 +76,6 @@ class LikesScreen extends StatelessWidget {
                       children: [
                         Text(likesData.userName),
                         const HorizontalSpace(2),
-                        verifiedMembers.contains(likesData.userId)
-                            ? Icon(
-                                Icons.verified,
-                                color: AppColors.blueColor,
-                                size: AppSize.r15,
-                              )
-                            : const SizedBox()
                       ],
                     ),
                   );

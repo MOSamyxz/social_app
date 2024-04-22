@@ -18,9 +18,11 @@ class PostLikeCommentShareButtons extends StatefulWidget {
     required this.post,
     this.likesData,
     required this.user,
+    required this.isSaved,
   });
 
   final bool isLiked;
+  final bool isSaved;
   final Post post;
   final UsersModel user;
   final LikesDataModel? likesData;
@@ -105,18 +107,17 @@ class _PostLikeCommentShareButtonsState
                 isComment: false,
                 text: S.of(context).save,
                 onPressed: () {
-                  BlocProvider.of<HomeCubit>(context).savePost(context,
-                      posterId: widget.post.posterId,
-                      posterName: widget.post.posterName,
-                      posterProfileUrl: widget.post.posterProfileUrl,
-                      content: widget.post.content,
-                      postType: widget.post.postType,
-                      createdAt: widget.post.createdAt,
-                      downloadUrl: widget.post.fileUrl,
-                      postId: widget.post.postId,
-                      posterToken: widget.post.posterToken);
+                  widget.isSaved
+                      ? BlocProvider.of<HomeCubit>(context)
+                          .removeSavedPost(post: widget.post)
+                      : BlocProvider.of<HomeCubit>(context).savePost(
+                          context,
+                          post: widget.post,
+                        );
                 },
-                icon: FontAwesomeIcons.bookmark,
+                icon: widget.isSaved
+                    ? FontAwesomeIcons.solidBookmark
+                    : FontAwesomeIcons.bookmark,
               ),
             ),
           ],

@@ -12,6 +12,7 @@ import 'package:chatapp/pages/home/widget/post_widgets/video_view_saved.dart';
 import 'package:chatapp/pages/search/widget/post_view.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -90,23 +91,30 @@ class SavedPostsScreen extends StatelessWidget {
                                             ),
                                 ),
                                 const HorizontalSpace(10),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(post.posterName),
-                                    Text(post.content),
-                                    Row(
-                                      children: [
-                                        Text(post.postType == 'post'
-                                            ? 'Post'
-                                            : post.postType == 'postMediaImage'
-                                                ? 'Image'
-                                                : 'Video'),
-                                        const Text(' ● '),
-                                        Text(getPostTimeText(post.savedAt!))
-                                      ],
-                                    ),
-                                  ],
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(post.posterName),
+                                      Text(
+                                        post.content,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text(post.postType == 'post'
+                                              ? 'Post'
+                                              : post.postType ==
+                                                      'postMediaImage'
+                                                  ? 'Image'
+                                                  : 'Video'),
+                                          const Text(' ● '),
+                                          Text(getPostTimeText(post.savedAt!))
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ],
                             )),

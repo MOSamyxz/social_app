@@ -324,26 +324,17 @@ class HomeCubit extends Cubit<HomeState> {
     );
   }
 
-  void savePost(context,
-      {required String posterId,
-      required String posterName,
-      required String posterProfileUrl,
-      required String content,
-      required String postId,
-      required String postType,
-      required String posterToken,
-      String? downloadUrl,
-      required DateTime createdAt}) async {
+  void savePost(context, {required Post post}) async {
     FireStorePosts()
         .savePost(
-            posterName: posterName,
-            posterId: posterId,
-            posterProfileUrl: posterProfileUrl,
-            content: content,
-            postType: postType,
-            downloadUrl: downloadUrl,
-            postId: postId,
-            posterToken: posterToken)
+            posterName: post.posterName,
+            posterId: post.posterId,
+            posterProfileUrl: post.posterProfileUrl,
+            content: post.content,
+            postType: post.postType,
+            downloadUrl: post.fileUrl,
+            postId: post.postId,
+            posterToken: post.posterToken)
         .then((value) {
       Fluttertoast.showToast(
         msg: 'Saved',
@@ -351,5 +342,11 @@ class HomeCubit extends Cubit<HomeState> {
         gravity: ToastGravity.BOTTOM,
       );
     }).catchError((_) {});
+  }
+
+  void removeSavedPost({required Post post}) {
+    FireStorePosts().deleteSavedPost(
+      postId: post.postId,
+    );
   }
 }

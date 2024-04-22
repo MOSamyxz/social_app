@@ -14,6 +14,7 @@ class Post {
   final DateTime? savedAt;
   late final List<String> likesData;
   final List<String> likes;
+  final List<String> saves;
 
   Post({
     required this.postId,
@@ -29,6 +30,7 @@ class Post {
     required this.createdAt,
     required this.likesData,
     required this.likes,
+    required this.saves,
   });
 
   Map<String, dynamic> toMap() {
@@ -46,6 +48,7 @@ class Post {
       'likesData': likesData,
       'postType': postType,
       'likes': likes,
+      'saves': saves,
     };
   }
 
@@ -67,27 +70,30 @@ class Post {
           map['savedAt'] ?? 0,
         ),
         likesData: List<String>.from(map['likesData'] ?? []),
-        likes: List<String>.from((map['likes'] ?? [])));
+        likes: List<String>.from((map['likes'] ?? [])),
+        saves: List<String>.from((map['saves'] ?? [])));
   }
 
   factory Post.fromSnapshot(DocumentSnapshot<Object?> map) {
     return Post(
-        postId: map['postId'] ?? '',
-        posterToken: map['posterToken'] ?? '',
-        posterId: map['posterId'] ?? '',
-        posterName: map['posterName'] ?? '',
-        posterProfileUrl: map['posterProfileUrl'] ?? '',
-        saverId: map['saverId'] ?? '',
-        content: map['content'] ?? '',
-        postType: map['postType'] ?? '',
-        fileUrl: map['fileUrl'] ?? '',
-        createdAt: DateTime.fromMillisecondsSinceEpoch(
-          map['createdAt'] ?? 0,
-        ),
-        savedAt: DateTime.fromMillisecondsSinceEpoch(
-          map['savedAt'] ?? 0,
-        ),
-        likesData: List<String>.from(map['likesData'] ?? []),
-        likes: List<String>.from((map['likes'] ?? [])));
+      postId: map['postId'] ?? '',
+      posterToken: map['posterToken'] ?? '',
+      posterId: map['posterId'] ?? '',
+      posterName: map['posterName'] ?? '',
+      posterProfileUrl: map['posterProfileUrl'] ?? '',
+      saverId: map['saverId'] ?? '',
+      content: map['content'] ?? '',
+      postType: map['postType'] ?? '',
+      fileUrl: map['fileUrl'] ?? '',
+      createdAt: DateTime.fromMillisecondsSinceEpoch(
+        map['createdAt'] ?? 0,
+      ),
+      savedAt: DateTime.fromMillisecondsSinceEpoch(
+        map['savedAt'] ?? 0,
+      ),
+      likesData: List<String>.from(map['likesData'] ?? []),
+      likes: List<String>.from((map['likes'] ?? [])),
+      saves: List<String>.from((map['saves'] ?? [])),
+    );
   }
 }

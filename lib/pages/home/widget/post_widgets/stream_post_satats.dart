@@ -12,10 +12,12 @@ class StreamPostStats extends StatelessWidget {
     required this.likesData,
     required this.user,
     this.commentsLenght,
+    required this.isSaved,
   });
 
   final Post post;
   final bool isLiked;
+  final bool isSaved;
   final LikesDataModel? likesData;
   final UsersModel user;
   final int? commentsLenght;
@@ -26,6 +28,7 @@ class StreamPostStats extends StatelessWidget {
       post: post,
       commentsLenght: commentsLenght!,
       isLiked: isLiked,
+      isSaved: isSaved,
       likesData: likesData,
       user: user,
     );
