@@ -14,3 +14,5 @@ final class SignUpLoadingState extends SignUpState {}
 final class SignUpSuccessState extends SignUpState {}
 
 final class SignUpErrorState extends SignUpState {}
+
+final class ShowHidePasswordState extends SignUpState {}

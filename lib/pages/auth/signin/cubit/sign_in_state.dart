@@ -11,4 +11,4 @@ final class SignInSuccessState extends SignInState {}
 
 final class SignInErrorState extends SignInState {}
 
-final class SHowHidePasswordState extends SignInState {}
+final class ShowHidePasswordState extends SignInState {}

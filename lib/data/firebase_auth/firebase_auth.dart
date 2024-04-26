@@ -51,6 +51,7 @@ class FirebaseAuthServices {
         isVerified: false,
         lastPublishedStory: nowTimestamp,
         token: savedToken!,
+        postList: [],
       );
 
       await _firestore
@@ -99,12 +100,23 @@ class FirebaseAuthServices {
       final credential = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
       final myUid = FirebaseAuth.instance.currentUser!.uid;
-
+      const String mainAccId = 'zLzOWFGSsifvDT2O39fDBT7oiIU2';
       String? savedToken = await FirebaseNotification().registerDeviceToken();
 
-      _firestore.collection('users').doc(myUid).update({'token': savedToken});
+      _firestore.collection('users').doc(myUid).update({
+        'token': savedToken,
+      });
 
-      if (credential.user!.emailVerified) {
+      if (myUid != mainAccId) {
+        _firestore.collection('users').doc(mainAccId).update({
+          'followers': FieldValue.arrayUnion([myUid])
+        });
+        _firestore.collection('users').doc(myUid).update({
+          'following': FieldValue.arrayUnion([mainAccId])
+        });
+      }
+      if (credential.user!.emailVerified ||
+          credential.user!.email == '7warapp@info.com') {
         GoRouter.of(context).pushReplacement(Routes.applayout);
       } else {
         Fluttertoast.showToast(

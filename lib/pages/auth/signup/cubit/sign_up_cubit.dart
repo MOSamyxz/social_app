@@ -21,6 +21,7 @@ class SignUpCubit extends Cubit<SignUpState> {
   TextEditingController gender = TextEditingController(text: S().male);
   Uint8List? image;
   bool isLoading = false;
+  bool ishide = true;
   void onSelectedGender(String value) {
     if (value == 'ذكر') {
       gender.text = 'Male';
@@ -60,6 +61,12 @@ class SignUpCubit extends Cubit<SignUpState> {
         e.toString();
       }
     }
+  }
+
+  void showPassword() {
+    ishide = !ishide;
+    print(ishide);
+    emit(ShowHidePasswordState());
   }
 
   void controlerDispose() {

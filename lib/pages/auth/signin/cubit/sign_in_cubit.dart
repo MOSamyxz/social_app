@@ -37,7 +37,7 @@ class SignInCubit extends Cubit<SignInState> {
   void showPassword() {
     ishide = !ishide;
     print(ishide);
-    emit(SHowHidePasswordState());
+    emit(ShowHidePasswordState());
   }
 
   void controlerDispose() {

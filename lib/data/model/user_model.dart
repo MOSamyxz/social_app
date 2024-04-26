@@ -14,6 +14,7 @@ class UsersModel {
   final List following;
   final List<String> receivedRequest;
   final List<String> sentRequest;
+  final List<String> postList;
   final bool isVerified;
   final Timestamp? lastPublishedStory;
 
@@ -31,6 +32,7 @@ class UsersModel {
     required this.following,
     required this.receivedRequest,
     required this.sentRequest,
+    required this.postList,
     this.isVerified = false,
     this.lastPublishedStory,
   });
@@ -51,6 +53,7 @@ class UsersModel {
       lastPublishedStory: (map['lastPublishedStory'] as Timestamp),
       receivedRequest: List<String>.from((map['receivedRequest'] ?? [])),
       sentRequest: List<String>.from((map['sentRequest'] ?? [])),
+      postList: List<String>.from((map['postList'] ?? [])),
       isVerified: map['isVerified'] ?? false,
     );
   }
@@ -71,6 +74,7 @@ class UsersModel {
       'lastPublishedStory': lastPublishedStory,
       'receivedRequest': receivedRequest,
       'sentRequest': sentRequest,
+      'postList': postList,
       'isVerified': isVerified,
     };
   }

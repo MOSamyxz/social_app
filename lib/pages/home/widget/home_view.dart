@@ -17,6 +17,8 @@ class HomeView extends StatelessWidget {
       child: BlocBuilder<AppCubit, AppState>(
         builder: (context, state) {
           if (state is GetCurrentUserDataSuccessState) {
+            UsersModel user = BlocProvider.of<AppCubit>(context).getUser;
+
             return StreamBuilder(
               stream: FirebaseFirestore.instance
                   .collection('posts')
@@ -24,7 +26,6 @@ class HomeView extends StatelessWidget {
                   .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  UsersModel user = BlocProvider.of<AppCubit>(context).getUser;
                   return HomeBody(snapshot: snapshot, user: user);
                 } else if (snapshot.hasError) {
                   return Center(child: Text('Error: ${snapshot.error}'));

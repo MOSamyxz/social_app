@@ -60,6 +60,9 @@ class FireStorePosts {
 
       // Post to firestore
       _firestore.collection('posts').doc(postId).set(post.toMap());
+      _firestore.collection('users').doc(posterId).update({
+        'postList': FieldValue.arrayUnion([postId])
+      });
       log('done');
       log('${DateTime.fromMillisecondsSinceEpoch(now.millisecondsSinceEpoch)}');
       return null;
@@ -158,7 +161,12 @@ class FireStorePosts {
   // Delete Post
   Future<String?> deletePost(String postId) async {
     try {
+      final posterId = _auth.currentUser!.uid;
+
       await _firestore.collection('posts').doc(postId).delete();
+      _firestore.collection('users').doc(posterId).update({
+        'postList': FieldValue.arrayRemove([postId])
+      });
     } catch (err) {
       return err.toString();
     }
