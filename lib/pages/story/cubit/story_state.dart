@@ -26,3 +26,11 @@ final class PostStoryLoadingState extends StoryState {}
 final class PostStorySuccessState extends StoryState {}
 
 final class PostStoryErrorState extends StoryState {}
+
+final class FileRemovedSuccessState extends StoryState {}
+
+final class GetUsersDataByIdLoadingState extends StoryState {}
+
+final class GettUsersDataByIdSuccessState extends StoryState {}
+
+final class NewDurationUpdateState extends StoryState {}

@@ -1,7 +1,6 @@
 import 'package:chatapp/data/model/like_data_model.dart';
 import 'package:chatapp/data/model/post_model.dart';
 import 'package:chatapp/data/model/user_model.dart';
-import 'package:chatapp/pages/home/home_screen.dart';
 import 'package:chatapp/pages/home/widget/post_widgets/post_card.dart';
 import 'package:chatapp/pages/home/widget/post_widgets/post_shimmer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

@@ -2,7 +2,9 @@ import 'package:chatapp/core/constants/size.dart';
 import 'package:chatapp/core/utils/to_ar_num_converter.dart';
 import 'package:chatapp/core/utils/utils.dart';
 import 'package:chatapp/core/widgets/horizontal_space.dart';
+import 'package:chatapp/data/firestore_story/firestore_story.dart';
 import 'package:chatapp/data/model/story_model.dart';
+import 'package:chatapp/data/model/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -10,9 +12,11 @@ class StoryHeader extends StatelessWidget {
   const StoryHeader({
     super.key,
     required this.story,
+    required this.user,
   });
 
   final StoryModel story;
+  final UsersModel user;
 
   @override
   Widget build(BuildContext context) {
@@ -38,10 +42,51 @@ class StoryHeader extends StatelessWidget {
               Text(getStoryTimeText(story.createdAt)),
             ],
           ),
+          const Spacer(),
+          user.uId == story.storyAutherId
+              ? IconButton(
+                  onPressed: () {
+                    showDialog(
+                      useRootNavigator: false,
+                      context: context,
+                      builder: (context) {
+                        return Dialog(
+                          child: ListView(
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                            shrinkWrap: true,
+                            children: [
+                              _buildDialogOption('Delete', () {
+                                _deleteStory(storyId: story.storyId);
+                                Navigator.of(context).pop(); // Close the dialog
+                                Navigator.of(context).pop(); // Close the dialog
+                              }),
+                            ],
+                          ),
+                        );
+                      },
+                    );
+                  },
+                  icon: const Icon(Icons.more_vert),
+                )
+              : const SizedBox()
         ],
       ),
     );
   }
+}
+
+void _deleteStory({required String storyId}) {
+  FireStoreStories().removeStory(storyId);
+}
+
+Widget _buildDialogOption(String text, VoidCallback onTap) {
+  return InkWell(
+    onTap: onTap,
+    child: Container(
+      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+      child: Text(text),
+    ),
+  );
 }
 
 String getStoryTimeText(DateTime createdAt) {

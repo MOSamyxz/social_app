@@ -12,6 +12,7 @@ class StoryModel {
   final Timestamp expiryTime;
   final List<String> views;
   final List<String> likes;
+  final Duration? duration;
 
   StoryModel({
     required this.storyId,
@@ -25,6 +26,7 @@ class StoryModel {
     required this.expiryTime,
     required this.views,
     required this.likes,
+    this.duration,
   });
 
   Map<String, dynamic> toMap() {
@@ -40,6 +42,7 @@ class StoryModel {
       'expiryTime': expiryTime,
       'views': views,
       'likes': likes,
+      'duration': duration!.inSeconds,
     };
   }
 
@@ -52,6 +55,7 @@ class StoryModel {
       content: map['content'],
       storyType: map['storyType'] ?? '',
       fileUrl: map['fileUrl'],
+      duration: Duration(seconds: map['duration']),
       createdAt: (map['createdAt'] as Timestamp).toDate(),
       expiryTime: (map['expiryTime'] as Timestamp),
       views: List<String>.from(map['views'] ?? []),
@@ -70,6 +74,7 @@ class StoryModel {
       content: data['content'],
       storyType: data['storyType'] ?? '',
       fileUrl: data['fileUrl'],
+      duration: Duration(seconds: data['duration']),
       createdAt: (data['createdAt'] as Timestamp).toDate(),
       expiryTime: (data['expiryTime'] as Timestamp),
       views: List<String>.from(data['views'] ?? []),

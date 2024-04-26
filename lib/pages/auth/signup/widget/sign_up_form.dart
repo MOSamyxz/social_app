@@ -138,12 +138,15 @@ class SignUpForm extends StatelessWidget {
                         if (BlocProvider.of<SignUpCubit>(context).image !=
                             null) {
                           BlocProvider.of<SignUpCubit>(context).signUp(context);
+                        } else if (BlocProvider.of<SignUpCubit>(context)
+                                .image ==
+                            null) {
+                          Fluttertoast.showToast(
+                            msg: 'Please Pick a profile picture first',
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.BOTTOM,
+                          );
                         }
-                        Fluttertoast.showToast(
-                          msg: 'Please Pick a profile picture first',
-                          toastLength: Toast.LENGTH_SHORT,
-                          gravity: ToastGravity.BOTTOM,
-                        );
                       },
                       child: BlocProvider.of<SignUpCubit>(context).isLoading
                           ? const CircularProgressIndicator()

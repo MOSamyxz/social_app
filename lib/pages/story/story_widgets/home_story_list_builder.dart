@@ -27,6 +27,7 @@ class HomeStoryListBuilder extends StatelessWidget {
           stream: FirebaseFirestore.instance
               .collection('users')
               .where('lastPublishedStory', isGreaterThan: DateTime.now())
+              .orderBy('lastPublishedStory', descending: true)
               .snapshots(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
@@ -51,10 +52,15 @@ class HomeStoryListBuilder extends StatelessWidget {
                             snapshot.data!.docs.map((doc) {
                               return UsersModel.fromMap(doc.data());
                             }).toList();
-                            return StoryItem(
-                              user: users,
-                              itemCount: snapshot.data!.docs.length,
-                            );
+                            if (myUser.followers.contains(users.uId) ||
+                                users.uId == myUser.uId) {
+                              return StoryItem(
+                                user: users,
+                                itemCount: snapshot.data!.docs.length,
+                              );
+                            } else {
+                              return SizedBox();
+                            }
                           })),
                     ),
                   ],
@@ -102,7 +108,7 @@ class StoryItem extends StatelessWidget {
                       builder: (context) => StoryViewScreen(
                             snapshot: snapshot,
                             stories: storyModel,
-                            itemCount: itemCount,
+                            itemCount: snapshot.data!.docs.length,
                           )));
             },
             child: Padding(

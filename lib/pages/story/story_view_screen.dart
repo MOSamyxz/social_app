@@ -1,3 +1,4 @@
+import 'package:chatapp/core/widgets/horizontal_space.dart';
 import 'package:chatapp/cubit/app_cubit.dart';
 import 'package:chatapp/data/model/story_model.dart';
 import 'package:chatapp/data/model/user_model.dart';
@@ -45,6 +46,7 @@ class _StoryViewScreenState extends State<StoryViewScreen> {
               );
             } else if (story.storyType == 'video') {
               return StoryItem.pageVideo(
+                duration: story.duration,
                 story.fileUrl!,
                 caption: Text(story.content!, textAlign: TextAlign.center),
                 controller: storyController,
@@ -76,7 +78,36 @@ class _StoryViewScreenState extends State<StoryViewScreen> {
 
     return BlocProvider(
       create: (context) => StoryCubit()..init(),
-      child: BlocBuilder<StoryCubit, StoryState>(
+      child: BlocConsumer<StoryCubit, StoryState>(
+        listener: (context, state) {
+          if (state is GettUsersDataByIdSuccessState) {
+            List<UsersModel> users =
+                BlocProvider.of<StoryCubit>(context).usersById;
+            showModalBottomSheet(
+              context: context,
+              builder: (BuildContext context) {
+                return ListView.builder(
+                  itemCount: users.length,
+                  itemBuilder: ((context, index) {
+                    return Padding(
+                      padding: EdgeInsets.only(left: 10.w, top: 10.h),
+                      child: Row(
+                        children: [
+                          CircleAvatar(
+                            backgroundImage:
+                                NetworkImage(users[index].imageUrl),
+                          ),
+                          const HorizontalSpace(10),
+                          Text(users[index].userName)
+                        ],
+                      ),
+                    );
+                  }),
+                );
+              },
+            );
+          }
+        },
         builder: (context, state) {
           StoryModel story =
               widget.stories[BlocProvider.of<StoryCubit>(context).currentIndex];
@@ -92,7 +123,7 @@ class _StoryViewScreenState extends State<StoryViewScreen> {
                           children: [
                             StoryViewItem(
                                 widget: widget, storyItems: storyItems),
-                            StoryHeader(story: story)
+                            StoryHeader(story: story, user: user)
                           ],
                         ),
                         if (story.storyAutherId == user.uId)

@@ -2,8 +2,9 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:chatapp/core/utils/utils.dart';
+import 'package:chatapp/data/firebase_auth/firestore_services.dart';
 import 'package:chatapp/data/firestore_story/firestore_story.dart';
-import 'package:chatapp/data/model/story_model.dart';
+import 'package:chatapp/data/model/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:story_view/story_view.dart';
 
@@ -20,36 +21,6 @@ class StoryCubit extends Cubit<StoryState> {
   void init() async {
     storyTextController = TextEditingController();
     storyController = StoryController();
-  }
-
-  void storyInit(snapshot) {
-    isLoading = true;
-    storyItem = snapshot.data!.docs.map((doc) {
-      var story = StoryModel.fromMap(doc.data());
-      if (story.storyType == 'post') {
-        return StoryItem.text(
-          title: story.content!,
-          backgroundColor: Colors.red,
-        );
-      } else if (story.storyType == 'video') {
-        return StoryItem.pageVideo(
-          story.fileUrl!,
-          caption: Text(story.content!, textAlign: TextAlign.center),
-          controller: storyController,
-        );
-      } else {
-        return StoryItem.pageImage(
-          url: story.fileUrl!,
-          caption: Text(
-            story.content!,
-            textAlign: TextAlign.center,
-          ),
-          controller: storyController,
-        );
-      }
-    }).toList();
-    isLoading = false;
-    emit(GetStoriesState());
   }
 
   void indexChange(int index) {
@@ -87,6 +58,7 @@ class StoryCubit extends Cubit<StoryState> {
       storyAuther: storyAuther,
       storyAutherProfileUrl: storyAutherProfileUrl,
       content: storyTextController.text,
+      duration: duration,
       file: file,
       storyType: storyType == null ? 'post' : storyType!,
     )
@@ -126,5 +98,29 @@ class StoryCubit extends Cubit<StoryState> {
     } on Exception catch (e) {
       e.toString();
     }
+  }
+
+  deletFile() {
+    file = null;
+    emit(FileRemovedSuccessState());
+  }
+
+  List<UsersModel>? _userById;
+  final FirestoreServices _firestoreServices = FirestoreServices();
+  Future<void> getUsersById(userid) async {
+    emit(GetUsersDataByIdLoadingState());
+
+    List<UsersModel> user = await _firestoreServices.getUsersDetailsByIds(
+        collection: 'users', userIds: userid);
+    _userById = user;
+    emit(GettUsersDataByIdSuccessState());
+  }
+
+  List<UsersModel> get usersById => _userById!;
+
+  Duration? duration;
+  void getDuration(Duration newDuration) {
+    duration = newDuration;
+    emit(NewDurationUpdateState());
   }
 }

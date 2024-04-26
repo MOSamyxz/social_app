@@ -30,7 +30,9 @@ class FirebaseAuthServices {
         email: email,
         password: password,
       );
-      final nowTimestamp = Timestamp.now();
+      final now = DateTime.now().subtract(const Duration(seconds: 10));
+
+      final nowTimestamp = Timestamp.fromDate(now);
       String photoUrl = await FirebaseStorageServices()
           .uploadImageToStorage('Pics', 'profile', file, false);
       String? savedToken = await FirebaseNotification().registerDeviceToken();

@@ -1,8 +1,8 @@
 import 'dart:ui';
 
 import 'package:chatapp/core/constants/colors.dart';
-import 'package:chatapp/pages/post/add_posts/widget/image_video_view.dart';
 import 'package:chatapp/pages/story/cubit/story_cubit.dart';
+import 'package:chatapp/pages/story/story_widgets/image_video_view_story.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,7 +19,7 @@ class ImageVideoViews extends StatelessWidget {
         return Stack(
           alignment: Alignment.center,
           children: [
-            Container(
+            SizedBox(
               width: double.infinity,
               height: ScreenUtil().screenHeight * 0.75,
               child: Stack(
@@ -45,9 +45,12 @@ class ImageVideoViews extends StatelessWidget {
             Stack(
               alignment: Alignment.bottomCenter,
               children: [
-                ImageVideoView(
+                ImageVideoViewStory(
                   fileType: BlocProvider.of<StoryCubit>(context).storyType!,
                   file: BlocProvider.of<StoryCubit>(context).file!,
+                  onPressed: () {
+                    BlocProvider.of<StoryCubit>(context).deletFile();
+                  },
                 ),
                 BlocProvider.of<StoryCubit>(context).storyTextController.text ==
                         ''

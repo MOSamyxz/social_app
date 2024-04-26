@@ -16,6 +16,7 @@ class FireStoreStories {
     required String storyAuther,
     required String storyAutherProfileUrl,
     String? content,
+    Duration? duration,
     File? file,
     required String storyType,
   }) async {
@@ -51,6 +52,7 @@ class FireStoreStories {
           createdAt: now,
           views: [],
           likes: [],
+          duration: duration,
           expiryTime: expiryTimestamp);
 
       // Post to firestore
@@ -68,6 +70,22 @@ class FireStoreStories {
     } catch (e) {
       return e.toString();
     }
+  }
+
+  Future<String?> removeStory(String storyId) async {
+    try {
+      final storyAutheId = _auth.currentUser!.uid;
+
+      await _firestore
+          .collection('users')
+          .doc(storyAutheId)
+          .collection('stories')
+          .doc(storyId)
+          .delete();
+    } catch (err) {
+      return err.toString();
+    }
+    return null;
   }
 
   Future<String?> deleteStory() async {
