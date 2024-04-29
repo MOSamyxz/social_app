@@ -1,5 +1,6 @@
 import 'package:chatapp/core/constants/theme.dart';
 import 'package:chatapp/core/routes/app_router.dart';
+import 'package:chatapp/core/services/app_lifecycle.dart';
 import 'package:chatapp/core/services/cache_helper.dart';
 import 'package:chatapp/core/services/local_notifications.dart';
 import 'package:chatapp/cubit/app_cubit.dart';
@@ -19,7 +20,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   CacheHelper().init();
   await AwesomeNotificationServices().initializeNotifications();
-
+  AppLifecycleObserver appLifecycleObserver = AppLifecycleObserver();
+  WidgetsBinding.instance.addObserver(appLifecycleObserver);
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

@@ -4,6 +4,7 @@ import 'package:chatapp/core/constants/styles.dart';
 import 'package:chatapp/core/utils/utils.dart';
 import 'package:chatapp/core/widgets/horizontal_space.dart';
 import 'package:chatapp/core/widgets/vertical_space.dart';
+import 'package:chatapp/cubit/app_cubit.dart';
 import 'package:chatapp/data/model/post_model.dart';
 import 'package:chatapp/data/model/user_model.dart';
 import 'package:chatapp/pages/edit_post/edit_post_screen.dart';
@@ -29,6 +30,8 @@ class PostHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    UsersModel myUser = BlocProvider.of<AppCubit>(context).getUser;
+
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
         return GestureDetector(
@@ -82,7 +85,7 @@ class PostHeader extends StatelessWidget {
                       ],
                     ),
                     const Spacer(),
-                    post.posterId == user.uId
+                    post.posterId == myUser.uId
                         ? IconButton(
                             onPressed: () {
                               showDialog(

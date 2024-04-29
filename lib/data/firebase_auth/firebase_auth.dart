@@ -255,4 +255,16 @@ class FirebaseAuthServices {
       rethrow;
     }
   }
+
+  Future<void> updatStateOnline() async {
+    final myUid = FirebaseAuth.instance.currentUser!.uid;
+
+    _firestore.collection('users').doc(myUid).update({'isOnline': true});
+  }
+
+  Future<void> updatStateOffline() async {
+    final myUid = FirebaseAuth.instance.currentUser!.uid;
+
+    _firestore.collection('users').doc(myUid).update({'isOnline': false});
+  }
 }

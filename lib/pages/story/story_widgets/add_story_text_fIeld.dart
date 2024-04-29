@@ -6,8 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class AddStoryTextFIeld extends StatelessWidget {
-  const AddStoryTextFIeld({
+class AddStoryTextField extends StatelessWidget {
+  const AddStoryTextField({
     super.key,
   });
 

@@ -12,14 +12,18 @@ class FirebaseNotification {
 
   void setupFirebaseMessaging() {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      message.data['type'] == 'comment'
-          ? AwesomeNotificationServices().commentNotification(
+      message.data['type'] == 'message'
+          ? AwesomeNotificationServices().messegeNotification(
               title: message.notification!.title!,
               body: message.notification!.body!)
-          : AwesomeNotificationServices().likeNotification(
-              title: message.notification!.title!,
-              body: message.notification!.body!,
-            );
+          : message.data['type'] == 'comment'
+              ? AwesomeNotificationServices().commentNotification(
+                  title: message.notification!.title!,
+                  body: message.notification!.body!)
+              : AwesomeNotificationServices().likeNotification(
+                  title: message.notification!.title!,
+                  body: message.notification!.body!,
+                );
     });
   }
 

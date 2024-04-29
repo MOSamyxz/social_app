@@ -25,6 +25,15 @@ class AwesomeNotificationServices {
           playSound: true,
           importance: NotificationImportance.Max,
         ),
+        NotificationChannel(
+          channelKey: 'messege_notification',
+          channelName: 'Messege Notification',
+          channelDescription: 'Messege notification channel',
+          defaultColor: Colors.teal,
+          ledColor: Colors.teal,
+          playSound: true,
+          importance: NotificationImportance.Max,
+        ),
       ],
     );
   }
@@ -59,6 +68,20 @@ class AwesomeNotificationServices {
       content: NotificationContent(
         id: 1,
         channelKey: 'comment_notification',
+        title: title,
+        body: body,
+      ),
+    );
+  }
+
+  Future<void> messegeNotification({
+    required String title,
+    required String body,
+  }) async {
+    AwesomeNotifications().createNotification(
+      content: NotificationContent(
+        id: 2,
+        channelKey: 'messege_notification',
         title: title,
         body: body,
       ),

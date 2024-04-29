@@ -57,7 +57,7 @@ class AddStoryScreen extends StatelessWidget {
                         ? const LinearProgressIndicator()
                         : const SizedBox(),
                     const Spacer(),
-                    const AddStoryTextFIeld(),
+                    const AddStoryTextField(),
                   ],
                 )
               ],

@@ -16,6 +16,7 @@ class UsersModel {
   final List<String> sentRequest;
   final List<String> postList;
   final bool isVerified;
+  final bool isOnline;
   final Timestamp? lastPublishedStory;
 
   const UsersModel({
@@ -34,6 +35,7 @@ class UsersModel {
     required this.sentRequest,
     required this.postList,
     this.isVerified = false,
+    this.isOnline = true,
     this.lastPublishedStory,
   });
 
@@ -55,6 +57,7 @@ class UsersModel {
       sentRequest: List<String>.from((map['sentRequest'] ?? [])),
       postList: List<String>.from((map['postList'] ?? [])),
       isVerified: map['isVerified'] ?? false,
+      isOnline: map['isOnline'] ?? true,
     );
   }
 
@@ -76,6 +79,7 @@ class UsersModel {
       'sentRequest': sentRequest,
       'postList': postList,
       'isVerified': isVerified,
+      'isOnline': isOnline,
     };
   }
 }

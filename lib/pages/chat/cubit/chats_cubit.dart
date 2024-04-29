@@ -12,6 +12,7 @@ class ChatsCubit extends Cubit<ChatsState> {
   UsersModel? user;
   String uId = FirebaseAuth.instance.currentUser!.uid;
   bool isLoading = false;
+
   Future<void> getAllChats() async {
     emit(GetAllChatsLoadingState());
     isLoading = true;
