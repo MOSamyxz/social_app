@@ -1,8 +1,8 @@
 import 'package:chatapp/data/model/message_model.dart';
 import 'package:chatapp/data/model/user_model.dart';
-import 'package:chatapp/pages/chat/widgets/build_image_message.dart';
-import 'package:chatapp/pages/chat/widgets/build_text_message.dart';
-import 'package:chatapp/pages/chat/widgets/build_video_message.dart';
+import 'package:chatapp/pages/chat/chat/widgets/build_image_message.dart';
+import 'package:chatapp/pages/chat/chat/widgets/build_text_message.dart';
+import 'package:chatapp/pages/chat/chat/widgets/build_video_message.dart';
 import 'package:flutter/material.dart';
 
 class BuildMessageContent extends StatelessWidget {

@@ -1,6 +1,6 @@
 import 'package:chatapp/core/widgets/horizontal_space.dart';
 import 'package:chatapp/data/model/message_model.dart';
-import 'package:chatapp/pages/chat/widgets/chat_buble.dart';
+import 'package:chatapp/pages/chat/chat/widgets/chat_buble.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

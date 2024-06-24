@@ -1,308 +1,324 @@
-import 'package:chatapp/core/constants/colors.dart';
+import 'package:chatapp/core/constants/padding.dart';
+import 'package:chatapp/core/constants/size.dart';
+import 'package:chatapp/core/utils/to_ar_num_converter.dart';
+import 'package:chatapp/core/utils/utils.dart';
 import 'package:chatapp/core/widgets/horizontal_space.dart';
+import 'package:chatapp/core/widgets/shimmer.dart';
+import 'package:chatapp/core/widgets/vertical_space.dart';
 import 'package:chatapp/cubit/app_cubit.dart';
-import 'package:chatapp/data/model/messege_model.dart';
+import 'package:chatapp/data/model/chat_model.dart';
 import 'package:chatapp/data/model/user_model.dart';
-import 'package:chatapp/pages/chat/full_screen_chat.dart';
-import 'package:chatapp/pages/chat/full_screen_video_chat.dart';
-import 'package:chatapp/pages/home/widget/post_widgets/video_view_home.dart';
+import 'package:chatapp/pages/Chat/chat_screen.dart';
+import 'package:chatapp/pages/Chat/cubit/chats_cubit.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:intl/intl.dart';
 
-class ChatBuble extends StatelessWidget {
-  const ChatBuble(
-      {super.key,
-      required this.messege,
-      required this.myUser,
-      required this.user});
-  final MessageModel messege;
-  final UsersModel myUser;
-  final UsersModel user;
+class ChatsScreen extends StatelessWidget {
+  const ChatsScreen({super.key});
 
   @override
 <<<<<<<<<<<<<<  ✨ Codeium Command 🌟 >>>>>>>>>>>>>>>>
 +  Widget build(BuildContext context) {
-+    final isMessageSender = messege.senderId == myUser.uId;
-+    final alignment = isMessageSender ? Alignment.centerRight : Alignment.centerLeft;
-+    final margin = isMessageSender
-+        ? EdgeInsets.only(right: 10.w, left: 60.w, top: 4.h)
-+        : EdgeInsets.only(left: 10.w, right: 60.w, top: 4.h);
-+    final backgroundColor = isMessageSender
-+        ? AppColors.blueColor
-+        : BlocProvider.of<AppCubit>(context).isDark
-+            ? AppColors.darkGreyColor
-+            : AppColors.greyColor;
-+    final borderRadius = BorderRadius.only(
-+      topLeft: Radius.circular(15.r),
-+      topRight: Radius.circular(15.r),
-+      bottomLeft: isMessageSender ? Radius.circular(15.r) : Radius.zero,
-+      bottomRight: isMessageSender ? Radius.zero : Radius.circular(15.r),
-+    );
-+
-+    return Align(
-+      alignment: alignment,
-+      child: Container(
-+        padding: EdgeInsets.all(8.w),
-+        margin: margin,
-+        decoration: BoxDecoration(
-+          color: backgroundColor,
-+          borderRadius: borderRadius,
-+        ),
-+        child: _buildMessageContent(context),
++    final myUser = BlocProvider.of<AppCubit>(context).getUser;
++    return BlocProvider(
++      create: (context) => ChatsCubit(),
++      child: BlocConsumer<ChatsCubit, ChatsState>(
++        listener: (context, state) {},
++        builder: (context, state) {
++          return Scaffold(
++            appBar: AppBar(
++              title: const Text('Chats'),
++            ),
++            body: Padding(
++              padding: AppPadding.screenPadding,
++              child: Column(
++                children: [
++                  const VerticalSpace(10),
++                  Expanded(
++                    child: _buildChatsList(context, myUser),
++                  ),
++                ],
++              ),
++            ),
++          );
++        },
 +      ),
 +    );
 +  }
 +
-+  Widget _buildMessageContent(BuildContext context) {
-+    if (messege.messageType == 'text') {
-+      return _buildTextMessage(context);
-+    }
-+
-+    if (messege.messageType == 'image') {
-+      return _buildImageMessage(context);
-+    }
-+
-+    return _buildVideoMessage(context);
-+  }
-+
-+  Widget _buildTextMessage(BuildContext context) {
-+    return Row(
-+      mainAxisSize: MainAxisSize.min,
-+      children: [
-+        Flexible(
-+          child: Text(
-+            messege.messageContent!,
-+            softWrap: true,
-+            style: TextStyle(fontSize: 16.sp),
-+          ),
-+        ),
-+        const HorizontalSpace(5),
-+        Column(
-+          children: [
-+            SizedBox(
-+              height: 16.h,
-+            ),
-+            Text(
-+              formatDateTime(
-+                '${messege.messageCreatedAt}',
-+              ),
-+              style: TextStyle(fontSize: 11.sp),
-+            ),
-+          ],
-+        ),
-+      ],
-+    );
-+  }
-+
-+  Widget _buildImageMessage(BuildContext context) {
-+    return GestureDetector(
-+      onTap: () {
-+        Navigator.push(
-+            context,
-+            MaterialPageRoute(
-+                builder: (context) => FullImageScreenChat(
-+                      messege: messege,
-+                      user: user,
-+                      myUser: myUser,
-+                    )));
++  Widget _buildChatsList(BuildContext context, UsersModel myUser) {
++    return StreamBuilder(
++      stream: _chatsStream(myUser),
++      builder: (context, snapshot) {
++        if (snapshot.connectionState == ConnectionState.waiting) {
++          return const ChatShimmer();
++        } else if (snapshot.data!.docs.isEmpty) {
++          return const Text('No messages');
++        } else {
++          return ListView.builder(
++            itemCount: snapshot.data!.docs.length,
++            itemBuilder: (context, index) {
++              final chat = ChatModel.fromMap(snapshot.data!.docs[index].data());
++              return _buildChatTile(context, chat);
++            },
++          );
++        }
 +      },
-+      child: ClipRRect(
-+        borderRadius: borderRadius,
-+        child: Column(
-+          mainAxisSize: MainAxisSize.min,
-+          crossAxisAlignment: CrossAxisAlignment.end,
-+          children: [
-+            CachedNetworkImage(
-+              imageUrl: messege.messageFileUrl!,
-+              width: ScreenUtil().screenWidth * 0.5,
-+            ),
-+            messege.messageContent == ''
-+                ? SizedBox()
-+                : SizedBox(
-+                    width: ScreenUtil().screenWidth * 0.5,
-+                    child: Text(
-+                      messege.messageContent!,
-+                      style: TextStyle(fontSize: 16.sp),
-+                    ),
-+                  )
-+          ],
-+        ),
-+      ),
 +    );
 +  }
 +
-+  Widget _buildVideoMessage(BuildContext context) {
-+    return ClipRRect(
-+      borderRadius: borderRadius,
-+      child: Column(
-+        crossAxisAlignment: CrossAxisAlignment.end,
-+        children: [
-+          SizedBox(
-+            width: ScreenUtil().screenWidth * 0.5,
-+            child: VideoViewHome(
-+              video: Uri.parse(messege.messageFileUrl!),
-+              isSearchView: true,
-+              child: FullScreenVideoChat(
-+                message: messege,
-+                user: user,
-+                myUser: myUser,
++  Stream<QuerySnapshot> _chatsStream(UsersModel myUser) {
++    return FirebaseFirestore.instance
++        .collection('users')
++        .doc(myUser.uId)
++        .collection('chats')
++        .snapshots();
++  }
++
++  Widget _buildChatTile(BuildContext context, ChatModel chat) {
++    return StreamBuilder(
++      stream: _userStream(chat.receiverID),
++      builder: (context, snapshot) {
++        if (snapshot.hasData) {
++          final user = UsersModel.fromMap(snapshot.data!.data()!);
++          return Column(
++            children: [
++              InkWell(
++                onTap: () {},
++                child: ChatTile(user: user, chats: chat),
 +              ),
-+            ),
-+          ),
-+          messege.messageContent == ''
-+              ? SizedBox()
-+              : Text(
-+                  messege.messageContent!,
-+                  style: TextStyle(fontSize: 16.sp),
-+                )
-+        ],
-+      ),
++              const Divider(),
++            ],
++          );
++        }
++        return const ChatShimmer();
++      },
 +    );
++  }
++
++  Stream<DocumentSnapshot> _userStream(String receiverID) {
++    return FirebaseFirestore.instance
++        .collection('users')
++        .doc(receiverID)
++        .snapshots();
 +  }
 -  Widget build(BuildContext context) {
--    return Align(
--      alignment: messege.senderId == myUser.uId
--          ? Alignment.centerRight
--          : Alignment.centerLeft,
--      child: Container(
--        padding: EdgeInsets.all(8.w),
--        margin: messege.senderId == myUser.uId
--            ? EdgeInsets.only(right: 10.w, left: 60.w, top: 4.h)
--            : EdgeInsets.only(left: 10.w, right: 60.w, top: 4.h),
--        decoration: BoxDecoration(
--          color: messege.senderId == myUser.uId
--              ? AppColors.blueColor
--              : BlocProvider.of<AppCubit>(context).isDark
--                  ? AppColors.darkGreyColor
--                  : AppColors.greyColor,
--          borderRadius: BorderRadius.only(
--            topLeft: Radius.circular(15.r),
--            topRight: Radius.circular(15.r),
--            bottomLeft: messege.senderId == myUser.uId
--                ? Radius.circular(15.r)
--                : Radius.zero,
--            bottomRight: messege.senderId == myUser.uId
--                ? Radius.zero
--                : Radius.circular(15.r),
--          ),
--        ),
--        child: messege.messageType == 'text'
--            ? Row(
--                mainAxisSize: MainAxisSize.min,
--                children: [
--                  Flexible(
--                    child: Text(
--                      messege.messageContent!,
--                      softWrap: true,
--                      style: TextStyle(fontSize: 16.sp),
+-    UsersModel myUser = BlocProvider.of<AppCubit>(context).getUser;
+-    return BlocProvider(
+-      create: (context) => ChatsCubit(),
+-      child: BlocConsumer<ChatsCubit, ChatsState>(
+-          listener: (context, state) {},
+-          builder: (context, state) {
+-            return Scaffold(
+-              appBar: AppBar(
+-                title: const Text('Cahts'),
+-              ),
+-              body: Padding(
+-                padding: AppPadding.screenPadding,
+-                child: Column(
+-                  children: [
+-                    const VerticalSpace(10),
+-                    Expanded(
+-                      child: StreamBuilder(
+-                          stream: FirebaseFirestore.instance
+-                              .collection('users')
+-                              .doc(myUser.uId)
+-                              .collection('chats')
+-                              .snapshots(),
+-                          builder: (context, snapshot) {
+-                            if (snapshot.connectionState ==
+-                                ConnectionState.waiting) {
+-                              return const ChatShimmer();
+-                            } else if (snapshot.data!.docs.isEmpty) {
+-                              return const Text('no messeges');
+-                            } else {
+-                              return ListView.builder(
+-                                itemCount: snapshot.data!.docs.length,
+-                                itemBuilder: (context, index) {
+-                                  var chats = ChatModel.fromMap(
+-                                      snapshot.data!.docs[index].data());
+-                                  return StreamBuilder(
+-                                      stream: FirebaseFirestore.instance
+-                                          .collection('users')
+-                                          .doc(chats.receiverID)
+-                                          .snapshots(),
+-                                      builder: (context, snapshot) {
+-                                        if (snapshot.hasData) {
+-                                          var users = UsersModel.fromMap(
+-                                              snapshot.data!.data()!);
+-                                          return Column(
+-                                            children: [
+-                                              InkWell(
+-                                                  onTap: () {},
+-                                                  child: ChatTile(
+-                                                      user: users,
+-                                                      chats: chats)),
+-                                              const Divider()
+-                                            ],
+-                                          );
+-                                        }
+-                                        // ignore: prefer_const_constructors
+-                                        return ChatShimmer();
+-                                      });
+-                                },
+-                              );
+-                            }
+-                          }),
 -                    ),
--                  ),
--                  const HorizontalSpace(5),
--                  Column(
--                    children: [
--                      SizedBox(
--                        height: 16.h,
--                      ),
--                      Text(
--                        formatDateTime(
--                          '${messege.messageCreatedAt}',
--                        ),
--                        style: TextStyle(fontSize: 11.sp),
--                      ),
--                    ],
--                  ),
--                ],
--              )
--            : messege.messageType == 'image'
--                ? GestureDetector(
--                    onTap: () {
--                      Navigator.push(
--                          context,
--                          MaterialPageRoute(
--                              builder: (context) => FullImageScreenChat(
--                                    messege: messege,
--                                    user: user,
--                                    myUser: myUser,
--                                  )));
--                    },
--                    child: ClipRRect(
--                      borderRadius: BorderRadius.only(
--                        topLeft: Radius.circular(15.r),
--                        topRight: Radius.circular(15.r),
--                        bottomLeft: messege.senderId == myUser.uId
--                            ? Radius.circular(15.r)
--                            : Radius.zero,
--                        bottomRight: messege.senderId == myUser.uId
--                            ? Radius.zero
--                            : Radius.circular(15.r),
--                      ),
--                      child: Column(
--                        mainAxisSize: MainAxisSize.min,
--                        crossAxisAlignment: CrossAxisAlignment.end,
--                        children: [
--                          CachedNetworkImage(
--                            imageUrl: messege.messageFileUrl!,
--                            width: ScreenUtil().screenWidth * 0.5,
--                          ),
--                          messege.messageContent == ''
--                              ? SizedBox()
--                              : SizedBox(
--                                  width: ScreenUtil().screenWidth * 0.5,
--                                  child: Text(
--                                    messege.messageContent!,
--                                    style: TextStyle(fontSize: 16.sp),
--                                  ),
--                                )
--                        ],
--                      ),
--                    ),
--                  )
--                : ClipRRect(
--                    borderRadius: BorderRadius.only(
--                      topLeft: Radius.circular(15.r),
--                      topRight: Radius.circular(15.r),
--                      bottomLeft: messege.senderId == myUser.uId
--                          ? Radius.circular(15.r)
--                          : Radius.zero,
--                      bottomRight: messege.senderId == myUser.uId
--                          ? Radius.zero
--                          : Radius.circular(15.r),
--                    ),
--                    child: Column(
--                      crossAxisAlignment: CrossAxisAlignment.end,
--                      children: [
--                        SizedBox(
--                          width: ScreenUtil().screenWidth * 0.5,
--                          child: VideoViewHome(
--                            video: Uri.parse(messege.messageFileUrl!),
--                            isSearchView: true,
--                            child: FullScreenVideoChat(
--                              message: messege,
--                              user: user,
--                              myUser: myUser,
--                            ),
--                          ),
--                        ),
--                        messege.messageContent == ''
--                            ? SizedBox()
--                            : Text(
--                                messege.messageContent!,
--                                style: TextStyle(fontSize: 16.sp),
--                              )
--                      ],
--                    ),
--                  ),
--      ),
+-                  ],
+-                ),
+-              ),
+-            );
+-          }),
 -    );
 -  }
-<<<<<<<  b3f913b3-f732-4cf4-8a9f-413fd563fe16  >>>>>>>
+<<<<<<<  37a8660a-5485-413e-aa46-55f8f1a64165  >>>>>>>
 }
 
-String formatDateTime(String dateTimeString) {
-  DateTime dateTime = DateTime.parse(dateTimeString);
-  String formattedTime = DateFormat('h:mm a').format(dateTime);
-  return formattedTime;
+class ChatShimmer extends StatelessWidget {
+  const ChatShimmer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: AppPadding.screenPadding,
+      child: Row(
+        children: [
+          CircleShimmer(
+            size: AppSize.r25,
+          ),
+          ContainerShimmer(
+            width: AppSize.r10,
+            height: AppSize.r44,
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class ChatTile extends StatelessWidget {
+  const ChatTile({
+    super.key,
+    required this.user,
+    required this.chats,
+  });
+  final UsersModel user;
+  final ChatModel chats;
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ChatScreen(
+                user: user,
+              ),
+            ));
+      },
+      child: Row(
+        children: [
+          Stack(
+            alignment: Alignment.bottomRight,
+            children: [
+              CircleAvatar(
+                radius: AppSize.r25,
+                backgroundImage: NetworkImage(user.imageUrl),
+              ),
+              CircleAvatar(
+                radius: AppSize.r5,
+                backgroundColor: user.isOnline ? Colors.green : Colors.grey,
+              )
+            ],
+          ),
+          const HorizontalSpace(10),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(user.userName),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
+                    width: ScreenUtil().screenWidth * 0.1,
+                    child: Text(
+                      chats.lastMessage == ''
+                          ? chats.lastMessageType
+                          : chats.lastMessage,
+                      style: Theme.of(context).textTheme.labelSmall,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  Text(getLastMessegeTimeText(chats.lastMessageCreatedAt),
+                      style: Theme.of(context).textTheme.labelSmall)
+                ],
+              )
+            ],
+          )
+        ],
+      ),
+    );
+  }
+}
+
+String getLastMessegeTimeText(DateTime createdAt) {
+  String fromNow = createdAt.fromNow();
+  String formatedCreatedAt = DateFormat.yMMMMEEEEd().format(createdAt);
+  List<String> fromNowSplit = fromNow.split(' ');
+
+  switch (fromNow) {
+    case 'a few seconds ago':
+      return 'Just now';
+    case 'منذ ثانية واحدة':
+      return 'الآن';
+    case 'a minute ago':
+      return '1m';
+    case 'منذ دقيقة واحدة':
+      return '${1.toArabicNumbers}د';
+    case '2 minutes ago':
+      return '2m';
+    case 'منذ دقيقتين':
+      return '${2.toArabicNumbers}د';
+    case 'an hour ago':
+      return '1h';
+    case 'منذ ساعة واحدة':
+      return '${1.toArabicNumbers}س';
+    case 'منذ ساعتين':
+      return '${2.toArabicNumbers}س';
+    case 'a day ago':
+      return '1d';
+    case 'منذ يوم واحد':
+      return '${1.toArabicNumbers}ي';
+    case 'منذ يومين':
+      return '${2.toArabicNumbers}ي';
+
+    default:
+      if (fromNowSplit.length > 1) {
+        if (fromNowSplit[1] == 'minutes') {
+          return '${fromNowSplit[0]}m';
+        } else if (fromNowSplit[2] == 'دقيقة' || fromNowSplit[2] == 'دقائق') {
+          return '${fromNowSplit[1]}د';
+        } else if (fromNowSplit[1] == 'hours') {
+          return '${fromNowSplit[0]}h';
+        } else if (fromNowSplit[2] == 'ساعة' || fromNowSplit[2] == 'ساعات') {
+          return '${fromNowSplit[1]}س';
+        } else if (fromNowSplit[1] == 'days' &&
+            int.parse(fromNowSplit[0]) < 7) {
+          return '${fromNowSplit[0]}d';
+        } else if (fromNow == 'منذ ٣ ايام' &&
+            fromNow == 'منذ ٤ ايام' &&
+            fromNow == 'منذ ٥ ايام' &&
+            fromNow == 'منذ ٦ ايام' &&
+            fromNow == 'منذ ۷ ايام') {
+          return '${fromNowSplit[1]}ي';
+        }
+      }
+      return formatedCreatedAt;
+  }
 }

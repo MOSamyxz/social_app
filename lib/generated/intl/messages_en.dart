@@ -40,6 +40,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Create an account and start making new friends"),
         "createPost": MessageLookupByLibrary.simpleMessage("Create post"),
+        "day": MessageLookupByLibrary.simpleMessage("d"),
         "dontHaveAnAccount":
             MessageLookupByLibrary.simpleMessage("Don\'t have an account?"),
         "emailAddress": MessageLookupByLibrary.simpleMessage("Email address"),
@@ -63,6 +64,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(" Go back to sign in"),
         "haha": MessageLookupByLibrary.simpleMessage("Haha"),
         "hello": MessageLookupByLibrary.simpleMessage("Welcome back!"),
+        "hour": MessageLookupByLibrary.simpleMessage("h"),
         "hwar": MessageLookupByLibrary.simpleMessage("7war"),
         "image": MessageLookupByLibrary.simpleMessage("Image"),
         "lastName": MessageLookupByLibrary.simpleMessage("Last Name"),
@@ -71,8 +73,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Password can\'t be more than 16"),
         "love": MessageLookupByLibrary.simpleMessage("Love"),
         "male": MessageLookupByLibrary.simpleMessage("Male"),
+        "min": MessageLookupByLibrary.simpleMessage("m"),
         "noUserForThisEmail": MessageLookupByLibrary.simpleMessage(
             "No user found for that email"),
+        "now": MessageLookupByLibrary.simpleMessage("Just now"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "pleaseEnterAValidEmail":
             MessageLookupByLibrary.simpleMessage("Please enter a valid Email!"),

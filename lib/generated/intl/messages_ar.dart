@@ -40,6 +40,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "أنشئ حساباً وابدأ بتكوين صداقات"),
         "createPost": MessageLookupByLibrary.simpleMessage("كتابة منشور"),
+        "day": MessageLookupByLibrary.simpleMessage("ي"),
         "dontHaveAnAccount":
             MessageLookupByLibrary.simpleMessage("ليس لديك حساب ؟"),
         "emailAddress":
@@ -63,6 +64,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "العودة الى صفحة تسجيل الدخول"),
         "haha": MessageLookupByLibrary.simpleMessage("أضحكني"),
         "hello": MessageLookupByLibrary.simpleMessage("مرحبا بعودتك!"),
+        "hour": MessageLookupByLibrary.simpleMessage("س"),
         "hwar": MessageLookupByLibrary.simpleMessage("حوار"),
         "image": MessageLookupByLibrary.simpleMessage("صورة"),
         "lastName": MessageLookupByLibrary.simpleMessage("اسم العائلة"),
@@ -71,8 +73,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "كلمة المرور لايمكن ان تكون اكبر من 16 رمز"),
         "love": MessageLookupByLibrary.simpleMessage("أحببته"),
         "male": MessageLookupByLibrary.simpleMessage("ذكر"),
+        "min": MessageLookupByLibrary.simpleMessage("د"),
         "noUserForThisEmail":
             MessageLookupByLibrary.simpleMessage("هذا البريد غير مسجل لدينا"),
+        "now": MessageLookupByLibrary.simpleMessage("الآن"),
         "password": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
         "pleaseEnterAValidEmail":
             MessageLookupByLibrary.simpleMessage("برجاء أدخل بريد صحيح!"),

@@ -55,5 +55,9 @@
     "sad": "Sad",
     "angry": "Angry",
     "haha": "Haha",
-    "wow": "Wow"
+    "wow": "Wow",
+    "now": "Just now",
+    "min": "m",
+    "hour": "h",
+    "day": "d"
 }

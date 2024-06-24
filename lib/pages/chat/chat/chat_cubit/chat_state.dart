@@ -1,4 +1,4 @@
-part of '../chat_cubit/chat_cubit.dart';
+part of 'chat_cubit.dart';
 
 @immutable
 sealed class ChatState {}

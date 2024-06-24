@@ -1,7 +1,7 @@
 import 'package:chatapp/data/model/message_model.dart';
 import 'package:chatapp/data/model/user_model.dart';
-import 'package:chatapp/pages/chat/full_screen_chat.dart';
-import 'package:chatapp/pages/chat/widgets/chat_buble.dart';
+import 'package:chatapp/pages/chat/chat/full_screen_chat.dart';
+import 'package:chatapp/pages/chat/chat/widgets/chat_buble.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:cached_network_image/cached_network_image.dart';

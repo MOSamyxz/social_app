@@ -2,7 +2,7 @@ import 'package:chatapp/core/constants/colors.dart';
 import 'package:chatapp/cubit/app_cubit.dart';
 import 'package:chatapp/data/model/message_model.dart';
 import 'package:chatapp/data/model/user_model.dart';
-import 'package:chatapp/pages/chat/widgets/build_message_content.dart';
+import 'package:chatapp/pages/chat/chat/widgets/build_message_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

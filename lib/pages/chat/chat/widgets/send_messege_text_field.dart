@@ -1,7 +1,7 @@
 import 'package:chatapp/core/constants/colors.dart';
 import 'package:chatapp/core/constants/padding.dart';
 import 'package:chatapp/data/model/user_model.dart';
-import 'package:chatapp/pages/chat/chat_cubit/chat_cubit.dart';
+import 'package:chatapp/pages/chat/chat/chat_cubit/chat_cubit.dart';
 import 'package:chatapp/pages/post/add_posts/widget/image_video_view.dart';
 import 'package:chatapp/pages/story/story_widgets/image_video_picker_button.dart';
 import 'package:flutter/material.dart';
