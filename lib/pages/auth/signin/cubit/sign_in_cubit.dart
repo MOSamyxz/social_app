@@ -13,6 +13,8 @@ class SignInCubit extends Cubit<SignInState> {
   bool isLoading = false;
   bool ishide = true;
   AppCubit appCubit = AppCubit();
+
+  
   Future<void> signIn(BuildContext context) async {
     if (formkey.currentState!.validate()) {
       emit(SignInLoadingState());

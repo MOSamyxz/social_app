@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:bloc/bloc.dart';
 import 'package:chatapp/core/utils/utils.dart';
 import 'package:chatapp/data/firebase_notifications.dart';
@@ -19,11 +18,11 @@ class ChatCubit extends Cubit<ChatState> {
   UsersModel? _user;
   String uId = FirebaseAuth.instance.currentUser!.uid;
   bool isLoading = false;
-  late TextEditingController messegeController;
+  late TextEditingController messageController;
   late ScrollController scrollcontroller;
 
   void init() {
-    messegeController = TextEditingController();
+    messageController = TextEditingController();
     scrollcontroller = ScrollController();
   }
 
@@ -48,12 +47,12 @@ class ChatCubit extends Cubit<ChatState> {
 
   UsersModel get getUser => _user!;
 
-  String messegeType = 'text';
+  String messageType = 'text';
   File? file;
 
   pickedVideo() async {
     emit(VideoPickedLoadingState());
-    messegeType = 'video';
+    messageType = 'video';
 
     file = await pickVideo();
     emit(VideoPickedSuccessState());
@@ -61,7 +60,7 @@ class ChatCubit extends Cubit<ChatState> {
 
   pickedImage() async {
     emit(ImagePickedLoadingState());
-    messegeType = 'image';
+    messageType = 'image';
 
     file = await pickImage();
     emit(ImagePickedSuccessState());
@@ -72,40 +71,66 @@ class ChatCubit extends Cubit<ChatState> {
     emit(FileRemovedSuccessState());
   }
 
-  void sendMessege({
-    required UsersModel receiver,
+  Future<void> sendMessage({
+    required UsersModel recipient,
   }) async {
     emit(SendMessageLoadingState());
-    if (messegeController.text.isEmpty && file == null) {
-      Fluttertoast.showToast(
-        msg: 'Can\'t send an empty messege',
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-      );
+
+    if (messageController.text.isEmpty && file == null) {
+      showToast('Can\'t send an empty message');
+      return;
     }
-    if (messegeController.text.isNotEmpty || file != null) {
+
+    if (messageController.text.isNotEmpty || file != null) {
       isLoading = true;
-      String messegeContent = messegeController.text;
+      final messageContent = messageController.text;
       try {
         await FirestoreMesseges().sendMessage(
-            receiverId: receiver.uId,
-            messegeContent: messegeController.text,
-            file: file,
-            messegeType: messegeType);
-        await FirebaseNotification().sendMessage(
-            title: 'Message',
-            discreption: messegeContent,
-            token: receiver.token,
-            data: {'type': 'message'});
-        deletFile();
-        messegeType = 'text';
-      } on Exception catch (e) {
-        e.toString();
+          receiverId: recipient.uId,
+          messageContent: messageContent,
+          messageType: messageType,
+          file: file,
+        );
+        clearFileAndResetMessageType();
+        messageController.clear();
+        await sendPushNotification(
+          title: 'Message',
+          discreption: messageContent,
+          token: recipient.token,
+        );
+      } catch (e) {
+        debugPrint(e.toString());
       }
     }
   }
 
-  void controllerDispose() {
-    messegeController.clear();
+  void showToast(String message) {
+    Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+    );
+  }
+
+  void clearFileAndResetMessageType() {
+    file = null;
+    messageType = 'text';
+    emit(FileRemovedSuccessState());
+  }
+
+  Future<void> sendPushNotification({
+    required String title,
+    required String discreption,
+    required String token,
+  }) async {
+    await FirebaseNotification().sendMessage(
+        title: title, discreption: discreption, token: token, data: {});
+  }
+
+  @override
+  Future<void> close() {
+    messageController.dispose();
+    scrollcontroller.dispose();
+    return super.close();
   }
 }

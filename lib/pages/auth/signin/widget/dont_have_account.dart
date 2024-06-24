@@ -24,10 +24,6 @@ class DontHaveAnAccount extends StatelessWidget {
         const HorizontalSpace(5),
         CustomTextButton(
           onTap: onPressed,
-          //  shape: RoundedRectangleBorder(
-          //    borderRadius: BorderRadius.circular(AppSize.r12), // <-- Radius
-          //  ),
-          //  color: AppColors.blueColor,
           buttonText: buttonText,
         )
       ],

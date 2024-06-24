@@ -27,11 +27,6 @@ class HomeCustomAppBar extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         builder: (context) => const ChatsScreen()));
-                Fluttertoast.showToast(
-                  msg: 'Soon!',
-                  toastLength: Toast.LENGTH_SHORT,
-                  gravity: ToastGravity.BOTTOM,
-                );
               },
               icon: const FaIcon(FontAwesomeIcons.facebookMessenger)),
         ],

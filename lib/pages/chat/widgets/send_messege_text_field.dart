@@ -26,21 +26,23 @@ class SendMessegeTextField extends StatelessWidget {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (BlocProvider.of<ChatCubit>(context).file != null)
-                Container(
-                  color: AppColors.greyColor,
-                  width: double.infinity,
-                  margin: EdgeInsets.only(top: 4.h),
-                  padding: AppPadding.screenPadding,
-                  height: ScreenUtil().screenHeight * 0.2,
-                  child: ImageVideoView(
-                    file: BlocProvider.of<ChatCubit>(context).file!,
-                    fileType: BlocProvider.of<ChatCubit>(context).messegeType,
-                    onPressed: () {
-                      BlocProvider.of<ChatCubit>(context).deletFile();
-                    },
-                  ),
-                ),
+              BlocProvider.of<ChatCubit>(context).file != null
+                  ? Container(
+                      color: AppColors.greyColor,
+                      width: double.infinity,
+                      margin: EdgeInsets.only(top: 4.h),
+                      padding: AppPadding.screenPadding,
+                      height: ScreenUtil().screenHeight * 0.2,
+                      child: ImageVideoView(
+                        file: BlocProvider.of<ChatCubit>(context).file!,
+                        fileType:
+                            BlocProvider.of<ChatCubit>(context).messageType,
+                        onPressed: () {
+                          BlocProvider.of<ChatCubit>(context).deletFile();
+                        },
+                      ),
+                    )
+                  : SizedBox(),
               Padding(
                 padding: EdgeInsets.all(8.w),
                 child: Row(
@@ -48,7 +50,7 @@ class SendMessegeTextField extends StatelessWidget {
                     Expanded(
                         child: TextField(
                       controller:
-                          BlocProvider.of<ChatCubit>(context).messegeController,
+                          BlocProvider.of<ChatCubit>(context).messageController,
                       decoration: InputDecoration(
                           hintText: 'Messege... ',
                           hintStyle: TextStyle(
@@ -86,9 +88,8 @@ class SendMessegeTextField extends StatelessWidget {
                       child: InkWell(
                         onTap: () {
                           BlocProvider.of<ChatCubit>(context)
-                              .sendMessege(receiver: receiver);
-                          BlocProvider.of<ChatCubit>(context)
-                              .controllerDispose();
+                              .sendMessage(recipient: receiver);
+
                           controller.animateTo(
                             0,
                             duration: const Duration(milliseconds: 500),

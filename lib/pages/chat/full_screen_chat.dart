@@ -1,12 +1,12 @@
 import 'package:chatapp/core/constants/colors.dart';
-import 'package:chatapp/data/model/messege_model.dart';
+import 'package:chatapp/data/model/message_model.dart';
 import 'package:chatapp/data/model/user_model.dart';
 import 'package:chatapp/pages/home/cubit/home_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FullImageScreenChat extends StatefulWidget {
-  final MessegeModel messege;
+  final MessageModel messege;
   final UsersModel user;
   final UsersModel myUser;
   const FullImageScreenChat({
@@ -58,7 +58,7 @@ class _FullImageScreenChatState extends State<FullImageScreenChat> {
               return Center(
                 child: Transform.scale(
                   scale: _scale,
-                  child: Image.network(widget.messege.messegeFileUrl!),
+                  child: Image.network(widget.messege.messageFileUrl!),
                 ),
               );
             },

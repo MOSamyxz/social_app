@@ -1,5 +1,5 @@
 import 'package:chatapp/cubit/app_cubit.dart';
-import 'package:chatapp/data/model/messege_model.dart';
+import 'package:chatapp/data/model/message_model.dart';
 import 'package:chatapp/data/model/user_model.dart';
 import 'package:chatapp/pages/Chat/chat_cubit/chat_cubit.dart';
 import 'package:chatapp/pages/chat/widgets/chat_buble.dart';
@@ -29,8 +29,8 @@ class ChatScreen extends StatelessWidget {
                   .doc(myUser.uId)
                   .collection('chats')
                   .doc(user.uId)
-                  .collection('messeges')
-                  .orderBy('messegeCreatedAt', descending: true)
+                  .collection('messages')
+                  .orderBy('messageCreatedAt', descending: true)
                   .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
@@ -46,7 +46,7 @@ class ChatScreen extends StatelessWidget {
                               controller: _controller,
                               itemCount: snapshot.data!.docs.length,
                               itemBuilder: (context, index) {
-                                var messege = MessegeModel.fromMap(
+                                var messege = MessageModel.fromMap(
                                     snapshot.data!.docs[index].data());
                                 return ChatBuble(
                                     messege: messege,
