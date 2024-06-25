@@ -4,7 +4,7 @@ import 'package:chatapp/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-String getTimeText(DateTime timestamp, BuildContext context, bool isYear) {
+String getTimeText(DateTime timestamp, BuildContext context, bool iscomment) {
   final now = DateTime.now();
   final difference = now.difference(timestamp);
   final differenceInMin = difference.inMinutes;
@@ -38,15 +38,16 @@ String getTimeText(DateTime timestamp, BuildContext context, bool isYear) {
     return '$durationInMinArEn${S.of(context).min}';
   } else if (difference.inHours < 24) {
     return '$durationInHourArEn${S.of(context).hour}';
-  } else if (difference.inDays < 30) {
+  } else if (difference.inDays < 7) {
     return '$durationInDaysArEn${S.of(context).day}';
-  } else if (differenceInDays ~/ 30 < 12) {
-    var durationInMonths = differenceInDays ~/ 30;
-    return '$durationInMonths${S.of(context).month}';
-  } else if (isYear == true && differenceInDays ~/ 30 > 12) {
-    var durationInyears = differenceInDays ~/ 365;
-    return '$durationInyears${S.of(context).year}';
-  } else {
-    return DateFormat.yMMMMEEEEd().format(timestamp);
+  } else if (iscomment == true) {
+    if (differenceInDays ~/ 30 < 12) {
+      var durationInMonths = differenceInDays ~/ 30;
+      return '$durationInMonths${S.of(context).month}';
+    } else if (differenceInDays ~/ 30 > 12) {
+      var durationInyears = differenceInDays ~/ 365;
+      return '$durationInyears${S.of(context).year}';
+    }
   }
+  return DateFormat.yMMMMEEEEd().format(timestamp);
 }
