@@ -2,8 +2,8 @@ import 'package:chatapp/core/constants/padding.dart';
 import 'package:chatapp/core/widgets/vertical_space.dart';
 import 'package:chatapp/data/model/chat_model.dart';
 import 'package:chatapp/data/model/user_model.dart';
+import 'package:chatapp/pages/chat/chats/widgets/chat_shimmer.dart';
 import 'package:chatapp/pages/chat/chats/widgets/chat_tile_stream.dart';
-import 'package:chatapp/test.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 

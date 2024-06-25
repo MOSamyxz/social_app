@@ -6,7 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class SearchBody extends StatefulWidget {
-  SearchBody({
+  const SearchBody({
     Key? key,
     required this.user,
     required this.snapshot,

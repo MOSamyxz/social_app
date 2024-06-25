@@ -48,8 +48,8 @@ class AppPostView extends StatelessWidget {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   BlocProvider.of<PostCubit>(context).isLoading
-                      ? LinearProgressIndicator()
-                      : SizedBox(),
+                      ? const LinearProgressIndicator()
+                      : const SizedBox(),
                   AddPostBody(user: user),
                   const ImageVideoAddPostButton()
                 ],

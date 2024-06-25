@@ -57,7 +57,9 @@
     "haha": "Haha",
     "wow": "Wow",
     "now": "Just now",
-    "min": "m",
+    "min": "min",
     "hour": "h",
-    "day": "d"
+    "day": "d",
+    "month": "m",
+    "year": "y"
 }

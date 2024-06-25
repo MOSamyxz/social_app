@@ -7,13 +7,12 @@ import 'package:chatapp/pages/profile/widget/profile_header.dart';
 import 'package:chatapp/pages/saved_posts/saved_posts.dart';
 import 'package:chatapp/pages/settings/settings_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class ProfileScreen extends StatefulWidget {
+class ProfileScreen extends StatelessWidget {
   const ProfileScreen({
     Key? key,
     this.profileUser,
@@ -22,145 +21,97 @@ class ProfileScreen extends StatefulWidget {
   final UsersModel? profileUser;
 
   @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
-}
-
-class _ProfileScreenState extends State<ProfileScreen> {
-  var userData = {};
-  int postLen = 0;
-  bool isLoading = false;
-
-  @override
-  void initState() {
-    super.initState();
-    getData();
-  }
-
-  getData() async {
-    setState(() {
-      isLoading = true;
-    });
-    try {
-      UsersModel user =
-          widget.profileUser ?? BlocProvider.of<AppCubit>(context).getUser;
-
-      var postSnap = await FirebaseFirestore.instance
-          .collection('posts')
-          .where('posterId', isEqualTo: user.uId)
-          .get();
-
-      postLen = postSnap.docs.length;
-
-      setState(() {});
-    } catch (e) {
-      e.toString();
-    }
-    setState(() {
-      isLoading = false;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
+    UsersModel user = profileUser ?? BlocProvider.of<AppCubit>(context).getUser;
+    UsersModel myUser = BlocProvider.of<AppCubit>(context).getUser;
     return BlocProvider(
       create: (context) => ProfileCubit(),
-      child: BlocBuilder<AppCubit, AppState>(
+      child: BlocBuilder<ProfileCubit, ProfileState>(
         builder: (context, state) {
-          return BlocBuilder<ProfileCubit, ProfileState>(
-            builder: (context, state) {
-              UsersModel user = widget.profileUser ??
-                  BlocProvider.of<AppCubit>(context).getUser;
-              UsersModel myUser = BlocProvider.of<AppCubit>(context).getUser;
+          return Scaffold(
+              appBar: AppBar(
+                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                actions: [if (myUser.uId == user.uId) const MyProfileAppBar()],
+              ),
+              body: FutureBuilder(
+                  future: FirebaseFirestore.instance
+                      .collection('posts')
+                      .where('posterId', isEqualTo: user.uId)
+                      .get(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    var postLen = snapshot.data!.docs.length;
+                    return SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          StreamBuilder(
+                              stream: FirebaseFirestore.instance
+                                  .collection('users')
+                                  .doc(user.uId)
+                                  .snapshots(),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return const Center(
+                                      child: CircularProgressIndicator());
+                                } else {
+                                  var snapshotUser = UsersModel.fromMap(
+                                      snapshot.data!.data()
+                                          as Map<String, dynamic>);
 
-              return Scaffold(
-                  appBar: AppBar(
-                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                    actions: [
-                      FirebaseAuth.instance.currentUser!.uid == user.uId
-                          ? Row(
-                              children: [
-                                IconButton(
-                                    onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const SavedPostsScreen()));
-                                    },
-                                    icon: const FaIcon(
-                                        FontAwesomeIcons.bookmark)),
-                                IconButton(
-                                    onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const SettingScreen()));
-                                    },
-                                    icon: const FaIcon(FontAwesomeIcons.gear)),
-                              ],
-                            )
-                          : const SizedBox()
-                    ],
-                  ),
-                  body: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        StreamBuilder(
-                            stream: FirebaseFirestore.instance
-                                .collection('users')
-                                .doc(user.uId)
-                                .snapshots(),
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                bool isSentRequest = user.receivedRequest
-                                    .contains(
-                                        FirebaseAuth.instance.currentUser!.uid);
-                                bool isFollowing = user.followers.contains(
-                                    FirebaseAuth.instance.currentUser!.uid);
-                                // Show a loading indicator while waiting for getUserData() to complete
-                                return ProfileHeader(
-                                  user: user,
-                                  postLen: postLen,
-                                  isFollowing: isFollowing,
-                                  isSentRequest: isSentRequest,
-                                  myUser: myUser,
-                                );
-                              } else {
-                                var snapshotUser = UsersModel.fromMap(
-                                    snapshot.data!.data()
-                                        as Map<String, dynamic>);
-
-                                bool isSentRequest =
-                                    snapshotUser.receivedRequest.contains(
-                                        FirebaseAuth.instance.currentUser!.uid);
-                                bool isFollowing = snapshotUser.followers
-                                    .contains(
-                                        FirebaseAuth.instance.currentUser!.uid);
-                                return ProfileHeader(
+                                  return ProfileHeader(
                                     user: snapshotUser,
                                     myUser: myUser,
                                     postLen: postLen,
-                                    isFollowing: isFollowing,
-                                    isSentRequest: isSentRequest);
-                              }
-                            }),
-                        VerticalSpace(10.h),
-                        myUser.following.contains(user.uId) ||
-                                myUser.uId == user.uId
-                            ? BuildProfilePosts(
-                                profileUser: user,
-                              )
-                            : const Text(
-                                'You need to follow this user first.!'),
-                      ],
-                    ),
-                  ));
-            },
-          );
+                                  );
+                                }
+                              }),
+                          VerticalSpace(10.h),
+                          myUser.following.contains(user.uId) ||
+                                  myUser.uId == user.uId
+                              ? BuildProfilePosts(
+                                  profileUser: user,
+                                )
+                              : const Text(
+                                  'You need to follow this user first.!'),
+                        ],
+                      ),
+                    );
+                  }));
         },
       ),
+    );
+  }
+}
+
+class MyProfileAppBar extends StatelessWidget {
+  const MyProfileAppBar({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        IconButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const SavedPostsScreen()));
+            },
+            icon: const FaIcon(FontAwesomeIcons.bookmark)),
+        IconButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const SettingScreen()));
+            },
+            icon: const FaIcon(FontAwesomeIcons.gear)),
+      ],
     );
   }
 }

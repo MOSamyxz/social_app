@@ -40,11 +40,11 @@ class FirestoreFollow {
   Future<String?> removeFollowRequest({required String userId}) async {
     try {
       _firestore.collection('users').doc(myUid).update({
-        'receivedRequest': FieldValue.arrayRemove([userId]),
+        'sentRequest': FieldValue.arrayRemove([userId]),
       });
 
       _firestore.collection('users').doc(userId).update({
-        'sentRequest': FieldValue.arrayRemove([myUid]),
+        'receivedRequest': FieldValue.arrayRemove([myUid]),
       });
       return null;
     } on Exception catch (e) {

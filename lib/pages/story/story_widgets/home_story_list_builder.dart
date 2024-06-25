@@ -59,7 +59,7 @@ class HomeStoryListBuilder extends StatelessWidget {
                                 itemCount: snapshot.data!.docs.length,
                               );
                             } else {
-                              return SizedBox();
+                              return const SizedBox();
                             }
                           })),
                     ),

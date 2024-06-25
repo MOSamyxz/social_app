@@ -25,68 +25,72 @@ class StreamFollowButton extends StatelessWidget {
   final bool isSentRequest;
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: AppPadding.screenPadding,
-      child: FirebaseAuth.instance.currentUser!.uid == profileUser.uId
-          ? Row(
-              children: [
-                Expanded(
-                  child: ProfileButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => EditProfileScreen(
-                                    profileUser: profileUser,
-                                  )));
-                    },
-                    color: AppColors.blueColor,
-                    textColor: AppColors.realWhiteColor,
-                    text: 'Edit Profile',
-                  ),
-                ),
-                const HorizontalSpace(10),
-                Expanded(
-                  child: ProfileButton(
-                    onPressed: () {
-                      FirebaseAuthServices().signOut(context);
-                    },
-                    color: AppColors.realWhiteColor,
-                    textColor: AppColors.blackColor,
-                    text: 'Sign out',
-                  ),
-                ),
-              ],
-            )
-          : isSentRequest
-              ? ProfileButton(
-                  onPressed: () {
-                    BlocProvider.of<ProfileCubit>(context)
-                        .removeFollowRequest(profileUser.uId);
-                  },
-                  color: AppColors.blueColor,
-                  textColor: AppColors.blackColor,
-                  text: 'Cancel request')
-              : isFollowing
+    return BlocBuilder<ProfileCubit, ProfileState>(
+      builder: (context, state) {
+        return Padding(
+          padding: AppPadding.screenPadding,
+          child: FirebaseAuth.instance.currentUser!.uid == profileUser.uId
+              ? Row(
+                  children: [
+                    Expanded(
+                      child: ProfileButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => EditProfileScreen(
+                                        profileUser: profileUser,
+                                      )));
+                        },
+                        color: AppColors.blueColor,
+                        textColor: AppColors.realWhiteColor,
+                        text: 'Edit Profile',
+                      ),
+                    ),
+                    const HorizontalSpace(10),
+                    Expanded(
+                      child: ProfileButton(
+                        onPressed: () {
+                          FirebaseAuthServices().signOut(context);
+                        },
+                        color: AppColors.realWhiteColor,
+                        textColor: AppColors.blackColor,
+                        text: 'Sign out',
+                      ),
+                    ),
+                  ],
+                )
+              : isSentRequest
                   ? ProfileButton(
                       onPressed: () {
                         BlocProvider.of<ProfileCubit>(context)
-                            .removeFollower(profileUser.uId);
+                            .removeFollowRequest(profileUser.uId);
                       },
-                      color: AppColors.realWhiteColor,
+                      color: AppColors.whiteColor,
                       textColor: AppColors.blackColor,
-                      text: 'Unfollow',
-                    )
-                  : ProfileButton(
-                      onPressed: () {
-                        BlocProvider.of<ProfileCubit>(context)
-                            .sendFollowRequest(
-                                user: profileUser, myUser: myUser);
-                      },
-                      color: AppColors.blueColor,
-                      textColor: AppColors.realWhiteColor,
-                      text: 'Follow',
-                    ),
+                      text: 'Cancel')
+                  : isFollowing
+                      ? ProfileButton(
+                          onPressed: () {
+                            BlocProvider.of<ProfileCubit>(context)
+                                .removeFollower(profileUser.uId);
+                          },
+                          color: AppColors.realWhiteColor,
+                          textColor: AppColors.blackColor,
+                          text: 'Unfollow',
+                        )
+                      : ProfileButton(
+                          onPressed: () {
+                            BlocProvider.of<ProfileCubit>(context)
+                                .sendFollowRequest(
+                                    user: profileUser, myUser: myUser);
+                          },
+                          color: AppColors.blueColor,
+                          textColor: AppColors.realWhiteColor,
+                          text: 'Follow',
+                        ),
+        );
+      },
     );
   }
 }

@@ -40,7 +40,7 @@ class BuildVideoMessage extends StatelessWidget {
             ),
           ),
           messege.messageContent == ''
-              ? SizedBox()
+              ? const SizedBox()
               : Text(
                   messege.messageContent!,
                   style: TextStyle(fontSize: 16.sp),

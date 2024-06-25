@@ -1,8 +1,7 @@
 import 'package:chatapp/core/constants/padding.dart';
 import 'package:chatapp/generated/l10n.dart';
-import 'package:chatapp/pages/Chat/chats_screen.dart';
+import 'package:chatapp/pages/chat/chats/chats_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomeCustomAppBar extends StatelessWidget {

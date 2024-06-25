@@ -630,10 +630,10 @@ class S {
     );
   }
 
-  /// `m`
+  /// `min`
   String get min {
     return Intl.message(
-      'm',
+      'min',
       name: 'min',
       desc: '',
       args: [],
@@ -655,6 +655,26 @@ class S {
     return Intl.message(
       'd',
       name: 'day',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `m`
+  String get month {
+    return Intl.message(
+      'm',
+      name: 'month',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `y`
+  String get year {
+    return Intl.message(
+      'y',
+      name: 'year',
       desc: '',
       args: [],
     );

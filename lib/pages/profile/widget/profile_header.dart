@@ -3,7 +3,7 @@ import 'package:chatapp/core/constants/padding.dart';
 import 'package:chatapp/core/widgets/vertical_space.dart';
 import 'package:chatapp/data/firestore_messeges.dart/firestore_messeges.dart';
 import 'package:chatapp/data/model/user_model.dart';
-import 'package:chatapp/pages/Chat/chat_screen.dart';
+import 'package:chatapp/pages/chat/chat/chat_screen.dart';
 import 'package:chatapp/pages/profile/widget/follow_button.dart';
 import 'package:chatapp/pages/profile/widget/profile_button.dart';
 import 'package:chatapp/pages/profile/widget/profile_image_and_cover.dart';
@@ -17,18 +17,17 @@ class ProfileHeader extends StatelessWidget {
     Key? key,
     required this.user,
     required this.postLen,
-    required this.isFollowing,
-    required this.isSentRequest,
     required this.myUser,
   }) : super(key: key);
 
   final UsersModel user;
   final UsersModel myUser;
   final int postLen;
-  final bool isFollowing;
-  final bool isSentRequest;
+
   @override
   Widget build(BuildContext context) {
+    final isFollowing = user.followers.contains(myUser.uId);
+    final isSentRequest = user.receivedRequest.contains(myUser.uId);
     return Container(
       color: Theme.of(context).cardTheme.color,
       child: Column(

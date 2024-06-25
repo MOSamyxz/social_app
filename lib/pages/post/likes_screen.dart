@@ -26,7 +26,7 @@ class LikesScreen extends StatelessWidget {
           return Scaffold(
             body: SafeArea(
               child: ListView.builder(
-                itemCount: snapshot.data!.docs.length,
+                itemCount: snapshot.data?.docs.length ?? 0,
                 itemBuilder: (context, index) {
                   LikesDataModel likesData =
                       LikesDataModel.fromMap(snapshot.data!.docs[index].data());
@@ -38,38 +38,12 @@ class LikesScreen extends StatelessWidget {
                           backgroundImage: NetworkImage(likesData.imageUrl),
                         ),
                         CircleAvatar(
-                          radius: 10,
-                          backgroundColor: Colors.green,
-                          child: likesData.likeType == 'Like'
-                              ? Image.asset(
-                                  AppAssets.like,
-                                  width: AppSize.r25,
-                                )
-                              : likesData.likeType == 'Love'
-                                  ? Image.asset(
-                                      AppAssets.love,
-                                      width: AppSize.r25,
-                                    )
-                                  : likesData.likeType == 'Sad'
-                                      ? Image.asset(
-                                          AppAssets.sad,
-                                          width: AppSize.r25,
-                                        )
-                                      : likesData.likeType == 'HaHa'
-                                          ? Image.asset(
-                                              AppAssets.haha,
-                                              width: AppSize.r25,
-                                            )
-                                          : likesData.likeType == 'Wow'
-                                              ? Image.asset(
-                                                  AppAssets.wow,
-                                                  width: AppSize.r25,
-                                                )
-                                              : Image.asset(
-                                                  AppAssets.angry,
-                                                  width: AppSize.r25,
-                                                ),
-                        )
+                            radius: 10,
+                            backgroundColor: Colors.green,
+                            child: Image.asset(
+                              _getLikeAsset(likesData.likeType),
+                              width: AppSize.r25,
+                            ))
                       ],
                     ),
                     title: Row(
@@ -84,5 +58,22 @@ class LikesScreen extends StatelessWidget {
             ),
           );
         });
+  }
+}
+
+String _getLikeAsset(String likeType) {
+  switch (likeType) {
+    case 'Like':
+      return AppAssets.like;
+    case 'Love':
+      return AppAssets.love;
+    case 'Sad':
+      return AppAssets.sad;
+    case 'HaHa':
+      return AppAssets.haha;
+    case 'Wow':
+      return AppAssets.wow;
+    default:
+      return AppAssets.angry;
   }
 }

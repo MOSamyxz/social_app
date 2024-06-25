@@ -74,6 +74,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "love": MessageLookupByLibrary.simpleMessage("أحببته"),
         "male": MessageLookupByLibrary.simpleMessage("ذكر"),
         "min": MessageLookupByLibrary.simpleMessage("د"),
+        "month": MessageLookupByLibrary.simpleMessage("ش"),
         "noUserForThisEmail":
             MessageLookupByLibrary.simpleMessage("هذا البريد غير مسجل لدينا"),
         "now": MessageLookupByLibrary.simpleMessage("الآن"),
@@ -111,6 +112,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "whatOnMind": MessageLookupByLibrary.simpleMessage("بم تفكر؟"),
         "wow": MessageLookupByLibrary.simpleMessage("واااو"),
         "wrongPassword": MessageLookupByLibrary.simpleMessage(
-            "كلمة المرور لهذا الحساب غير صحيحة")
+            "كلمة المرور لهذا الحساب غير صحيحة"),
+        "year": MessageLookupByLibrary.simpleMessage("ع")
       };
 }

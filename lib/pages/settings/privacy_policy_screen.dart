@@ -149,7 +149,7 @@ class PrivacyPolicyTermsConditionsInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: AppSize.s5),
+      margin: const EdgeInsets.only(bottom: AppSize.s5),
       padding: const EdgeInsets.symmetric(vertical: AppSize.s5),
       width: ScreenUtil().screenWidth,
       decoration: BoxDecoration(color: Theme.of(context).cardTheme.color),

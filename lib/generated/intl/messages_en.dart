@@ -73,7 +73,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Password can\'t be more than 16"),
         "love": MessageLookupByLibrary.simpleMessage("Love"),
         "male": MessageLookupByLibrary.simpleMessage("Male"),
-        "min": MessageLookupByLibrary.simpleMessage("m"),
+        "min": MessageLookupByLibrary.simpleMessage("min"),
+        "month": MessageLookupByLibrary.simpleMessage("m"),
         "noUserForThisEmail": MessageLookupByLibrary.simpleMessage(
             "No user found for that email"),
         "now": MessageLookupByLibrary.simpleMessage("Just now"),
@@ -111,6 +112,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("What\'s on your mind?"),
         "wow": MessageLookupByLibrary.simpleMessage("Wow"),
         "wrongPassword": MessageLookupByLibrary.simpleMessage(
-            "Wrong password provided for that user")
+            "Wrong password provided for that user"),
+        "year": MessageLookupByLibrary.simpleMessage("y")
       };
 }
