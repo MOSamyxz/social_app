@@ -123,7 +123,10 @@ class _StoryViewScreenState extends State<StoryViewScreen> {
                           children: [
                             StoryViewItem(
                                 widget: widget, storyItems: storyItems),
-                            StoryHeader(story: story, user: user)
+                            StoryHeader(
+                                story: story,
+                                user: user,
+                                itemCount: widget.itemCount),
                           ],
                         ),
                         if (story.storyAutherId == user.uId)

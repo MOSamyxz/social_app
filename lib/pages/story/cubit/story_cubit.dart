@@ -118,7 +118,7 @@ class StoryCubit extends Cubit<StoryState> {
 
   List<UsersModel> get usersById => _userById!;
 
-  Duration? duration;
+  Duration duration = const Duration(seconds: 10);
   void getDuration(Duration newDuration) {
     duration = newDuration;
     emit(NewDurationUpdateState());

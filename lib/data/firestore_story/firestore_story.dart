@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'dart:developer';
 import 'package:chatapp/data/model/story_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -38,9 +38,10 @@ class FireStoreStories {
         final taskSnapshot = await path.putFile(file);
         final fileUrl = await taskSnapshot.ref.getDownloadURL();
         downloadUrl = fileUrl;
+        log('store url $downloadUrl');
       }
 
-      // Create our post
+      // Create our story
       StoryModel story = StoryModel(
           storyId: storyId,
           storyAutherId: storyAutherId,
@@ -54,6 +55,7 @@ class FireStoreStories {
           likes: [],
           duration: duration,
           expiryTime: expiryTimestamp);
+      log('story ${story.toMap()}');
 
       // Post to firestore
       _firestore
@@ -66,19 +68,30 @@ class FireStoreStories {
           .collection('users')
           .doc(storyAutherId)
           .update({'lastPublishedStory': expiryTimestamp});
-      return null;
+      log('Success');
+      return 'Success';
     } catch (e) {
       return e.toString();
     }
   }
 
-  Future<String?> removeStory(String storyId) async {
+  Future<String?> removeStory(String storyId, int itemcount) async {
     try {
-      final storyAutheId = _auth.currentUser!.uid;
+      final storyAutherId = _auth.currentUser!.uid;
+      final now = DateTime.now();
 
+      final expiryTime = now.subtract(const Duration(hours: 24));
+      final expiryTimestamp = Timestamp.fromDate(expiryTime);
+
+      if (itemcount == 1) {
+        _firestore
+            .collection('users')
+            .doc(storyAutherId)
+            .update({'lastPublishedStory': expiryTimestamp});
+      }
       await _firestore
           .collection('users')
-          .doc(storyAutheId)
+          .doc(storyAutherId)
           .collection('stories')
           .doc(storyId)
           .delete();

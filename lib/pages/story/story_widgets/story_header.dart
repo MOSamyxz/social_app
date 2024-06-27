@@ -12,11 +12,12 @@ class StoryHeader extends StatelessWidget {
     super.key,
     required this.story,
     required this.user,
+    required this.itemCount,
   });
 
   final StoryModel story;
   final UsersModel user;
-
+  final int itemCount;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -55,7 +56,9 @@ class StoryHeader extends StatelessWidget {
                             shrinkWrap: true,
                             children: [
                               _buildDialogOption('Delete', () {
-                                _deleteStory(storyId: story.storyId);
+                                _deleteStory(
+                                    storyId: story.storyId,
+                                    itemcount: itemCount);
                                 Navigator.of(context).pop(); // Close the dialog
                                 Navigator.of(context).pop(); // Close the dialog
                               }),
@@ -74,8 +77,8 @@ class StoryHeader extends StatelessWidget {
   }
 }
 
-void _deleteStory({required String storyId}) {
-  FireStoreStories().removeStory(storyId);
+void _deleteStory({required String storyId, required int itemcount}) {
+  FireStoreStories().removeStory(storyId, itemcount);
 }
 
 Widget _buildDialogOption(String text, VoidCallback onTap) {

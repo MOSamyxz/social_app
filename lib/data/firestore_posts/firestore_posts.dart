@@ -67,7 +67,7 @@ class FireStorePosts {
       log('${DateTime.fromMillisecondsSinceEpoch(now.millisecondsSinceEpoch)}');
       return null;
     } catch (e) {
-      log('${e.toString()} --//////-');
+      log('${e.toString()} ');
       return e.toString();
     }
   }
